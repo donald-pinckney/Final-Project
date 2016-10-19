@@ -26,7 +26,17 @@ class KonaneMoveInputSourceHuman : KonaneMoveInputSource {
     }
 
     override func nextMove(gameState: KonaneGameState) -> KonaneMove {
-        print("Doesn't work yet!")
-        return KonaneMove(points: [])
+        print("Input x coord to move from:")
+        let fx = Int(readLine()!)!
+        print("Input y coord to move from:")
+        let fy = Int(readLine()!)!
+
+        print("Input x coord to move to:")
+        let tx = Int(readLine()!)!
+        print("Input y coord to move to:")
+        let ty = Int(readLine()!)!
+
+
+        return KonaneMove(fromX: fx, fromY: fy, toX: tx, toY: ty)
     }
 }

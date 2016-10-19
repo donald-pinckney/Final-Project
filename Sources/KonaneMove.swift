@@ -1,7 +1,14 @@
 class KonaneMove {
-    let points: [Int] // Arranged like: [x1, y1, x2, y2, x3, y3, ...]
-    init(points: [Int]) {
-        self.points = points
+    let fromX: Int
+    let fromY: Int
+    let toX: Int
+    let toY: Int
+
+    init(fromX: Int, fromY: Int, toX: Int, toY: Int) {
+    	self.fromX = fromX
+    	self.fromY = fromY
+    	self.toX = toX
+    	self.toY = toY
     }
 
 }

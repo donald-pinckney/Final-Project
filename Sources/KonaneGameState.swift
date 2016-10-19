@@ -54,6 +54,8 @@ class KonaneGameState {
 
     func perform(move: KonaneMove) {
         print("Doesn't work yet!")
+
+        isBlackTurn = !isBlackTurn
     }
 
     func perform(blackRemove: (x: Int, y: Int)) {
