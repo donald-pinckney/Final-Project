@@ -1,3 +1,5 @@
+Note that I did not mark which properties are let or var, this is for you to figure out. In general, make this let unless there is good reason for them to be var.
+
 KonaneGame
 	- init(blackIsHuman: Bool, whiteIsHuman: Bool)
 	- private gameState: KonaneGameState
