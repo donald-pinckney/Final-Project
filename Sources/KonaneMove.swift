@@ -10,5 +10,5 @@ class KonaneMove {
     	self.toX = toX
     	self.toY = toY
     }
-
+    //this one's super simple so im leavin it
 }
