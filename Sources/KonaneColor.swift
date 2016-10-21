@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+enum KonaneColor {
+	case black, white, empty
+}
