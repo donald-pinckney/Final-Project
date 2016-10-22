@@ -105,21 +105,22 @@ func printGameBoard() {
 		}
 	}
 	print()
-}	
-//Print column numbering
-print("   ", terminator:"")
-for columnNumber in 0..<width {
-	if columnNumber < 10 {
-		print("\(columnNumber)", terminator:" ")
+	//Print column numbering
+	print("   ", terminator:"")
+	for columnNumber in 0..<width {
+		if columnNumber < 10 {
+			print("\(columnNumber)", terminator:" ")
+		}
+		else {
+			print(columnNumber - 10, terminator:" ")
+		}
 	}
-	else {
-		print(columnNumber - 10, terminator:" ")
-	}
+	print()
+	//END Code to print board
+	//>>>>>>> b76a6a9ddf2bf7cc27440e78fb3f1fb8bc7a3d2f
 }
-print()
-//END Code to print board
-//>>>>>>> b76a6a9ddf2bf7cc27440e78fb3f1fb8bc7a3d2f
-}
+	
+
 
 //Function to print available pieces for removal
 func gameBoardPieceRomovalSearch(isBlackMove: Bool) -> [[Int]] {
