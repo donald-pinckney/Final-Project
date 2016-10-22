@@ -53,6 +53,7 @@ var gameBoard: [[String]] = []
 
 for row in 0..<width {
     gameBoard.append([])
+    gameBoard[row].append(String(row))
     for column in 0..<height {
         if row % 2 == 0 {
             if column % 2 == 0 {
@@ -70,4 +71,6 @@ for row in 0..<width {
     }
 }
 
-print(gameBoard)
+for ascii in gameBoard {
+    print(ascii)
+}

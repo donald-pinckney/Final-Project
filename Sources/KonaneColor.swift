@@ -9,5 +9,5 @@
 import Foundation
 
 enum KonaneColor {
-	case black, white, empty
+	case colorBlack, colorWhite, empty
 }
