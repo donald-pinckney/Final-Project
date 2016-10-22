@@ -122,20 +122,18 @@ print()
 }
 
 //Function to print available pieces for removal
-func pieceRomovalSearch() {
+func gameBoardPieceRomovalSearch(isBlackMove: Bool) -> [[Int]] {
     var genericInt: Int = 0
     var secondGenericInt: Int = 0
-    let isBlackMove = true //remove this once func is implimented
-    var searchTable: [[String]] = []
+    var searchTable: [[Int]] = []
     if isBlackMove {
         while genericInt < gameBoard.count {
             while secondGenericInt < gameBoard[genericInt].count {
                 if gameBoard[genericInt][secondGenericInt] == KonaneGameState.KonaneColor.black {
                     if genericInt + secondGenericInt == 0 || genericInt == width - 1 && secondGenericInt == 0 || genericInt == 0 && secondGenericInt == height - 1 || genericInt == width - 1 && secondGenericInt == height - 1 {
-                        searchTable.append(["Row: \(genericInt), Column: \(secondGenericInt)"])
+                        searchTable.append([genericInt, secondGenericInt])
                     } else if genericInt == (width/2) - 0 && secondGenericInt == (height/2) - 0 || genericInt == (width/2) - 1  && secondGenericInt == (height/2) - 0 || genericInt == (width/2) - 0 && secondGenericInt == (height/2) - 1 || genericInt == (width/2) - 1 && secondGenericInt == (height/2) - 1 {
-                        searchTable.append(["Row: \(genericInt), Column: \(secondGenericInt)"])
-                    }
+                        searchTable.append([genericInt, secondGenericInt])                    }
                 }
                 secondGenericInt += 1
             }
@@ -147,75 +145,47 @@ func pieceRomovalSearch() {
             while secondGenericInt < gameBoard[genericInt].count {
                 if gameBoard[genericInt][secondGenericInt] == KonaneGameState.KonaneColor.white {
                     if genericInt + secondGenericInt == 0 || genericInt == width - 1 && secondGenericInt == 0 || genericInt == 0 && secondGenericInt == height - 1 || genericInt == width - 1 && secondGenericInt == height - 1 {
-                        searchTable.append(["Row: \(genericInt), Column: \(secondGenericInt)"])
+                        searchTable.append([genericInt, secondGenericInt])
                     } else if genericInt == (width/2) - 0 && secondGenericInt == (height/2) - 0 || genericInt == (width/2) - 1  && secondGenericInt == (height/2) - 0 || genericInt == (width/2) - 0 && secondGenericInt == (height/2) - 1 || genericInt == (width/2) - 1 && secondGenericInt == (height/2) - 1 {
-                        searchTable.append(["Row: \(genericInt), Column: \(secondGenericInt)"])
+                        searchTable.append([genericInt, secondGenericInt])
                     }
                 }
                 secondGenericInt += 1
             }
             genericInt += 1
             secondGenericInt = 0
+
         }
     }
-        print("These are the pieces available for removal: \(searchTable)")
+    return searchTable
 }
 
-func pieceRomoval() {
-    var genericInt: Int = 0
-    var secondGenericInt: Int = 0
-    let isBlackMove = true //remove this once func is implimented
-    var searchTable: [[String]] = []
-    if isBlackMove {
-        while genericInt < gameBoard.count {
-            while secondGenericInt < gameBoard[genericInt].count {
-                if gameBoard[genericInt][secondGenericInt] == KonaneGameState.KonaneColor.black {
-                    if genericInt + secondGenericInt == 0 || genericInt == width - 1 && secondGenericInt == 0 || genericInt == 0 && secondGenericInt == height - 1 || genericInt == width - 1 && secondGenericInt == height - 1 {
-                        searchTable.append(["Row: \(genericInt), Column: \(secondGenericInt)"])
-                    } else if genericInt == (width/2) - 0 && secondGenericInt == (height/2) - 0 || genericInt == (width/2) - 1  && secondGenericInt == (height/2) - 0 || genericInt == (width/2) - 0 && secondGenericInt == (height/2) - 1 || genericInt == (width/2) - 1 && secondGenericInt == (height/2) - 1 {
-                        searchTable.append(["Row: \(genericInt), Column: \(secondGenericInt)"])
-                    }
-                }
-                secondGenericInt += 1
-            }
-            genericInt += 1
-            secondGenericInt = 0
-        }
-    } else if !isBlackMove {
-        while genericInt < gameBoard.count {
-            while secondGenericInt < gameBoard[genericInt].count {
-                if gameBoard[genericInt][secondGenericInt] == KonaneGameState.KonaneColor.white {
-                    if genericInt + secondGenericInt == 0 || genericInt == width - 1 && secondGenericInt == 0 || genericInt == 0 && secondGenericInt == height - 1 || genericInt == width - 1 && secondGenericInt == height - 1 {
-                        searchTable.append(["Row: \(genericInt), Column: \(secondGenericInt)"])
-                    } else if genericInt == (width/2) - 0 && secondGenericInt == (height/2) - 0 || genericInt == (width/2) - 1  && secondGenericInt == (height/2) - 0 || genericInt == (width/2) - 0 && secondGenericInt == (height/2) - 1 || genericInt == (width/2) - 1 && secondGenericInt == (height/2) - 1 {
-                        searchTable.append(["Row: \(genericInt), Column: \(secondGenericInt)"])
-                    }
-                }
-                secondGenericInt += 1
-            }
-            genericInt += 1
-            secondGenericInt = 0
-        }
-    }
-    print("What are the coordinates of the piece you want to remove?")
-    for possibleRemovablePieces in searchTable {
-        print("Print your y coordinate")
-        let yCoord = Int(readLine()!)
-        print("Print your x coordinate")
-        let xCoord = Int(readLine()!)
-        if ["Row: \(yCoord), Column: \(xCoord)"] == possibleRemovablePieces {
-            gameBoard[yCoord][xCoord] = KonaneGameState.KonaneColor.empty
-        }
-    }
+
+func printPossiblePieceRemoval(isBlackMove:Bool) {
+    print("These are the coordinates of the pieces you may remove in the format [Row, Column] \(gameBoardPieceRomovalSearch(isBlackMove: isBlackMove))")
 }
 
 
 
+//NOT CURRENTLY WORKING - Function to actually remove a piece on the Game Board
+/*
+func RemovePiece() {
+    print("Enter the y coordinate of the piece you want to remove")
+    let yCoord = Int(readLine()!)
+    print("Enter the x coordinate of the piece you want to remove")
+    let xCoord = Int(readLine()!)
+    let pieceToBeRemoved = [yCoord, xCoord]
+    for table in gameBoardPieceRomovalSearch(isBlackMove:true) {
+        if pieceToBeRemoved == table {
+            gameBoard[yCoord][xCoord] = " "
+        }
+    }
+}
 
-printGameBoard()
-pieceRomovalSearch()
-pieceRomoval()
-printGameBoard()
+*/
 
+
+printPossiblePieceRemoval(isBlackMove: false)
+printPossiblePieceRemoval(isBlackMove: true)
 
 
