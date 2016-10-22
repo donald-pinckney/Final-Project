@@ -32,7 +32,7 @@ import Foundation
 KonaneGameState
 x	- width: Int = 16
 x	- height: Int = 16
-	- init()
+x	- init()
 x	- private internal board data storage
 x	- private isBlackTurn: Bool
 	- getIsBlackTurn() -> Bool 
@@ -60,35 +60,34 @@ class KonaneGameState {
 	private var gameBoard: [[KonaneColor]] = []
 	private var isBlackTurn: Bool = true
 
-	init (width: Int, height: Int, isBlackTurn)
+	init (width: Int, height: Int, isBlackTurn:)
 
-	//Populates the board.
+	//BEGIN Populates gameBoard.
 	for column in 0..<width {
     	gameBoard.append([]) //Each column is an array
     	for row in 0..<height {
         	if column % 2 == 0 { //If column even -> black first
             	if row % 2 == 0 {
                 	gameBoard[column].append(KonaneColor.black)
-            	}else{
+            	}
+            	else {
                 	gameBoard[column].append(KonaneColor.white)
             	}
-        	}else{
+        	}
+        	else {
             	if row % 2 == 0 { //If column odd -> white first
                 gameBoard[column].append(KonaneColor.white)
-            	}else{
+            	}
+            	else {
                 	gameBoard[column].append(KonaneColor.black)
             	}
         	}
     	}
 	}
+	//END Populates gameBoard
 
-
-
-
-	//BEGIN code to print board (MAY BE MISSPLACED)
+	//BEGIN printGameBoard (MAY BE MISSPLACED)
 	//Prints properly oriented and numbered board
-
-	//Made the print a function
 	func printGameBoard() {
     
     	for rowNumber in (0..<height).reversed() {
@@ -123,10 +122,17 @@ class KonaneGameState {
 			}
 		}
 		print()
-		//END Code to print board
-		//>>>>>>> b76a6a9ddf2bf7cc27440e78fb3f1fb8bc7a3d2f
 	}
-	
+	//END printGameBoard
+
+	//BEGIN color
+
+	//Note: column -> X, row -> Y
+	func color(atX: Int, atY: Int) -> KonaneColor {
+		return gameBoard[atX][atY]
+		//MAY need to include more code 
+		//As I am not entirely sure what this function is supposed to do.
+	}
 
 
 	//Function to print available pieces for removal
