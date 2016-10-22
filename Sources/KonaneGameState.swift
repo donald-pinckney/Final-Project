@@ -36,7 +36,7 @@ x	- init()
 x	- private internal board data storage
 x	- private isBlackTurn: Bool
 	- getIsBlackTurn() -> Bool 
-	- color(atX: Int, atY: Int) -> KonaneColor // Bottom left, 0-indexed
+x	- color(atX: Int, atY: Int) -> KonaneColor // Bottom left, 0-indexed
 	- isValid(move: KonaneMove) -> Bool
 	- isValid(blackRemove: (x: Int, y: Int)) -> Bool
 	- isValid(whiteRemove: (x: Int, y: Int)) -> Bool
@@ -55,14 +55,14 @@ enum KonaneColor {
 
 class KonaneGameState {
 
-	var width: Int = 16
-	var height: Int = 16
+	private var width: Int = 16
+	private var height: Int = 16
 	private var gameBoard: [[KonaneColor]] = []
 	private var isBlackTurn: Bool = true
 
 	init (width: Int, height: Int, isBlackTurn:)
 
-	//BEGIN Populates gameBoard.
+	//BEGIN Populate gameBoard.
 	for column in 0..<width {
     	gameBoard.append([]) //Each column is an array
     	for row in 0..<height {
@@ -84,9 +84,9 @@ class KonaneGameState {
         	}
     	}
 	}
-	//END Populates gameBoard
+	//END Populate gameBoard
 
-	//BEGIN printGameBoard (MAY BE MISSPLACED)
+	//BEGIN printGameBoard() (MAY BE MISSPLACED)
 	//Prints properly oriented and numbered board
 	func printGameBoard() {
     
@@ -123,16 +123,16 @@ class KonaneGameState {
 		}
 		print()
 	}
-	//END printGameBoard
+	//END printGameBoard()
 
-	//BEGIN color
-
+	//BEGIN color()
 	//Note: column -> X, row -> Y
 	func color(atX: Int, atY: Int) -> KonaneColor {
 		return gameBoard[atX][atY]
 		//MAY need to include more code 
 		//As I am not entirely sure what this function is supposed to do.
 	}
+	//END color()
 
 
 	//Function to print available pieces for removal
