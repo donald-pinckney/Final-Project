@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 /*
 15  o  x  o  x  o  x  o  x  o  x  o  x  o  x  o  x
 14  x  o  x  o  x  o  x  o  x  o  x  o  x  o  x  o
