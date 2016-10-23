@@ -14,3 +14,42 @@ class KonaneGame {
 	let private.blackInputSource: KonaneMoveInputSource
 	let private.whiteInputSource: KonaneMoveInputSource
 }
+class Konane {
+	width: Int = 16
+	height: Int = 16
+	init() {}
+	private.internalboarddatastorage: 
+	private.isBlackTurn: Bool
+	var getIsBlackTurn: Bool
+	let color: atX: Int, atY: Int) -> KonaneColor
+//Are the following functions? The ones that I pointed out down in the list????
+	func isValid(move: KonaneMove) -> Bool
+	func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
+			if IsValid == false {
+			print(x, y + "is not valid")
+		} else {
+			print("The move is valid")
+		}
+	}
+
+
+}
+
+KonaneGameState
+	- width: Int = 16
+	- height: Int = 16
+	- init()
+	- private internal board data storage
+	- private isBlackTurn: Bool
+	- getIsBlackTurn() -> Bool 
+	- color(atX: Int, atY: Int) -> KonaneColor // Bottom left, 0-indexed
+	//Are the following properties functions, cuz I'm not really sure...
+	- isValid(move: KonaneMove) -> Bool
+	- isValid(blackRemove: (x: Int, y: Int)) -> Bool
+	- isValid(whiteRemove: (x: Int, y: Int)) -> Bool
+	- perform(move: KonaneMove)
+	- perform(blackRemove: (x: Int, y: Int))
+	- perform(whiteRemove: (x: Int, y: Int))
+	- didBlackWin() -> Bool
+	- didWhiteWin() -> Bool
+	
