@@ -10,17 +10,24 @@ import Foundation
 
 /*
 KonaneMove
-	- init(fromX: Int, fromY: Int, toX: Int, toY: Int)
-	- fromX
-	- fromY
-	- toX
-	- toY
+x	- init(fromX: Int, fromY: Int, toX: Int, toY: Int)
+x	- fromX
+x	- fromY
+x	- toX
+x	- toY
 */
 
-var fromX: Int = 0
-var fromY: Int = 0
-var toX: Int = 0
-var toY: Int = 0
+class KonaneMove {
 
-init (fromX: Int, fromY: Int, toX: Int, toY: Int)
-	
+	let fromX: Int = 0
+	let fromY: Int = 0
+	let toX: Int = 0
+	let toY: Int = 0
+
+	init (fromX: Int, fromY: Int, toX: Int, toY: Int) {
+		self.fromX = fromX
+		self.fromY = fromY
+		self.toX = toX
+		self.toY = toY
+	}
+}
