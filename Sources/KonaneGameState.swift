@@ -137,37 +137,37 @@ class KonaneGameState {
 
 	//Function to print available pieces for removal
 	func gameBoardPieceRomovalSearch(isBlackMove: Bool) -> [[Int]] {
-    	var genericInt: Int = 0
-    	var secondGenericInt: Int = 0
+    	var xCoord: Int = 0
+    	var yCoord: Int = 0
     	var searchTable: [[Int]] = []
     	if isBlackMove {
-        	while genericInt < gameBoard.count {
-            	while secondGenericInt < gameBoard[genericInt].count {
-                	if gameBoard[genericInt][secondGenericInt] == KonaneGameState.KonaneColor.black {
-                    	if genericInt + secondGenericInt == 0 || genericInt == width - 1 && secondGenericInt == 0 || genericInt == 0 && secondGenericInt == height - 1 || genericInt == width - 1 && secondGenericInt == height - 1 {
-                        	searchTable.append([genericInt, secondGenericInt])
-                    	} else if genericInt == (width/2) - 0 && secondGenericInt == (height/2) - 0 || genericInt == (width/2) - 1  && secondGenericInt == (height/2) - 0 || genericInt == (width/2) - 0 && secondGenericInt == (height/2) - 1 || genericInt == (width/2) - 1 && secondGenericInt == (height/2) - 1 {
-                        	searchTable.append([genericInt, secondGenericInt])                    }
+        	while xCoord < gameBoard.count {
+            	while yCoord < gameBoard[xCoord].count {
+                	if gameBoard[xCoord][yCoord] == KonaneGameState.KonaneColor.black {
+                    	if xCoord + yCoord == 0 || xCoord == width - 1 && yCoord == 0 || xCoord == 0 && yCoord == height - 1 || xCoord == width - 1 && yCoord == height - 1 {
+                        	searchTable.append([xCoord, yCoord])
+                    	} else if xCoord == (width/2) - 0 && yCoord == (height/2) - 0 || xCoord == (width/2) - 1  && yCoord == (height/2) - 0 || xCoord == (width/2) - 0 && yCoord == (height/2) - 1 || xCoord == (width/2) - 1 && yCoord == (height/2) - 1 {
+                        	searchTable.append([xCoord, yCoord])                    }
                 		}
-                	secondGenericInt += 1
+                	yCoord += 1
             	}
-            	genericInt += 1
-            	secondGenericInt = 0
+            	xCoord += 1
+            	yCoord = 0
         	}
     	} else if !isBlackMove {
-        	while genericInt < gameBoard.count {
-            	while secondGenericInt < gameBoard[genericInt].count {
-                	if gameBoard[genericInt][secondGenericInt] == KonaneGameState.KonaneColor.white {
-                    	if genericInt + secondGenericInt == 0 || genericInt == width - 1 && secondGenericInt == 0 || genericInt == 0 && secondGenericInt == height - 1 || genericInt == width - 1 && secondGenericInt == height - 1 {
-                        	searchTable.append([genericInt, secondGenericInt])
-                    	} else if genericInt == (width/2) - 0 && secondGenericInt == (height/2) - 0 || genericInt == (width/2) - 1  && secondGenericInt == (height/2) - 0 || genericInt == (width/2) - 0 && secondGenericInt == (height/2) - 1 || genericInt == (width/2) - 1 && secondGenericInt == (height/2) - 1 {
-                        	searchTable.append([genericInt, secondGenericInt])
+        	while xCoord < gameBoard.count {
+            	while yCoord < gameBoard[xCoord].count {
+                	if gameBoard[xCoord][yCoord] == KonaneGameState.KonaneColor.white {
+                    	if xCoord + yCoord == 0 || xCoord == width - 1 && yCoord == 0 || xCoord == 0 && yCoord == height - 1 || xCoord == width - 1 && yCoord == height - 1 {
+                        	searchTable.append([xCoord, yCoord])
+                    	} else if xCoord == (width/2) - 0 && yCoord == (height/2) - 0 || xCoord == (width/2) - 1  && yCoord == (height/2) - 0 || xCoord == (width/2) - 0 && yCoord == (height/2) - 1 || xCoord == (width/2) - 1 && yCoord == (height/2) - 1 {
+                        	searchTable.append([xCoord, yCoord])
                     	}
                 	}
-                	secondGenericInt += 1
+                	yCoord += 1
             	}
-            	genericInt += 1
-            	secondGenericInt = 0
+            	xCoord += 1
+            	yCoord = 0
         	}
     	}
     	return searchTable

@@ -62,7 +62,7 @@ class KonaneGame {
     //END User input to initialize KonaneGame
 
     //Initialize KonaneGame with user input
-    init (blackIsHuman: initializeBlack, whiteIsHuman: initializeWhite)
+    init (blackIsHuman = initializeBlack, whiteIsHuman = initializeWhite)
 
     print()
 
@@ -70,4 +70,6 @@ class KonaneGame {
     //write code for human playing
     /* first step remomval of pieces
     */
+
+
 }
