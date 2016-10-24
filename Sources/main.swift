@@ -34,8 +34,19 @@ class Konane {
 
 
 }
-
-KonaneGameState
+enum KonaneColor {
+	case black
+	case white
+	case empty
+}
+class KonaneMove {
+	init(fromX: Int, fromY: Int, toX: Int, toY: Int)
+	var fromX = Int
+	var fromY
+	var toX
+	var toY
+}
+//KonaneGameState
 	- width: Int = 16
 	- height: Int = 16
 	- init()
@@ -43,7 +54,7 @@ KonaneGameState
 	- private isBlackTurn: Bool
 	- getIsBlackTurn() -> Bool 
 	- color(atX: Int, atY: Int) -> KonaneColor // Bottom left, 0-indexed
-	//Are the following properties functions, cuz I'm not really sure...
+	Are the following properties functions, cuz I'm not really sure...
 	- isValid(move: KonaneMove) -> Bool
 	- isValid(blackRemove: (x: Int, y: Int)) -> Bool
 	- isValid(whiteRemove: (x: Int, y: Int)) -> Bool
