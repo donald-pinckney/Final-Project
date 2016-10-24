@@ -50,35 +50,51 @@ x	- color(atX: Int, atY: Int) -> KonaneColor // Bottom left, 0-indexed
 //SINCE it is included in KonaneColor.swift
 enum KonaneColor {
     case black, white, empty
+    case Int
 }
 
-class KonaneGameState {
+class konaneGameState {
 
-	private var width: Int = 16
-	private var height: Int = 16
-	private var gameBoard: [[KonaneColor]] = []
-	private var isBlackTurn: Bool = true
+    var width: Int
+	var height: Int
+	var gameBoard: [[KonaneColor]] = []
+	var isBlackTurn: Bool
 
-	init (width: Int, height: Int, isBlackTurn:)
+    init (width: Int, height: Int, isBlackTurn:Bool) {
+        self.width = width
+        self.height = height
+        self.isBlackTurn = isBlackTurn
+    }
+}
+
+
+
+
+//Initialized an instance of konaneGameState
+var myKonaneGameState = konaneGameState(width: 16, height: 16, isBlackTurn: true)
+
+
+//Alex's Ideas on how to create a game board
+
 
 	//BEGIN Populate gameBoard.
-	for column in 0..<width {
-    	gameBoard.append([]) //Each column is an array
-    	for row in 0..<height {
+	for column in 0..<myKonaneGameState.width {
+    	myKonaneGameState.gameBoard.append([]) //Each column is an array
+    	for row in 0..<myKonaneGameState.height {
         	if column % 2 == 0 { //If column even -> black first
             	if row % 2 == 0 {
-                	gameBoard[column].append(KonaneColor.black)
+                	myKonaneGameState.gameBoard[column].append(KonaneColor.black)
             	}
             	else {
-                	gameBoard[column].append(KonaneColor.white)
+                	myKonaneGameState.gameBoard[column].append(KonaneColor.white)
             	}
         	}
         	else {
             	if row % 2 == 0 { //If column odd -> white first
-                gameBoard[column].append(KonaneColor.white)
+                myKonaneGameState.gameBoard[column].append(KonaneColor.white)
             	}
             	else {
-                	gameBoard[column].append(KonaneColor.black)
+                	myKonaneGameState.gameBoard[column].append(KonaneColor.black)
             	}
         	}
     	}
@@ -89,45 +105,52 @@ class KonaneGameState {
 	//Prints properly oriented and numbered board
 	func printGameBoard() {
     
-    	for rowNumber in (0..<height).reversed() {
+        var arbitraryVariable = 0
+        
+    	for rowNumber in (0..<myKonaneGameState.height).reversed() {
 		//Print row numbering
-		if rowNumber < 10 {
-			print(" \(rowNumber)", terminator:" ")
-		}
-		else {
+            if rowNumber < 10 {
+                print(" \(rowNumber)", terminator:" ")
+            }
+            else {
 			print("\(rowNumber)", terminator:" ")
-		}
-		//Print actual board
-		for columnNumber in 0..<width {
-			if gameBoard[columnNumber][rowNumber] == KonaneColor.black {
-				print("x", terminator: " ") //black square
-			}
-			else if gameBoard[columnNumber][rowNumber] == KonaneColor.white {
-				print("o", terminator: " ") //white square
-			}
-			else {
-				print(" ", terminator: " ") //empty square
-			}
-		}
-		print()
+            }
+            //Print actual board
+            for columnNumber in 0..<myKonaneGameState.width {
+                if myKonaneGameState.gameBoard[columnNumber][rowNumber] == KonaneColor.black {
+                    print("x ", terminator: " ") //black square
+                }
+                else if myKonaneGameState.gameBoard[columnNumber][rowNumber] == KonaneColor.white {
+                    print("o ", terminator: " ") //white square
+                }
+                else {
+                    print("  ", terminator: " ") //empty square
+                }
+            }
+		print() //uses a terminator to make new line
 		//Print column numbering
-		print("   ", terminator:"")
-		for columnNumber in 0..<width {
-			if columnNumber < 10 {
-				print("\(columnNumber)", terminator:" ")
-			}
-			else {
-				print(columnNumber - 10, terminator:" ")
-			}
-		}
-		print()
-	}
+            
+        }
+        
+		print("  ", terminator:"")
+            while arbitraryVariable < myKonaneGameState.height {
+                if arbitraryVariable < 10 {
+                    print(" \(arbitraryVariable)", terminator: " ")
+                } else {
+                    print("\(arbitraryVariable)", terminator: " ")
+
+                }
+                arbitraryVariable += 1
+            }
+
+        print()
+}
 	//END printGameBoard()
 
 	//BEGIN color()
 	//Note: column -> X, row -> Y
 	func color(atX: Int, atY: Int) -> KonaneColor {
-		return gameBoard[atX][atY]
+		return myKonaneGameState.gameBoard[atX][atY]
 		//MAY need to include more code 
 		//As I am not entirely sure what this function is supposed to do.
 	}
@@ -140,12 +163,12 @@ class KonaneGameState {
     	var yCoord: Int = 0
     	var searchTable: [[Int]] = []
     	if isBlackMove {
-        	while xCoord < gameBoard.count {
-            	while yCoord < gameBoard[xCoord].count {
-                	if gameBoard[xCoord][yCoord] == KonaneGameState.KonaneColor.black {
-                    	if xCoord + yCoord == 0 || xCoord == width - 1 && yCoord == 0 || xCoord == 0 && yCoord == height - 1 || xCoord == width - 1 && yCoord == height - 1 {
+        	while xCoord < myKonaneGameState.gameBoard.count {
+            	while yCoord < myKonaneGameState.gameBoard[xCoord].count {
+                	if myKonaneGameState.gameBoard[xCoord][yCoord] == KonaneGameState.KonaneColor.black {
+                    	if xCoord + yCoord == 0 || xCoord == myKonaneGameState.width - 1 && yCoord == 0 || xCoord == 0 && yCoord == myKonaneGameState.height - 1 || xCoord == myKonaneGameState.width - 1 && yCoord == myKonaneGameState.height - 1 {
                         	searchTable.append([xCoord, yCoord])
-                    	} else if xCoord == (width/2) - 0 && yCoord == (height/2) - 0 || xCoord == (width/2) - 1  && yCoord == (height/2) - 0 || xCoord == (width/2) - 0 && yCoord == (height/2) - 1 || xCoord == (width/2) - 1 && yCoord == (height/2) - 1 {
+                    	} else if xCoord == (myKonaneGameState.width/2) - 0 && yCoord == (myKonaneGameState.height/2) - 0 || xCoord == (myKonaneGameState.width/2) - 1  && yCoord == (myKonaneGameState.height/2) - 0 || xCoord == (myKonaneGameState.width/2) - 0 && yCoord == (myKonaneGameState.height/2) - 1 || xCoord == (myKonaneGameState.width/2) - 1 && yCoord == (myKonaneGameState.height/2) - 1 {
                         	searchTable.append([xCoord, yCoord])                    }
                 		}
                 	yCoord += 1
@@ -154,12 +177,12 @@ class KonaneGameState {
             	yCoord = 0
         	}
     	} else if !isBlackMove {
-        	while xCoord < gameBoard.count {
-            	while yCoord < gameBoard[xCoord].count {
-                	if gameBoard[xCoord][yCoord] == KonaneGameState.KonaneColor.white {
-                    	if xCoord + yCoord == 0 || xCoord == width - 1 && yCoord == 0 || xCoord == 0 && yCoord == height - 1 || xCoord == width - 1 && yCoord == height - 1 {
+        	while xCoord < myKonaneGameState.gameBoard.count {
+            	while yCoord < myKonaneGameState.gameBoard[xCoord].count {
+                	if myKonaneGameState.gameBoard[xCoord][yCoord] == KonaneGameState.KonaneColor.white {
+                    	if xCoord + yCoord == 0 || xCoord == myKonaneGameState.width - 1 && yCoord == 0 || xCoord == 0 && yCoord == myKonaneGameState.height - 1 || xCoord == myKonaneGameState.width - 1 && yCoord == myKonaneGameState.height - 1 {
                         	searchTable.append([xCoord, yCoord])
-                    	} else if xCoord == (width/2) - 0 && yCoord == (height/2) - 0 || xCoord == (width/2) - 1  && yCoord == (height/2) - 0 || xCoord == (width/2) - 0 && yCoord == (height/2) - 1 || xCoord == (width/2) - 1 && yCoord == (height/2) - 1 {
+                    	} else if xCoord == (myKonaneGameState.width/2) - 0 && yCoord == (myKonaneGameState.height/2) - 0 || xCoord == (myKonaneGameState.width/2) - 1  && yCoord == (myKonaneGameState.height/2) - 0 || xCoord == (myKonaneGameState.width/2) - 0 && yCoord == (myKonaneGameState.height/2) - 1 || xCoord == (myKonaneGameState.width/2) - 1 && yCoord == (myKonaneGameState.height/2) - 1 {
                         	searchTable.append([xCoord, yCoord])
                     	}
                 	}
@@ -174,29 +197,46 @@ class KonaneGameState {
 
 
 	func printPossiblePieceRemoval(isBlackMove:Bool) {
-    	print("These are the coordinates of the pieces you may remove in the format [Row, Column] \(gameBoardPieceRomovalSearch(isBlackMove: isBlackMove))")
+    	print("Thse are the positions of the removeable pieces are: \(gameBoardPieceRomovalSearch(isBlackMove: myKonaneGameState.isBlackTurn))")
 	}
 
 
 
 	//NOT CURRENTLY WORKING - Function to actually remove a piece on the Game Board
-	/*
-	func RemovePiece() {
-	    print("Enter the y coordinate of the piece you want to remove")
-	    let yCoord = Int(readLine()!)
-	    print("Enter the x coordinate of the piece you want to remove")
-	    let xCoord = Int(readLine()!)
-	    let pieceToBeRemoved = [yCoord, xCoord]
-	    for table in gameBoardPieceRomovalSearch(isBlackMove:true) {
-	        if pieceToBeRemoved == table {
-	            gameBoard[yCoord][xCoord] = " "
-	        }
-	    }
-	}
 
-	*/
+func RemovePiece() {
+    
+    print("What are the coordinates of the piece you want to remove? \(printPossiblePieceRemoval(isBlackMove: myKonaneGameState.isBlackTurn))")
+    let xCoord = Int(readLine()!)!
+    let yCoord = Int(readLine()!)!
+
+    
+    for index in gameBoardPieceRomovalSearch(isBlackMove: myKonaneGameState.isBlackTurn) {
+        if [xCoord, yCoord] == index {
+            if myKonaneGameState.isBlackTurn {
+                if myKonaneGameState.gameBoard[xCoord][yCoord] == KonaneColor.black {
+                    myKonaneGameState.gameBoard[xCoord][yCoord] = KonaneColor.empty
+                } else {
+                    print("The piece you tried to remove is not black")
+                }
+            }
+            
+            if !myKonaneGameState.isBlackTurn {
+                if myKonaneGameState.gameBoard[xCoord][yCoord] == KonaneColor.white {
+                    myKonaneGameState.gameBoard[xCoord][yCoord] = KonaneColor.empty
+                } else {
+                    print("The piece you tried to remove is not white")
+                }
+            }
+            printGameBoard()
+        }
+
+        }
+    }
 
 
-	printPossiblePieceRemoval(isBlackMove: false)
-	printPossiblePieceRemoval(isBlackMove: true)
-}
+
+
+
+RemovePiece()
+
