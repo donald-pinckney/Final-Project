@@ -1,4 +1,4 @@
-class KonaneGame {
+//class KonaneGame {
         init(blackIsHuman: Bool, whiteIsHuman: Bool)
         private gameState: KonaneGameState
         private blackInputSource: KonaneMoveInputSource
