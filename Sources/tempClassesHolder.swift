@@ -3,8 +3,5 @@
 
 class KonaneGame {}
 class KonaneGameState {}
-enum KonaneColor {
-	case black, white, empty
-}
 class KonaneMove {}
 class KonaneMoveInputSource {}
