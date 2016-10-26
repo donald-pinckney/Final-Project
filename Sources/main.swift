@@ -1,7 +1,7 @@
 let game = KonaneGame(blackIsHuman: true, whiteIsHuman: true)
 print("Did black win? \(game.play())")
 
-//Am I supposed to put code here?
+//Didin't realized that play is a func.
 
 /*
 +---+---+
