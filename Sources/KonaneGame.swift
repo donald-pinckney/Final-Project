@@ -18,6 +18,7 @@ x   - private gameState: KonaneGameState
     - private displayBoard()
 */
 
+//WILL FIX LATER FIRST GETTING INITIALIZATION DONE
 class KonaneGame {
 
     private let blackIsHuman: Bool = true
@@ -27,44 +28,51 @@ class KonaneGame {
     //BEGIN User input to initialize KonaneGame
     private var initializeBlack: Bool = true
     private var initializeWhite: Bool = true
+}
 
-    initialize while true {
-        print("Is black human? [Y/N]:", terminator: " ")
 
-        if String(readLine()!) ==  "Y" {
-            print("Black is human")
-            initializeBlack = true
-        } 
-        else if String(readLine()!) ==  "N" {
-            print("Black is AI")
-            initializeBlack = false
-        } 
-        else {
-            print("Invalid. Please start over.")
-            repeat initialize
-        }
-        print("Is white human? [Y/N]")
-
-        if String(readLine()!) ==  "Y"{
-            print("White is human")
-            initializeWhite = true
-        } 
-        else if String(readLine()!) ==  "N" {
-            print("White is AI")
-            initializeWhite = false
-        } 
-        else {
-            print("Invalid. Please start over.")
-            repeat initialize
-        }
-        break initialize
+    
+func initializeGame () {
+    print("Is black human? [Y/N]:", terminator: " ")
+    
+    if String(readLine()!) ==  "Y" {
+        print("Black is human")
+        initializeBlack = true
     }
+    else if String(readLine()!) ==  "N" {
+        print("Black is AI")
+        initializeBlack = false
+    }
+    else {
+        print("Invalid. Please start over.")
+        //IDK WHAT THIS DO
+        //repeat initializeGame
+    }
+    print("Is white human? [Y/N]")
+    
+    if String(readLine()!) ==  "Y"{
+        print("White is human")
+        initializeWhite = true
+    }
+    else if String(readLine()!) ==  "N" {
+        print("White is AI")
+        initializeWhite = false
+    }
+    else {
+        print("Invalid. Please start over.")
+        //IDK WHAT THIS DO
+        //repeat initializeGame
+    }
+    
     //END User input to initialize KonaneGame
-
+    
     //Initialize KonaneGame with user input
-    init (blackIsHuman = initializeBlack, whiteIsHuman = initializeWhite)
-
+    //WILL FIX ONCE FUNC IS DONE
+    //init (blackIsHuman = initializeBlack, whiteIsHuman = initializeWhite)
+    
     print()
+
+}
 
 
     //write code for human playing

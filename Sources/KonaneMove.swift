@@ -31,3 +31,25 @@ class KonaneMove {
 		self.toY = toY
 	}
 }
+
+//Actually programming a game move
+
+func searchJumpPiece() {
+    
+    var searchTable: [[Int]] = []
+
+    for column in myKonaneGameState.gameBoard {
+        for row in myKonaneGameState.gameBoard[column] {
+            if myKonaneGameState.isBlackTurn {
+                if myKonaneGameState.gameBoard[column][row] == konaneColor.black {
+                    searchTable.append([column, row])
+                }
+            }
+            else if !myKonaneGameState.isBlackTurn {
+                if myKonaneGameState.gameBoard[[column][row] == konaneColor.white {
+                    searchTable.append([column, row])
+                }
+            }
+        }
+    }
+}

@@ -71,7 +71,7 @@ class konaneGameState {
 
 
 //Initialized an instance of konaneGameState
-var myKonaneGameState = konaneGameState(width: 16, height: 16, isBlackTurn: true)
+var myKonaneGameState = konaneGameState(width: 16, height: 16, isBlackTurn: false)
 
 
 //Alex's Ideas on how to create a game board
@@ -118,10 +118,10 @@ var myKonaneGameState = konaneGameState(width: 16, height: 16, isBlackTurn: true
             //Print actual board
             for columnNumber in 0..<myKonaneGameState.width {
                 if myKonaneGameState.gameBoard[columnNumber][rowNumber] == KonaneColor.black {
-                    print("x ", terminator: " ") //black square
+                    print(" x", terminator: " ") //black square
                 }
                 else if myKonaneGameState.gameBoard[columnNumber][rowNumber] == KonaneColor.white {
-                    print("o ", terminator: " ") //white square
+                    print(" o", terminator: " ") //white square
                 }
                 else {
                     print("  ", terminator: " ") //empty square
@@ -132,7 +132,7 @@ var myKonaneGameState = konaneGameState(width: 16, height: 16, isBlackTurn: true
             
         }
         
-		print("  ", terminator:"")
+		print("   ", terminator:"")
             while arbitraryVariable < myKonaneGameState.height {
                 if arbitraryVariable < 10 {
                     print(" \(arbitraryVariable)", terminator: " ")
@@ -158,11 +158,11 @@ var myKonaneGameState = konaneGameState(width: 16, height: 16, isBlackTurn: true
 
 
 	//Function to print available pieces for removal
-	func gameBoardPieceRomovalSearch(isBlackMove: Bool) -> [[Int]] {
+func gameBoardPieceRomovalSearch() -> [[Int]] {
     	var xCoord: Int = 0
     	var yCoord: Int = 0
     	var searchTable: [[Int]] = []
-    	if isBlackMove {
+    	if myKonaneGameState.isBlackTurn {
         	while xCoord < myKonaneGameState.gameBoard.count {
             	while yCoord < myKonaneGameState.gameBoard[xCoord].count {
                 	if myKonaneGameState.gameBoard[xCoord][yCoord] == KonaneGameState.KonaneColor.black {
@@ -176,7 +176,7 @@ var myKonaneGameState = konaneGameState(width: 16, height: 16, isBlackTurn: true
             	xCoord += 1
             	yCoord = 0
         	}
-    	} else if !isBlackMove {
+    	} else if !myKonaneGameState.isBlackTurn {
         	while xCoord < myKonaneGameState.gameBoard.count {
             	while yCoord < myKonaneGameState.gameBoard[xCoord].count {
                 	if myKonaneGameState.gameBoard[xCoord][yCoord] == KonaneGameState.KonaneColor.white {
@@ -192,49 +192,52 @@ var myKonaneGameState = konaneGameState(width: 16, height: 16, isBlackTurn: true
             	yCoord = 0
         	}
     	}
-    	return searchTable
-	}
+        return searchTable
+}
 
 
-	func printPossiblePieceRemoval(isBlackMove:Bool) {
-    	print("Thse are the positions of the removeable pieces are: \(gameBoardPieceRomovalSearch(isBlackMove: myKonaneGameState.isBlackTurn))")
-	}
+//function to print the available pieces for removal
+func printGameBoardPieceRomovalSearch () {
+    print("The available pieces for removal are: \(gameBoardPieceRomovalSearch())")
+}
 
 
-
-	//NOT CURRENTLY WORKING - Function to actually remove a piece on the Game Board
-
+//IT WORKS - Function to remove a piece on the game board
 func RemovePiece() {
     
-    print("What are the coordinates of the piece you want to remove? \(printPossiblePieceRemoval(isBlackMove: myKonaneGameState.isBlackTurn))")
+    print("What are the coordinates of the piece you want to remove? \(gameBoardPieceRomovalSearch())")
     let xCoord = Int(readLine()!)!
     let yCoord = Int(readLine()!)!
-
+    var errorBool = true
     
-    for index in gameBoardPieceRomovalSearch(isBlackMove: myKonaneGameState.isBlackTurn) {
+    print()
+    
+    for index in gameBoardPieceRomovalSearch() {
         if [xCoord, yCoord] == index {
+            errorBool = false
             if myKonaneGameState.isBlackTurn {
                 if myKonaneGameState.gameBoard[xCoord][yCoord] == KonaneColor.black {
                     myKonaneGameState.gameBoard[xCoord][yCoord] = KonaneColor.empty
-                } else {
-                    print("The piece you tried to remove is not black")
+                    printGameBoard()
+                    break
                 }
             }
             
             if !myKonaneGameState.isBlackTurn {
+                errorBool = false
                 if myKonaneGameState.gameBoard[xCoord][yCoord] == KonaneColor.white {
                     myKonaneGameState.gameBoard[xCoord][yCoord] = KonaneColor.empty
-                } else {
-                    print("The piece you tried to remove is not white")
+                    printGameBoard()
+                    break
                 }
             }
-            printGameBoard()
-        }
-
         }
     }
-
-
+    if errorBool == true {
+        print("You cannot remove that piece")
+        printGameBoard()
+    }
+}
 
 
 
