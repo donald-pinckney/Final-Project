@@ -3,11 +3,11 @@ print("Did black win? \(game.play())")
 
 //Make a file for each class/enum.
 /*
-+---+
-| X |
-+---+
-| O |
-+---+
-|   |
-+---+
++---+---+
+| X | O |
++---+---+
+| O | X |
++---+---+
+|   |   |
++---+---+
 */

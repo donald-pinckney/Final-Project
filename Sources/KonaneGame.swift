@@ -1,4 +1,5 @@
 class KonaneGame {
+/*
 	init(blackIsHuman: Bool, whiteIsHuman: Bool){
 		//Stuff goes here.
 	}
@@ -6,4 +7,5 @@ class KonaneGame {
 	private whiteInputSource: KonaneMoveInputSource
 	play() -> Bool // Returns true if black wins.
     private displayBoard()
+*/
 }

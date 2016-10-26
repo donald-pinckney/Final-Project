@@ -1,4 +1,5 @@
 class KonaneGameState {
+/*
         width: Int = 16
         height: Int = 16
         init()
@@ -14,4 +15,5 @@ class KonaneGameState {
         perform(whiteRemove: (x: Int, y: Int))
         didBlackWin() -> Bool
         didWhiteWin() -> Bool
+*/
 }
