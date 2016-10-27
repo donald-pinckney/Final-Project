@@ -32,8 +32,10 @@ class KonaneMove {
 	}
 }
 
-//Actually programming a game move
+var myKonaneGameState = KonaneGameState.konaneGameState
 
+//Actually programming a game move
+//NOT WORKING YET ERRORS
 func searchJumpPiece() {
     
     var searchTable: [[Int]] = []

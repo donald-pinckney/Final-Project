@@ -78,8 +78,3 @@ func initializeGame() -> (blackIsHuman: Bool, whiteIsHuman: Bool) {
 
 }
 
-let blackAndWhiteAreHuman = initializeGame()
-var myKonaneGame = KonaneGame(blackIsHuman: blackAndWhiteAreHuman.blackIsHuman, whiteIsHuman: blackAndWhiteAreHuman.whiteIsHuman)
-print(myKonaneGame.blackIsHuman, myKonaneGame.whiteIsHuman)
-
-
