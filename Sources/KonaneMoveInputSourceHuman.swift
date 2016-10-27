@@ -7,7 +7,7 @@ class KonaneMoveInputSource {
 	func removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
 
   }
-	func nextMove(gameState: KonaneGameState) -> KonaneMove {
+	func nextMove(gameState: KonaneGameState) -> KonaneMove { 
 
   }
 }

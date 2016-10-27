@@ -1,5 +1,5 @@
 KonaneMoveInputSource
-	- init(isBlack: Bool)
+	- init(isBlack: Bool) 
 	- isBlack
 	- removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) (should override)
 	- removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) (should override)
