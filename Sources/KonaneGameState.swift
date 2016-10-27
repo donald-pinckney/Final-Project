@@ -34,42 +34,104 @@ x	- height: Int = 16
 x	- init()
 x	- private internal board data storage
 x	- private isBlackTurn: Bool
-	- getIsBlackTurn() -> Bool 
+x	- getIsBlackTurn() -> Bool 
 x	- color(atX: Int, atY: Int) -> KonaneColor // Bottom left, 0-indexed
-	- isValid(move: KonaneMove) -> Bool
-	- isValid(blackRemove: (x: Int, y: Int)) -> Bool
-	- isValid(whiteRemove: (x: Int, y: Int)) -> Bool
-	- perform(move: KonaneMove)
-	- perform(blackRemove: (x: Int, y: Int))
-	- perform(whiteRemove: (x: Int, y: Int))
-	- didBlackWin() -> Bool
-	- didWhiteWin() -> Bool
+x	- isValid(move: KonaneMove) -> Bool
+x	- isValid(blackRemove: (x: Int, y: Int)) -> Bool
+x	- isValid(whiteRemove: (x: Int, y: Int)) -> Bool
+x	- perform(move: KonaneMove)
+x	- perform(blackRemove: (x: Int, y: Int))
+x	- perform(whiteRemove: (x: Int, y: Int))
+x	- didBlackWin() -> Bool
+x	- didWhiteWin() -> Bool
 */
 
 //WILL need to remove enum before build
 //SINCE it is included in KonaneColor.swift
-class konaneGameState {
+class GameState {
 
     var width: Int
 	var height: Int
-	var gameBoard: [[KonaneColor]] = []
-	var isBlackTurn: Bool
+	private var isBlackTurn: Bool
 
-    init (width: Int, height: Int, isBlackTurn:Bool) {
+    init (width: Int, height: Int, isBlackTurn: Bool) {
         self.width = width
         self.height = height
         self.isBlackTurn = isBlackTurn
     }
+
+    private var gameBoard: [[KonaneColor]] = []
+
+    func getIsBlackTurn() -> Bool {
+    	//WRITE 
+
+    	print("Does not work")
+    	return false
+    }
+
+    func color(atX: Int, atY: Int) -> KonaneColor {
+    	//WRITE 
+
+    	print("Does not work")
+    	return KonaneColor
+    }
+
+    func isValid(move: KonaneMove) -> Bool {
+    	//WRITE 
+
+    	print("Does not work")
+    	return false
+    }
+
+    func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
+    	//WRITE 
+
+    	print("Does not work")
+    	return false
+    }
+
+    func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
+    	//WRITE 
+
+    	print("Does not work")
+    	return false
+    }
+
+    func perform(move: KonaneMove) {
+    	//WRITE 
+
+    	print("Does not work")
+    }
+
+    func perform(blackRemove: (x: Int, y: Int)) {
+    	//WRITE 
+
+    	print("Does not work")
+    }
+
+    func perform(whiteRemove: (x: Int, y: Int)) {
+    	//WRITE 
+
+    	print("Does not work")
+    }
+
+    func didBlackWin() -> Bool {
+    	//WRITE 
+
+    	print("Does not work")
+    	return false
+    }
+
+    func didWhiteWin() -> Bool {
+    	//WRITE 
+
+    	print("Does not work")
+    	return false
+    }
+
 }
 
 
-
-
-//Initialized an instance of konaneGameState
-var myKonaneGameState = konaneGameState(width: 16, height: 16, isBlackTurn: false)
-
-
-//Alex's Ideas on how to create a game board
 
 
 

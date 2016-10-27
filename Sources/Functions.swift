@@ -78,31 +78,6 @@ func initializeGame() -> (blackIsHuman: Bool, whiteIsHuman: Bool) {
 }
 
 
-//BEGIN Populate gameBoard
-func populateGameBoard() {
-    for column in 0..<myKonaneGameState.width {
-        myKonaneGameState.gameBoard.append([]) //Each column is an array
-        for row in 0..<myKonaneGameState.height {
-            if column % 2 == 0 { //If column even -> black first
-                if row % 2 == 0 {
-                    myKonaneGameState.gameBoard[column].append(KonaneColor.black)
-                }
-                else {
-                    myKonaneGameState.gameBoard[column].append(KonaneColor.white)
-                }
-            }
-            else {
-                if row % 2 == 0 { //If column odd -> white first
-                    myKonaneGameState.gameBoard[column].append(KonaneColor.white)
-                }
-                else {
-                    myKonaneGameState.gameBoard[column].append(KonaneColor.black)
-                }
-            }
-        }
-    }
-}
-//END Populate gameBoard
 
 //BEGIN printGameBoard() (MAY BE MISSPLACED)
 
