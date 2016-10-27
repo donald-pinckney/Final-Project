@@ -1,18 +1,6 @@
 class KonaneGame{
-  let isBlackHuman: Bool
-  let isWhiteHuman: Bool
-  print("Enter whether black is a human, then whether white is a human")
-  init(isBlackHuman: Bool, isWhiteHuman: Bool) {
-    if isWhiteHuman && isBlackHuman {
-      self.isWhiteHuman == isWhiteHuman
-      self.isBlackHuman == isBlackHuman
-    }
-    else {
-      print("Sorry, no AIs yet")
-      self.isBlackHuman == isBlackHuman
-      self.isWhiteHuman == isWhiteHuman
-    }
-  }
+  let blackIsHuman: Bool
+  let whiteIsHuman: Bool
 
   /* The board formating is something like this:
   ...
@@ -23,44 +11,62 @@ class KonaneGame{
   private let gameState = konaneGameState()
 
   func xyToLocation (xValue: Int, yValue: Int) -> Int {
-    Location = xValue + 16 * yValue
+    let Location = xValue + 16 * yValue
     return Location
   }
 
   let blackCharacter: String
   let whiteCharacter: String
-  print("Enter the character that you want black to appear as on the display of the board, then the character for white.")
-  init(blackCharacter: String, whiteCharacter: String) {
+
+  init(blackIsHuman: Bool, whiteIsHuman: Bool) {
+    if whiteIsHuman && blackIsHuman {
+      self.whiteIsHuman = whiteIsHuman
+      self.blackIsHuman = blackIsHuman
+    }
+    else {
+      print("Sorry, no AIs yet")
+      self.blackIsHuman = true
+      self.whiteIsHuman = true
+    }
+    print("Enter the character that you want black to appear as on the display of the board, then the character for white.")
     self.blackCharacter = String(readLine()!)!
     self.whiteCharacter = String(readLine()!)!
   }
 
-  func play() -> bool {
+  func play() -> Bool {
     print("When I get around to it, this should play a game")
+    return false
   }
 
   private func createBoardLineNumber(lineNumber: Int) -> String {
-    var lineString = "\(lineNumber) "
+    var lineString = ""
+    if lineNumber <= 9 {
+      lineString = "0\(lineNumber) "
+    }
+    else {
+      lineString = "\(lineNumber) "
+    }
     for x in 0...15 {
-      let pieceAtLocation = gameState.gameBoard[xyToLocation(xValue: x, yValue: lineNumber)]
-      if pieceAtLocation == white {
-        lineString.append("\(whiteCharacter) ")
+      let pieceAtLocation: KonaneColor = gameState.gameBoard[xyToLocation(xValue: x, yValue: lineNumber)]
+      if pieceAtLocation == KonaneColor.white {
+        lineString.append(" \(whiteCharacter) ")
       }
-      else if pieceAtLocation == black {
-        lineString.append("\(blackCharacter) ")
+      else if pieceAtLocation == KonaneColor.black {
+        lineString.append(" \(blackCharacter) ")
       }
       else {
         lineString.append("  ")
       }
     }
+    return lineString
   }
 
   // Make this one private when I am done testing it
   func displayBoard() {
     for x in 0...15 {
-      print(createBoardLineNumber(15 - x))
+      print(createBoardLineNumber(lineNumber: 15 - x))
     }
-    print("   01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16")
+    print("   00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15")
   }
 
 }
