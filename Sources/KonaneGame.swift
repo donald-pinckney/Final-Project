@@ -1,24 +1,24 @@
 class KonaneGame{
   let blackIsHuman: Bool
   let whiteIsHuman: Bool
+  private let blackInputSource: KonaneMoveInputSource
+  private let whiteInputSource: KonaneMoveInputSource
 
-  /* The board formating is something like this:
-  ...
-  32 33 34 35 36 ...
-  16 17 18 19 20 ...
-  00 01 02 03 04 ...
-  */
+  //generates a game board and various related functions
   private let gameState = konaneGameState()
 
+  //finds a location on the board array from an x value and a y value
   func xyToLocation (xValue: Int, yValue: Int) -> Int {
     let Location = xValue + 16 * yValue
     return Location
   }
 
+  //lets the player choose what character represents x and what represents y
   let blackCharacter: String
   let whiteCharacter: String
 
   init(blackIsHuman: Bool, whiteIsHuman: Bool) {
+    //sets whether black and white are humans or AIs
     if whiteIsHuman && blackIsHuman {
       self.whiteIsHuman = whiteIsHuman
       self.blackIsHuman = blackIsHuman
@@ -28,9 +28,28 @@ class KonaneGame{
       self.blackIsHuman = true
       self.whiteIsHuman = true
     }
-    print("Enter the character that you want black to appear as on the display of the board, then the character for white.")
-    self.blackCharacter = String(readLine()!)!
-    self.whiteCharacter = String(readLine()!)!
+    //sets what characters represent the players when showing the board
+    //takes user input if player is a human or automatically sets black to 'X' or y to 'O' if the player is an AI
+    if blackIsHuman {
+      print("Enter the character that you want black to appear as on the display of the board")
+      self.blackCharacter = String(readLine()!)!
+      self.blackInputSource: KonaneMoveInputSource = KonaneMoveInputSource(isBlack: true)
+    }
+    else {
+      print("Black will be displayed as 'X'")
+      blackCharacter = "X"
+      self.blackInputSource: KonaneMoveInputSource = KonaneMoveInputSource(isBlack: true)
+    }
+    if whiteIsHuman {
+      print("Enter the character that you want white to appear as on the display of the board")
+      self.whiteCharacter = String(readLine()!)!
+      self.whiteInputSource: KonaneMoveInputSource = KonaneMoveInputSource(isBlack: false)
+    }
+    else {
+      print("White will be displayed as 'O'")
+      whiteCharacter = "O"
+      self.whiteInputSource: KonaneMoveInputSource = KonaneMoveInputSource(isBlack: false)
+    }
   }
 
   func play() -> Bool {

@@ -1,5 +1,11 @@
 class konaneGameState{
-  // Creates an array representing a 16*16 board with alternating black and white starting with black
+  /* Creates an array representing a 16*16 board with alternating black and white starting with black
+  The board formating is something like this:
+  ...
+  32 33 34 35 36 ...
+  16 17 18 19 20 ...
+  00 01 02 03 04 ...
+  */
   var gameBoard: [KonaneColor] = []
   init() {
     for x in 0...15 {
@@ -59,7 +65,7 @@ class konaneGameState{
 
   //checks if black can remove a piece at a location at the start of the game
   func isLegal(blackRemove: (x: Int, y: Int)) -> Bool {
-    if (blackRemove.x == 0 || blackRemove.x == 7 || blackRemove.x == 8 || blackRemove[x] == 15) && blackRemove.x == blackRemove[y] {
+    if (blackRemove.x == 0 || blackRemove.x == 7 || blackRemove.x == 8 || blackRemove.x == 15) && blackRemove.x == blackRemove.y {
       return true
     }
     else {
@@ -99,11 +105,12 @@ class konaneGameState{
   }
 
   //checks if black won
-  func didBlackWin() {
+  func didBlackWin() -> Bool {
     return false
   }
 
-  func didWhiteWin() {
+  //checks if white won
+  func didWhiteWin() -> Bool {
     return false
   }
 }
