@@ -4,20 +4,20 @@ class KonaneGame {
 	private whiteInputSource: KonaneMoveInputSource
 	init(blackIsHuman: Bool, whiteIsHuman: Bool) {
 		if blackIsHuman {
-			//black isn't AI
+			blackInputSource = KonanMoveInputSourceHuman(isBlack: true)
 		} else {
-			//black is AI
+			fatalError("No AI Yet!")
 		}
 		if whiteIsHuman {
-			//white isn't AI
+			whiteInputSource = KonanMoveInputSourceHuman(isBlack: false)
 		} else {
-			//white is AI
+			fatalError("No AI Yet!")
 		}
 	}
 	func play() -> Bool {
 
 	}
 	private displayBoard() {
-
+		
 	}
 }
