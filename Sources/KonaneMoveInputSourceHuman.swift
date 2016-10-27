@@ -11,3 +11,4 @@ import Foundation
 class subclass: KonaneMove {
     
 }
+class KonaneMoveInputSourceHuman: KonaneMoveInputSoure {}
