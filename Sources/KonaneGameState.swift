@@ -2,13 +2,22 @@ class KonaneGameState {
    let width = 16
    let height = 16
    
-   private let gameBoard: [[KonaneColor]]
+   private var gameBoard: [[KonaneColor]]
 
    private var isBlackTurn: Bool = true
    
    init() {
-      let singleXLine = [KonaneColor](repeating: KonaneColor.empty, count: height)
-      gameBoard = [[KonaneColor]](repeating: singleXLine, count: width)
+      let singleYLine = [KonaneColor](repeating: KonaneColor.empty, count: height)//this is a column
+      gameBoard = [[KonaneColor]](repeating: singleYLine, count: width)
+        for x in 0..<gameBoard.count{//this creates the checkerboard pattern :D
+            for y in 0..<singleYLine.count{
+                if x % 2 == 0 && y % 2 == 0 || x % 2 != 0 && y % 2 != 0 {
+                    gameBoard[x][y] = KonaneColor.white
+                }else{
+                    gameBoard[x][y] = KonaneColor.black
+                }
+            }
+        }
    }
    
    func getIsBlackTurn() -> Bool{ //because isBlackTurn is private lol
@@ -19,5 +28,4 @@ class KonaneGameState {
        }
    }
 
-   //COLOR FUNNNNNNCAY 
 }
