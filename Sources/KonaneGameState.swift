@@ -4,11 +4,26 @@ class KonaneGameState {
   init()
   private internal board data storage
   private isBlackTurn: Bool
-  getIsBlackTurn() -> Bool
-  color(atX: Int, atY: Int) -> KonaneColor // Bottom left, 0-indexed
-  isValid(move: KonaneMove) -> Bool
-  isValid(blackRemove: (x: Int, y: Int)) -> Bool
-  isValid(whiteRemove: (x: Int, y: Int)) -> Bool
+  func getIsBlackTurn() -> Bool {
+    return isBlackTurn
+  }
+
+  func color(atX: Int, atY: Int) -> KonaneColor // Bottom left, 0-indexed {
+
+  }
+
+  func isValid(move: KonaneMove) -> Bool {
+    var
+  }
+
+  func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
+    
+
+  }
+
+  func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
+
+  }
   perform(move: KonaneMove)
   perform(blackRemove: (x: Int, y: Int))
   perform(whiteRemove: (x: Int, y: Int))
