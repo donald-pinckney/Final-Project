@@ -12,8 +12,8 @@ import Foundation
 KonaneGame
 x   - init(blackIsHuman: Bool, whiteIsHuman: Bool)
 x   - private gameState: KonaneGameState
-    - private blackInputSource: KonaneMoveInputSource
-    - private whiteInputSource: KonaneMoveInputSource
+x   - private blackInputSource: KonaneMoveInputSource
+x   - private whiteInputSource: KonaneMoveInputSource
     - play() -> Bool // Returns true if black wins.
     - private displayBoard()
 */
