@@ -63,38 +63,37 @@ class GameState {
     private var gameBoard: [[KonaneColor]] = []
 
     func getIsBlackTurn() -> Bool {
-    	//WRITE 
-
-    	print("Does not work")
-    	return false
+    	if isBlackTurn {
+    		return true
+    	}
+    	else {
+    		return false
+    	}
     }
 
     func color(atX: Int, atY: Int) -> KonaneColor {
-    	//WRITE 
-
-    	print("Does not work")
-    	return KonaneColor
+    	return gameBoard[atX][atY]
     }
 
     func isValid(move: KonaneMove) -> Bool {
     	//WRITE 
 
     	print("Does not work")
-    	return false
+    	return true
     }
 
     func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
     	//WRITE 
 
     	print("Does not work")
-    	return false
+    	return true
     }
 
     func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
     	//WRITE 
 
     	print("Does not work")
-    	return false
+    	return true
     }
 
     func perform(move: KonaneMove) {
