@@ -1,19 +1,36 @@
 class KonaneGameState {
   let width = 16
   let height = 16
-  init()
-  private internal board data storage
+  private var board: [[KonaneColor]]
+  
+  init() {
+
+    var column = [KonaneColor](repeating: KonaneColor.empty, length: height)
+    var board = [[KonaneColor]](repeating: column, length: width)
+    for x in 0..<width {
+      for y in 0..<height {
+        if (x + y) % 2 == 0 {
+          board[x][y] = black
+        }
+        else {
+          board[x][y] = white
+        }
+      }
+    }
+  }
+
   private isBlackTurn: Bool
   func getIsBlackTurn() -> Bool {
     return isBlackTurn
   }
 
   func color(atX: Int, atY: Int) -> KonaneColor // Bottom left, 0-indexed {
-
+    // Return the color
+    
   }
 
   func isValid(move: KonaneMove) -> Bool {
-    var
+    
   }
 
   func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
