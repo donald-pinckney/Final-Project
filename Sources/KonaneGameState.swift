@@ -26,7 +26,7 @@ class KonaneGameState {
 
   func color(atX: Int, atY: Int) -> KonaneColor // Bottom left, 0-indexed {
     // Return the color
-    
+    return board[atX][atY]
   }
 
   func isValid(move: KonaneMove) -> Bool {
