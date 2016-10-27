@@ -1,2 +1,9 @@
 let game = KonaneGame(blackIsHuman: true, whiteIsHuman: true)
-print("Did black win? \(game.play())")
+if game.play {
+  print("Black won")
+}
+else {
+  print("Black lost")
+}
+
+game.displayBoard()
