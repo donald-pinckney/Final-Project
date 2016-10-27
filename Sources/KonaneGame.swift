@@ -21,17 +21,28 @@ x   - private gameState: KonaneGameState
 //WILL FIX LATER FIRST GETTING INITIALIZATION DONE
 class KonaneGame {
 
-    let blackIsHuman: Bool
-    let whiteIsHuman: Bool
-    var gameState = 0 //WRITE CODE FOR THIS ACCESSING THE GAME STATE
-    
-    init(blackIsHuman: Bool, whiteIsHuman: Bool) {
-        self.blackIsHuman = blackIsHuman
-        self.whiteIsHuman = whiteIsHuman
+    private var gameState = 0 //WRITE CODE FOR THIS ACCESSING THE GAME STATE
+    private let blackInputSource: KonaneMoveInputSource 
+    private let whiteInputSource: KonaneMoveInputSource
 
-    }
-    
-    
+
+    init(blackIsHuman: Bool, whiteIsHuman: Bool) {
+
+        if blackIsHuman {
+        	blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)
+        }
+        else {
+        	//FIX ONCE AI CODE EXISTS
+        	blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)
+        }
+        if whiteIsHuman {
+        	whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)
+        }
+        else {
+        	//FIX ONCE AI CODE EXISTS
+        	whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)
+        }
+    }    
 }
 
 
