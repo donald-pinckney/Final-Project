@@ -44,6 +44,6 @@ class KonaneGame {
 		}
 	}
 	private displayBoard() {
-
+		
 	}
 }
