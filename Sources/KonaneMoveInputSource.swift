@@ -20,3 +20,23 @@ Subclasses:
 KonaneMoveInputSourceHuman
 [TeamName]_KonaneMoveInputSourceAI
 */
+
+class KonaneMoveInputSource {
+	var isBlack: Bool
+
+	Init(isBlack: Bool) {
+		self.isBlack = isBlack
+	}
+
+	func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
+		//WRITE CODE
+	}
+
+	func removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
+		//WRITE CODE
+	}
+
+	func nextMove(gameState: KonaneGameState) -> KonaneMove {
+		//WRITE CODE
+	}
+}
