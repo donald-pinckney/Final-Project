@@ -134,13 +134,6 @@ class GameState {
 
 
 
-//Initialized an instance of konaneGameState
-var myKonaneGameState = konaneGameState(width: 16, height: 16, isBlackTurn: false)
-
-
-//Alex's Ideas on how to create a game board
-
-
 
 
 
