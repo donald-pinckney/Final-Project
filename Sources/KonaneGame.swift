@@ -4,12 +4,12 @@ class KonaneGame {
     private let gameState = KonaneGameState()
     init(blackIsHuman: Bool, whiteIsHuman: Bool){
         if blackIsHuman{
-            private let blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)    
+            blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)    
         }else{
             print("Yo.")    
         }
         if whiteIsHuman{
-            private let whiteInputSource = KonaneMoveInputSourceHuman(isBlack: true)        
+            whiteInputSource = KonaneMoveInputSourceHuman(isBlack: true)        
         }else{
             print("Yo.")
         }
