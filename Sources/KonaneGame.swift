@@ -23,11 +23,11 @@ class KonaneGame {
     }
 
     func displayboard(){
-        for indexY in 0..<gameState.width{//prints ROWS
-            if gameState.width - indexY > 9{
-                print("\(gameState.width - indexY)", terminator:"   ")//Terminator is 3 spaces; this prints the index of y wait what
+        for indexY in (0..<gameState.width).reversed(){//prints ROWS
+            if indexY > 9{
+                print("\(indexY)", terminator:"   ")//Terminator is 3 spaces; this prints the index of y wait what
             }else{
-                print("\(gameState.width - indexY)", terminator:"    ")//Terminator is 4 space
+                print("\(indexY)", terminator:"    ")//Terminator is 4 space
             }
             for indexX in 0..<gameState.height{//prints the THINGS in the rows
                 if gameState.color(atX: indexX, atY: indexY) == KonaneColor.black{
@@ -38,6 +38,7 @@ class KonaneGame {
             }
             print("")
         }
+        print("\n      0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15")
     }
 
 }
