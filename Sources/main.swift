@@ -5,5 +5,3 @@ if game.play() {
 else {
   print("Black lost")
 }
-
-game.displayBoard()
