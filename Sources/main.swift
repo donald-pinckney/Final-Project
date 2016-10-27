@@ -1,4 +1,18 @@
 class KonaneGame {
+<<<<<<< HEAD
+    let game = KonaneGame(blackIsHuman: true, whiteIsHuman: true)
+        print("Did black win? \(game.play())")
+    var private gameState: String
+    let private blackInputSource: Int
+    let private whiteInputSource: Int
+
+
+
+
+print("Did black win?\(game.play())")
+git --add
+
+=======
         let game = KonaneGame(blackIsHuman: true, whiteIsHuman: true)
         var BlackIsHuman: Bool
         var WhiteIsHuman: Bool
@@ -65,3 +79,4 @@ class KonaneGameState {
     didBlckWin()
     didWhiteWin()
         /*I don't think you need to add what the function returns as ( ex. -> Bool) but  I could be wrong*/                                                                            }
+>>>>>>> b42b1238932f6506384c588866e0eaf845caa2e1
