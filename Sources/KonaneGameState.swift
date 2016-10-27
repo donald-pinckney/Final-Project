@@ -1,9 +1,28 @@
 class KonaneGameState {
-/*
         width: Int = 16
         height: Int = 16
-        init()
-        private internal board data storage
+        init() {
+                var boardDataStorage = [[KonaneColor]](repeating: [KonaneColor](repeating: KonaneColor.white, count: width), count: height)
+
+                //Sets up the board values by looping through for the y and then x values.
+                for yVal in 0..<height {
+                        if yVal % 2 == 0 {
+                                for xVal in 0..<width {
+                                        if xVal % 2 == 0 {
+                                                boardDataStorage[yVal][xVal] = KonaneColor.black
+                                        }
+                                }
+                        } else {
+                                for xVal in 0..<width {
+                                        if xVal % 2 != 0 {
+                                                boardDataStorage[yVal][xVal] = KonaneColor.black
+                                        }
+                                }
+                        }
+                }
+        }
+        private let boardDataStorage: [[KonaneColor]]
+
         private isBlackTurn: Bool
         getIsBlackTurn() -> Bool
         color(atX: Int, atY: Int) -> KonaneColor // Bottom left, 0-indexed
@@ -15,5 +34,4 @@ class KonaneGameState {
         perform(whiteRemove: (x: Int, y: Int))
         didBlackWin() -> Bool
         didWhiteWin() -> Bool
-*/
 }

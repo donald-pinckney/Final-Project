@@ -11,7 +11,7 @@ KonaneGameState
 	- width: Int = 16
 	- height: Int = 16
 	- init()
-	- private internal board data storage
+	- private boardDataStorage: [[KonaneColor]]
 	- private isBlackTurn: Bool
 	- getIsBlackTurn() -> Bool 
 	- color(atX: Int, atY: Int) -> KonaneColor // Bottom left, 0-indexed
