@@ -105,50 +105,7 @@ func populateGameBoard() {
 //END Populate gameBoard
 
 //BEGIN printGameBoard() (MAY BE MISSPLACED)
-//Prints properly oriented and numbered board
-func printGameBoard() {
-    
-    var arbitraryVariable = 0
-    
-    for rowNumber in (0..<myKonaneGameState.height).reversed() {
-        //Print row numbering
-        if rowNumber < 10 {
-            print(" \(rowNumber)", terminator:" ")
-        }
-        else {
-            print("\(rowNumber)", terminator:" ")
-        }
-        //Print actual board
-        for columnNumber in 0..<myKonaneGameState.width {
-            if myKonaneGameState.gameBoard[columnNumber][rowNumber] == KonaneColor.black {
-                print(" x", terminator: " ") //black square
-            }
-            else if myKonaneGameState.gameBoard[columnNumber][rowNumber] == KonaneColor.white {
-                print(" o", terminator: " ") //white square
-            }
-            else {
-                print("  ", terminator: " ") //empty square
-            }
-        }
-        print() //uses a terminator to make new line
-        //Print column numbering
-        
-    }
-    
-    print("   ", terminator:"")
-    while arbitraryVariable < myKonaneGameState.height {
-        if arbitraryVariable < 10 {
-            print(" \(arbitraryVariable)", terminator: " ")
-        } else {
-            print("\(arbitraryVariable)", terminator: " ")
-            
-        }
-        arbitraryVariable += 1
-    }
-    
-    print()
-}
-//END printGameBoard()
+
 
 //BEGIN color()
 //Note: column -> X, row -> Y
