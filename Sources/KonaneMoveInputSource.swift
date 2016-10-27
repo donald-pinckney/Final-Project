@@ -24,7 +24,7 @@ KonaneMoveInputSourceHuman
 class KonaneMoveInputSource {
 	var isBlack: Bool
 
-	Init(isBlack: Bool) {
+	init(isBlack: Bool) {
 		self.isBlack = isBlack
 	}
 

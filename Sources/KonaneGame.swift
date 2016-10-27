@@ -53,6 +53,9 @@ class KonaneGame {
 
 func play() {
     
+    //First build the game board
+    populateGameBoard()
+    
     //function to print the game board
     displayBoard()
     
@@ -65,6 +68,34 @@ func play() {
 
 
 
+//BEGIN Populate gameBoard
+func populateGameBoard() {
+    for column in 0..<gameState.width {
+        gameState.gameBoard.append([]) //Each column is an array
+        for row in 0..<gameState.height {
+            if column % 2 == 0 { //If column even -> black first
+                if row % 2 == 0 {
+                    gameState.gameBoard[column].append(KonaneColor.black)
+                }
+                else {
+                    gameState.gameBoard[column].append(KonaneColor.white)
+                }
+            }
+            else {
+                if row % 2 == 0 { //If column odd -> white first
+                    gameState.gameBoard[column].append(KonaneColor.white)
+                }
+                else {
+                    gameState.gameBoard[column].append(KonaneColor.black)
+                }
+            }
+        }
+    }
+}
+//END Populate gameBoard
+
+
+
 
 //Displays the game board in terminal
 //FIX WITH PROPER VARIABLE NAMES
@@ -72,7 +103,7 @@ func displayBoard() {
     
     var arbitraryVariable = 0
     
-    for rowNumber in (0..<myKonaneGameState.height).reversed() {
+    for rowNumber in (0..<gameState.height).reversed() {
         //Print row numbering
         if rowNumber < 10 {
             print(" \(rowNumber)", terminator:" ")
@@ -81,11 +112,11 @@ func displayBoard() {
             print("\(rowNumber)", terminator:" ")
         }
         //Print actual board
-        for columnNumber in 0..<myKonaneGameState.width {
-            if myKonaneGameState.gameBoard[columnNumber][rowNumber] == KonaneColor.black {
+        for columnNumber in 0..<gameState.width {
+            if gameState.gameBoard[columnNumber][rowNumber] == KonaneColor.black {
                 print(" x", terminator: " ") //black square
             }
-            else if myKonaneGameState.gameBoard[columnNumber][rowNumber] == KonaneColor.white {
+            else if gameState.gameBoard[columnNumber][rowNumber] == KonaneColor.white {
                 print(" o", terminator: " ") //white square
             }
             else {
@@ -98,7 +129,7 @@ func displayBoard() {
     }
     
     print("   ", terminator:"")
-    while arbitraryVariable < myKonaneGameState.height {
+    while arbitraryVariable < gameState.height {
         if arbitraryVariable < 10 {
             print(" \(arbitraryVariable)", terminator: " ")
         } else {
@@ -111,3 +142,4 @@ func displayBoard() {
     print()
 }
 //END printGameBoard()
+
