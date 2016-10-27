@@ -54,7 +54,11 @@ class KonaneGame {
 func play() {
     
     //function to print the game board
-    //function to remove pieces
+    displayBoard()
+    
+    //function to remove pieces - based on input source?
+    
+    
     //function to jump a piecce
         //if no piece is available to jump, return bool: whiteHasWon: true or blackHasWon: true
 }
