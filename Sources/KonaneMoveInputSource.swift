@@ -40,3 +40,4 @@ class KonaneMoveInputSource {
 		//WRITE CODE
 	}
 }
+
