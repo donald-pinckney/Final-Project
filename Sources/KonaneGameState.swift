@@ -4,8 +4,7 @@ class KonaneGameState {
   private var board: [[KonaneColor]]
   private var isBlackTurn = true
 
-  init() {
-
+  init() { // Sets up board
     var column = [KonaneColor](repeating: KonaneColor.empty, length: height)
     var board = [[KonaneColor]](repeating: column, length: width)
     for x in 0..<width {
@@ -19,7 +18,6 @@ class KonaneGameState {
       }
     }
   }
-
 
   func getIsBlackTurn() -> Bool {
     return isBlackTurn
