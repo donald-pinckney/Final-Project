@@ -37,7 +37,7 @@ class KonaneGameState {
         if move.toX < 0 || move.toY < 0 || move.fromX > 15 || move.fromY > 15 {
             withinBounds = false
         }
-        return withinBounds
+        return withinBounds //YOU STILL NEED TO CHECK: Piece in between, Distance = 1 or -1 (not jumping 2 or diagonal) andouble jumps!!!!
     }
     func isValid(blackRemove: (x: Int, y: Int)) -> Bool{ //checking validity of white and black remove @ start
         return true //AD SRU
