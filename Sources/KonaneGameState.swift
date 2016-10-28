@@ -82,8 +82,13 @@ class konaneGameState{
     }
     //if it is moving in X and not Y
     if move.fromY == move.toY && move.fromX != move.toX {
+      //it must move an even number of spaces
+      if (move.fromX - move.toX) % 2 != 0 {
+        moveIsLegal = false
+      }
       //I need this if...else to make the for loop work, since I don't know which is bigger
       if move.toX > move.fromX {
+        //checks the end location, but the start location is checked elsewhere
         for xToCheck in (move.fromX + 1)...move.toX {
           //all of the spaces that the player jumps to should be empty
           if (xToCheck - move.fromX) % 2 == 0 {
@@ -100,6 +105,7 @@ class konaneGameState{
         }
       }
       else {
+        //checks the end location, but the start location is checked elsewhere
         for xToCheck in move.toX..<move.fromX {
           //all of the spaces that the player jumps to should be empty
           if (move.fromX - xToCheck) % 2 == 0 {
@@ -118,8 +124,13 @@ class konaneGameState{
     }
     //if it is moving in Y and not X
     else if move.fromX == move.toX && move.fromY != move.toY {
+      //it must move an even number of spaces
+      if (move.fromY - move.toY) % 2 != 0 {
+        moveIsLegal = false
+      }
       //I need this if...else to make the for loop work, since I don't know which is bigger
       if move.toY > move.fromY {
+        //checks the end location, but the start location is checked elsewhere
         for yToCheck in (move.fromY + 1)...move.toY {
           //all of the spaces that the player jumps to should be empty
           if (yToCheck - move.fromY) % 2 == 0 {
@@ -136,6 +147,7 @@ class konaneGameState{
         }
       }
       else {
+        //checks the end location, but the start location is checked elsewhere
         for yToCheck in move.toY..<move.fromY {
           //all of the spaces that the player jumps to should be empty
           if (move.fromY - yToCheck) % 2 == 0 {
