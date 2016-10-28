@@ -1,9 +1,9 @@
 //
 //  KonaneGameState.swift
-//  
+//
 //
 //  Created by Alex Hill on 10/20/16.
-//  
+//
 //
 
 import Foundation
@@ -34,7 +34,7 @@ x	- height: Int = 16
 x	- init()
 x	- private internal board data storage
 x	- private isBlackTurn: Bool
-x	- getIsBlackTurn() -> Bool 
+x	- getIsBlackTurn() -> Bool
 x	- color(atX: Int, atY: Int) -> KonaneColor // Bottom left, 0-indexed
 x	- isValid(move: KonaneMove) -> Bool
 x	- isValid(blackRemove: (x: Int, y: Int)) -> Bool
@@ -50,7 +50,7 @@ x	- didWhiteWin() -> Bool
 //SINCE it is included in KonaneColor.swift
 class GameState {
 
-    var width: Int
+  var width: Int
 	var height: Int
 	private var isBlackTurn: Bool
 
@@ -78,13 +78,13 @@ class GameState {
     //
     //ADD ALL ELSE STATEMENTS
     func isValid(move: KonaneMove) -> Bool {
-        /* move returns 4 variables: 
+        /* move returns 4 variables:
             fromX
             fromY
             toX
             toY
 
-    	//WRITE 
+    	//WRITE
         // a move is valid if
            x - the the toX and toY is empty
            x - there is a piece between toX and toY and fromX and fromY
@@ -93,7 +93,7 @@ class GameState {
               x  - if it is a valid gameBoard place
               x  - the space to move to is empty
         */
-        
+
         //IS THIS VALID TO CALL A FUNCTION IN AN IF STATEMENT?
         if isBlackTurn {
             //How do I correctly access the gameBoard and the enum? - FIX
@@ -101,7 +101,7 @@ class GameState {
             if gameBoard[fromX][fromY] == KonaneColor.black {
                 //Is this how I actually add values?
                 //Checks if there is a place to move to
-                //Checks for verticle direction
+                //Checks for verticle cases
                 if fromX == toX {
                     if toY > fromY {
                         if gameBoard[fromX][fromY + 1] == KonaneColor.white && gameBoard[toX][toY] == KonaneColor.empty {
@@ -125,7 +125,7 @@ class GameState {
                             }
                         }
                     }
-                } else if fromY == toY {
+                } else if fromY == toY {    //Checks for horizontal cases
                     if toX > fromX {
                         if gameBoard[fromX + 1][fromY] == KonaneColor.white && gameBoard[toX][toY] == KonaneColor.empty {
                             if abs(toX - fromX) == 4 || abs(toY - fromY) == 4 {
@@ -166,7 +166,7 @@ class GameState {
                             } else {
                                 return true
                             }
-                            
+
                         }
                     } else if toY < fromY {
                         if gameBoard[fromX][fromY - 1] == KonaneColor.black && gameBoard[toX][toY] == KonaneColor.empty {
@@ -204,65 +204,56 @@ class GameState {
                 }
             }
 
-        
-        
+
+
     	print("Does not work")
     	return true
     }
 
     func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
-    	//WRITE 
+    	//WRITE
 
     	print("Does not work")
     	return true
     }
 
     func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
-    	//WRITE 
+    	//WRITE
 
     	print("Does not work")
     	return true
     }
 
     func perform(move: KonaneMove) {
-    	//WRITE 
+    	//WRITE
 
     	print("Does not work")
     }
 
     func perform(blackRemove: (x: Int, y: Int)) {
-    	//WRITE 
+    	//WRITE
 
     	print("Does not work")
     }
 
     func perform(whiteRemove: (x: Int, y: Int)) {
-    	//WRITE 
+    	//WRITE
 
     	print("Does not work")
     }
 
     func didBlackWin() -> Bool {
-    	//WRITE 
+    	//WRITE
 
     	print("Does not work")
     	return false
     }
 
     func didWhiteWin() -> Bool {
-    	//WRITE 
+    	//WRITE
 
     	print("Does not work")
     	return false
     }
 
 }
-
-
-
-
-
-
-
-
-
