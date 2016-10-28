@@ -75,9 +75,137 @@ class GameState {
     	return gameBoard[atX][atY]
     }
 
+    //
+    //ADD ALL ELSE STATEMENTS
     func isValid(move: KonaneMove) -> Bool {
-    	//WRITE 
+        /* move returns 4 variables: 
+            fromX
+            fromY
+            toX
+            toY
 
+    	//WRITE 
+        // a move is valid if
+           x - the the toX and toY is empty
+           x - there is a piece between toX and toY and fromX and fromY
+           x - include double jump
+              x  - is there a piece between each jump
+              x  - if it is a valid gameBoard place
+              x  - the space to move to is empty
+        */
+        
+        //IS THIS VALID TO CALL A FUNCTION IN AN IF STATEMENT?
+        if isBlackTurn {
+            //How do I correctly access the gameBoard and the enum? - FIX
+            //Check if this is a valid piece for the user to move
+            if gameBoard[fromX][fromY] == KonaneColor.black {
+                //Is this how I actually add values?
+                //Checks if there is a place to move to
+                //Checks for verticle direction
+                if fromX == toX {
+                    if toY > fromY {
+                        if gameBoard[fromX][fromY + 1] == KonaneColor.white && gameBoard[toX][toY] == KonaneColor.empty {
+                            if abs(toX - fromX) == 4 || abs(toY - fromY) == 4 {
+                                if gameBoard[toX][toY - 1] {
+                                    return true
+                                }
+                            } else {
+                                return true
+                            }
+
+                        }
+                    } else if toY < fromY {
+                        if gameBoard[fromX][fromY - 1] == KonaneColor.white && gameBoard[toX][toY] == KonaneColor.empty {
+                            if abs(toX - fromX) == 4 || abs(toY - fromY) == 4 {
+                                if gameBoard[toX][toY + 1] {
+                                    return true
+                                }
+                            } else {
+                                return true
+                            }
+                        }
+                    }
+                } else if fromY == toY {
+                    if toX > fromX {
+                        if gameBoard[fromX + 1][fromY] == KonaneColor.white && gameBoard[toX][toY] == KonaneColor.empty {
+                            if abs(toX - fromX) == 4 || abs(toY - fromY) == 4 {
+                                if gameBoard[toX - 1][toY] {
+                                    return true
+                                }
+                            } else {
+                                return true
+                            }
+                        }
+                    } else if toX < fromX {
+                        if gameBoard[fromX - 1][fromY] == KonaneColor.white && gameBoard[toX][toY] == KonaneColor.empty {
+                            if abs(toX - fromX) == 4 || abs(toY - fromY) == 4 {
+                                if gameBoard[toX + 1][toY] {
+                                    return true
+                                }
+                            } else {
+                                return true
+                            }
+                        }
+                    }
+                }
+            }
+        } else if !isBlackTurn {
+            //How do I correctly access the gameBoard and the enum? - FIX
+            //Check if this is a valid piece for the user to move
+            if gameBoard[fromX][fromY] == KonaneColor.white {
+                //Is this how I actually add values?
+                //Checks if there is a place to move to
+                //Checks for verticle direction
+                if fromX == toX {
+                    if toY > fromY {
+                        if gameBoard[fromX][fromY + 1] == KonaneColor.black && gameBoard[toX][toY] == KonaneColor.empty {
+                            if abs(toX - fromX) == 4 || abs(toY - fromY) == 4 {
+                                if gameBoard[toX][toY - 1] {
+                                    return true
+                                }
+                            } else {
+                                return true
+                            }
+                            
+                        }
+                    } else if toY < fromY {
+                        if gameBoard[fromX][fromY - 1] == KonaneColor.black && gameBoard[toX][toY] == KonaneColor.empty {
+                            if abs(toX - fromX) == 4 || abs(toY - fromY) == 4 {
+                                if gameBoard[toX][toY + 1] {
+                                    return true
+                                }
+                            } else {
+                                return true
+                            }
+                        }
+                    }
+                } else if fromY == toY {
+                    if toX > fromX {
+                        if gameBoard[fromX + 1][fromY] == KonaneColor.black && gameBoard[toX][toY] == KonaneColor.empty {
+                            if abs(toX - fromX) == 4 || abs(toY - fromY) == 4 {
+                                if gameBoard[toX - 1][toY] {
+                                    return true
+                                }
+                            } else {
+                                return true
+                            }
+                        }
+                    } else if toX < fromX {
+                        if gameBoard[fromX - 1][fromY] == KonaneColor.black && gameBoard[toX][toY] == KonaneColor.empty {
+                            if abs(toX - fromX) == 4 || abs(toY - fromY) == 4 {
+                                if gameBoard[toX + 1][toY] {
+                                    return true
+                                }
+                            } else {
+                                return true
+                            }
+                        }
+                    }
+                }
+            }
+
+        
+        
     	print("Does not work")
     	return true
     }
