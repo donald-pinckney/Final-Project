@@ -15,9 +15,9 @@ class KonaneGame {
         BlackIsHuman = blackIsHuman
         WhiteIsHuman = whiteIsHuman
         if BlackIsHuman == false {
-        WhiteIsHuman == true
+        WhiteIsHuman = true
         } else {
-            BlackIsHuman == true
+            BlackIsHuman = true
         }
      }
 }
@@ -47,7 +47,7 @@ class KonaneGameState {
     
     init() {
         for x in 0..<width {
-            for y in 0..< height {
+            
                 if (x + y) % 2 == 0{
                     InternalBoardDataStorage[x][y] = KonaneColor.black
                 }
@@ -67,4 +67,4 @@ class KonaneGameState {
     perform(whiteRemove: (x: Int, y: Int))
     didBlckWin()
     didWhiteWin()
-        /*I don't think you need to add what the function returns as ( ex. -> Bool) but  I could be wrong*/                                                                            }
+        /*I don't think you need to add what the function returns as ( ex. -> Bool) but  I could be wrong*/                                                                          
