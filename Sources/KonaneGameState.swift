@@ -33,11 +33,19 @@ class KonaneGameState {
     }
     
     func isValid(move: KonaneMove) -> Bool{ //checking validity of ANY move
-        var withinBounds = true
         if move.toX < 0 || move.toY < 0 || move.fromX > 15 || move.fromY > 15 {
-            withinBounds = false
+            return false
         }
-        return withinBounds //YOU STILL NEED TO CHECK: Piece in between, Distance = 1 or -1 (not jumping 2 or diagonal) andouble jumps!!!!
+        //ok this is checking the piece in btween and the distance? i hope?
+        if move.fromX + 2 == move.toX {
+            if getIsBlackTurn() && gameBoard[fromX + 1][fromY] == KonaneColor.white {
+
+            }
+        }else if move.fromX - 2 == move.toX {
+            
+        }
+
+        return true//YOU STILL NEED TO CHECK: Piece in between, Distance = 1 or -1 (not jumping 2 or diagonal) andouble jumps!!!!
     }
     func isValid(blackRemove: (x: Int, y: Int)) -> Bool{ //checking validity of white and black remove @ start
         return true //AD SRU
