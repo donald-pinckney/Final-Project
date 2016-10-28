@@ -66,10 +66,10 @@ class konaneGameState{
       moveIsLegal = false
     }
     //Is the move being made by the right player
-    if isBlackTurn && (color(atX: move.fromX, atY: move.fromY) != black {
+    if isBlackTurn && (color(atX: move.fromX, atY: move.fromY) != KonaneColor.black) {
       moveIsLegal = false
     }
-    if !isBlackTurn && (color(atX: move.fromX, atY: move.fromY) != white {
+    if !isBlackTurn && (color(atX: move.fromX, atY: move.fromY) != KonaneColor.white) {
       moveIsLegal = false
     }
     //Note: this says which color's turn it is, which will be useful later
@@ -98,7 +98,7 @@ class konaneGameState{
           }
           //all of the spaces that the player jumps over should be the opposite color as the player
           else {
-            if color(atX: xToCheck, atY: move.fromY) == empty || color(atX: xToCheck, atY: move.fromY) == turnColor {
+            if color(atX: xToCheck, atY: move.fromY) == KonaneColor.empty || color(atX: xToCheck, atY: move.fromY) == turnColor {
               moveIsLegal = false
             }
           }
@@ -115,7 +115,7 @@ class konaneGameState{
           }
           //all of the spaces that the player jumps over should be the opposite color as the player
           else {
-            if color(atX: xToCheck, atY: move.fromY) == empty || color(atX: xToCheck, atY: move.fromY) == turnColor {
+            if color(atX: xToCheck, atY: move.fromY) == KonaneColor.empty || color(atX: xToCheck, atY: move.fromY) == turnColor {
               moveIsLegal = false
             }
           }
@@ -140,7 +140,7 @@ class konaneGameState{
           }
           //all of the spaces that the player jumps over should be the opposite color as the player
           else {
-            if color(atX: move.fromX, atY: yToCheck) == empty || color(atX: move.fromX, atY: yToCheck) == turnColor {
+            if color(atX: move.fromX, atY: yToCheck) == KonaneColor.empty || color(atX: move.fromX, atY: yToCheck) == turnColor {
               moveIsLegal = false
             }
           }
@@ -157,7 +157,7 @@ class konaneGameState{
           }
           //all of the spaces that the player jumps over should be the opposite color as the player
           else {
-            if color(atX: move.fromX, atY: yToCheck) == empty || color(atX: move.fromX, atY: yToCheck) == turnColor {
+            if color(atX: move.fromX, atY: yToCheck) == KonaneColor.empty || color(atX: move.fromX, atY: yToCheck) == turnColor {
               moveIsLegal = false
             }
           }

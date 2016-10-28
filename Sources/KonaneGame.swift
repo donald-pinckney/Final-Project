@@ -1,8 +1,6 @@
 class KonaneGame{
   let blackIsHuman: Bool
   let whiteIsHuman: Bool
-  private let blackInputSource: KonaneMoveInputSource
-  private let whiteInputSource: KonaneMoveInputSource
 
   //generates a game board and various related functions
   private let gameState = konaneGameState()
@@ -33,22 +31,18 @@ class KonaneGame{
     if blackIsHuman {
       print("Enter the character that you want black to appear as on the display of the board")
       self.blackCharacter = String(readLine()!)!
-      self.blackInputSource: KonaneMoveInputSource = KonaneMoveInputSource(isBlack: true)
     }
     else {
       print("Black will be displayed as 'X'")
       blackCharacter = "X"
-      self.blackInputSource: KonaneMoveInputSource = KonaneMoveInputSource(isBlack: true)
     }
     if whiteIsHuman {
       print("Enter the character that you want white to appear as on the display of the board")
       self.whiteCharacter = String(readLine()!)!
-      self.whiteInputSource: KonaneMoveInputSource = KonaneMoveInputSource(isBlack: false)
     }
     else {
       print("White will be displayed as 'O'")
       whiteCharacter = "O"
-      self.whiteInputSource: KonaneMoveInputSource = KonaneMoveInputSource(isBlack: false)
     }
   }
 
