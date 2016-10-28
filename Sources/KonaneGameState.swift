@@ -33,9 +33,15 @@ class KonaneGameState {
     // Check if selected piece is valid
     if !(0 <= fromX < width) && !(0 <= fromY < height) {
       return false
-    } else if {
       // color matches turn color
-      return false
+    } else if gameState.getIsBlackTurn() {
+      if board[fromX][fromY] != black {
+        return false
+      }
+    } else if !gameState.getIsBlackTurn() {
+      if board[fromX][fromY] != white {
+        return false
+      }
     }
 
     // Check if move is valid
