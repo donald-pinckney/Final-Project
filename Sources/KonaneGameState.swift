@@ -48,21 +48,21 @@ class KonaneGameState {
       return false
     }
 
+    if board[toX][toY] != empty { //makes sure jump target is possible
+      return false
+    }
+
     // Need to add code to check for moves that jump more than once
     // Go over this section with fresh set of eyes
-    if !(fromX == toX + 2) || !(fromX == toX - 2) {
-      if (fromX == toX) {
-        if !(fromY == toY + 2) || !(fromY == toY - 2) {
-          return false
-        } else {
-          return true
-        }
-      } else {
-        return false
-      }
-    } else {
-      return true
+    if (fromX - toX % 2) == 0  && fromY == toY { //check if target is to the left/right
+        return true
     }
+
+    if (fromY - toY % 2) == 0  && fromX == toX { //check if target is to the left/right
+        return true
+    }
+
+    return false
   }
 
   func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
