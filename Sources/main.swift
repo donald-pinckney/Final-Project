@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-
+//Do we need the HEAD thing?
 =======
 class KonaneGame {
 	let game = KonaneGame(blackIsHuman: true, whiteIsHuman: true)
