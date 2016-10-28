@@ -73,13 +73,14 @@ class konaneGameState{
       moveIsLegal = false
     }
     //Note: this says which color's turn it is, which will be useful later
-    var turnColor: KonaneColor = KonaneColor.empty
+    let turnColor: KonaneColor
     if isBlackTurn {
       turnColor = KonaneColor.black
     }
     else {
       turnColor = KonaneColor.white
     }
+
     //if it is moving in X and not Y
     if move.fromY == move.toY && move.fromX != move.toX {
       //it must move an even number of spaces
