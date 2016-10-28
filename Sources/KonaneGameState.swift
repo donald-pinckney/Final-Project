@@ -2,6 +2,7 @@ class KonaneGameState {
   let width = 16
   let height = 16
   private var board: [[KonaneColor]]
+  private var isBlackTurn = true
 
   init() {
 
@@ -19,7 +20,7 @@ class KonaneGameState {
     }
   }
 
-  private isBlackTurn: Bool
+
   func getIsBlackTurn() -> Bool {
     return isBlackTurn
   }
