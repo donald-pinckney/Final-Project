@@ -54,7 +54,7 @@ class KonaneGame {
 			print(rowToString(board, i))
 		}
 	}
-	func rowToString(_ b: [[KonanaColor]], _ row: Int) -> string {
+	private func rowToString(_ b: [[KonanaColor]], _ row: Int) -> string {
 		let returnString: String = ""
 		for i in 0..<gameState.width {
 			let type: String
