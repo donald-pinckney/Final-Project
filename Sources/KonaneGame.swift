@@ -44,6 +44,22 @@ class KonaneGame {
 		}
 	}
 	private displayBoard() {
-		
+		/*
+		how its gonna get implemented:
+		1: make an empty string for each row
+		2: append each value for that row, with a space between each one
+		3: print each row
+		*/
+		for i in 0..<gameState.height {
+			print(rowToString(board, i))
+		}
+	}
+	func rowToString(_ b: [[KonanaColor]], _ row: Int) -> string {
+		let returnString: String = ""
+		for i in 0..<gameState.width {
+			returnString.append(b[i][row])
+			returnString.append(" ")
+		}
+		return returnString
 	}
 }
