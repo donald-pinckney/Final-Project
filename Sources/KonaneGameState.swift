@@ -36,11 +36,9 @@ class KonaneGameState {
         if move.toX < 0 || move.toY < 0 || move.fromX > 15 || move.fromY > 15 {
             return false
         }
-        //ok this is checking the piece in btween and the distance? i hope?
+        //MKAE FUNCTION TO CHECK IF MOVE IS VALID SO YOU CAN LOOP IT FOR DOUBLE JUMPS
         if move.fromX + 2 == move.toX {
-            if getIsBlackTurn() && gameBoard[fromX + 1][fromY] == KonaneColor.white {
-
-            }
+            
         }else if move.fromX - 2 == move.toX {
             
         }
@@ -52,5 +50,19 @@ class KonaneGameState {
     }
     func isValid(whiteRemove: (x: Int, y: Int)) -> Bool{
         return true //ADD HE
+    }
+    func checkForPiece(_ direction: moveDirection, _ move: KonaneMove) -> Bool{ //if true is returned, there's a piece lol
+        if direction == moveDirection.north {                                   //yes i know theres a better way to do this
+            if getIsBlackTurn() {
+                return gameBoard[move.fromX][move.fromY + 1] == KonaneColor.white
+            }else {
+                return gameBoard[move.fromX][move.fromY + 1] == KonaneColor.black
+        }else if direction == moveDirection.east {
+
+        }else if direction == moveDirection.south {
+
+        }else if direction == moveDirection.west {
+
+        }
     }
 }
