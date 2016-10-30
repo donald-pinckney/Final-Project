@@ -57,7 +57,15 @@ class KonaneGame {
 	func rowToString(_ b: [[KonanaColor]], _ row: Int) -> string {
 		let returnString: String = ""
 		for i in 0..<gameState.width {
-			returnString.append(b[i][row])
+			let type: String
+			if board[i][row] == KonaneColor.white {
+				type = "x"
+			} else if board[i][row] == KonaneColor.black {
+				type = "o"
+			} else {
+				type = " "
+			}
+			returnString.append()
 			returnString.append(" ")
 		}
 		return returnString
