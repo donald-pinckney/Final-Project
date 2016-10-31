@@ -1,7 +1,7 @@
 class KonaneGame {
-	private gameState: KonaneGameState
-	private blackInputSource: KonaneMoveInputSource
-	private whiteInputSource: KonaneMoveInputSource
+	private let gameState: KonaneGameState = KonaneGameState()
+	private let blackInputSource: KonaneMoveInputSource
+	private let whiteInputSource: KonaneMoveInputSource
 	init(blackIsHuman: Bool, whiteIsHuman: Bool) {
 		if blackIsHuman {
 			blackInputSource = KonanMoveInputSourceHuman(isBlack: true)
@@ -43,7 +43,7 @@ class KonaneGame {
 			gameState.perform(move: mainGameMove)
 		}
 	}
-	private displayBoard() {
+	private func displayBoard() {
 		/*
 		how its gonna get implemented:
 		1: make an empty string for each row

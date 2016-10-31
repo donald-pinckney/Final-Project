@@ -3,13 +3,13 @@ class KonaneMoveInputSource {
 	init(isBlack: Bool) {
 		self.isBlack = isBlack
 	}
-	removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
+	func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
 		fatalError("Needs to be overrided")
 	}
-	removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
+	func removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
 		fatalError("Needs to be overrided")
 	}
-	nextMove(gameState: KonaneGameState) -> KonaneMoves {
+	func nextMove(gameState: KonaneGameState) -> KonaneMoves {
 		fatalError("Needs to be overrided")
 	}
 }
