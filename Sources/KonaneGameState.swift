@@ -66,11 +66,12 @@ class KonaneGameState {
   }
 
   func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
-
+    return true
 
   }
 
   func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
+    return true
 
   }
   perform(move: KonaneMove)
