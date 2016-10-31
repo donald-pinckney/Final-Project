@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
 class KonaneGame {
 	let game = KonaneGame(blackIsHuman: true, whiteIsHuman: true)
 		print("Did black win? \(game.play())")
@@ -10,6 +9,7 @@ class KonaneGame {
 			WhiteIsHuman == true
 		} else {
 			BlackIsHuman == true
+            WhiteIsHuman == false
 		}
 	}
 	var private.gameState: KonaneGameState
@@ -17,13 +17,13 @@ class KonaneGame {
 	let private.whiteInputSource: KonaneMoveInputSource
 }
 class Konane {
-	width: Int = 16
-	height: Int = 16
+	let width: Int = 16
+	let height: Int = 16
 	init() {}
 	private.internalboarddatastorage: 
 	private.isBlackTurn: Bool
-	var getIsBlackTurn: Bool
-	let color: atX: Int, atY: Int) -> KonaneColor
+    let getIsBlackTurn: Bool
+	func color(atX: Int, atY: Int) -> KonaneColor
 //Are the following functions? The ones that I pointed out down in the list????
 	func isValid(move: KonaneMove) -> Bool
 	func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
@@ -82,13 +82,9 @@ class KonaneGameState
 
 
 
->>>>>>> 0cd73873c1727dea7f9981186c76b6059b4e7d49
-=======
 let game = KonaneGame(blackIsHuman: true, whiteIsHuman: true)
 print("Did black win? \(game.play())")
 
-=======
->>>>>>> d12587624ddbceed2f4ba2acd360871ee6b3a899
 class KonaneGame {
 
      private var gameState: KonaneGameState
@@ -128,8 +124,8 @@ class KonaneMove {
 class KonaneMoveInputSource {
     init(isBlack: Bool)
     var isBlack
-    init(removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int))
-    init(removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int))
+    init(_:removeFirstPiece(gameState: KonaneGameState)) -> (x: Int, y: Int)
+    init(_:removeSecondPiece(gameState: KonaneGameState)) -> (x: Int, y: Int)
     let removeFirstPiece
     let removeSecondPiece
     nextMove(gameState: KonaneGameState) -> KonaneMove
@@ -166,7 +162,6 @@ class KonaneGameState {
     */
 }
         /*I don't think you need to add what the function returns as ( ex. -> Bool) but  I could be wrong*/                                                                            }
-=======
     /* I think this is how to call a function with either print(function) or just saying the function with parameters but I'm not entirely sure */
    
    /* Bottom left, 0-indexed are the following properties functions, cuz I'm not really sure... */
