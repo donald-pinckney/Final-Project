@@ -1,13 +1,11 @@
-class KonaneMoveInputSource {
-	init(isBlack: Bool)
-  isBlack
-	func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
+class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
+	override func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
+		
+  }
+	override func removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
 
   }
-	func removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
-
-  }
-	func nextMove(gameState: KonaneGameState) -> KonaneMove { 
+	override func nextMove(gameState: KonaneGameState) -> KonaneMove {
 
   }
 }
