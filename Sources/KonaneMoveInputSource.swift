@@ -21,3 +21,27 @@ class KonaneMoveInputSource {
     return move
   }
 }
+
+class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
+  override func removeFirstPiece(gameState: konaneGameState) -> (x: Int, y: Int) {
+    print ("Black, please enter the x coordinate of the piece that you want to move, than the y coordinate")
+    let xLocation = Int(readLine()!)!
+    let yLocation = Int(readLine()!)!
+    return (xLocation, yLocation)
+  }
+  override func removeSecondPiece(gameState: konaneGameState) -> (x: Int, y: Int) {
+    print ("White, please enter the x coordinate of the piece that you want to move, than the y coordinate")
+    let xLocation = Int(readLine()!)!
+    let yLocation = Int(readLine()!)!
+    return (xLocation, yLocation)
+  }
+  override func nextMove(gameState: konaneGameState) -> KonaneMove {
+    print("Enter the x coordinate, then the y coordinate of the current location of the piece you want to move")
+    let xStart = Int(readLine()!)!
+    let yStart = Int(readLine()!)!
+    print("Now, enter the x coordinate of the end target of your move, then the y coordinate")
+    let xEnd = Int(readLine()!)!
+    let yEnd = Int(readLine()!)!
+    return KonaneMove(fromX: xStart, fromY: yStart, toX: xEnd, toY: yEnd)
+  }
+}
