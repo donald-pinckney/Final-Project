@@ -185,17 +185,18 @@ class konaneGameState{
 
   // checks if white can remove a piece at a location at the start of the game, after black
   func isLegal(whiteRemove: (x: Int, y: Int)) -> Bool {
-    let distances = [-1, 1]
     var legality = false
-    for xDif in distances {
-      for yDif in distances {
-        //checks if any real space next to the location to remove the black piece is empty
-        if (whiteRemove.x + xDif) > -1 && (whiteRemove.x + xDif) < 16 && (whiteRemove.y + yDif) > -1 && (whiteRemove.y + yDif) < 16 {
-          if color(atX: whiteRemove.x + xDif, atY: whiteRemove.x + yDif) == KonaneColor.empty {
-            legality = true
-          }
-        }
-      }
+    if (whiteRemove.x > 0) && (color(atX: whiteRemove.x - 1, atY: whiteRemove.y) == KonaneColor.empty) {
+      legality = true
+    }
+    if (whiteRemove.x < 15) && (color(atX: whiteRemove.x + 1, atY: whiteRemove.y) == KonaneColor.empty) {
+      legality = true
+    }
+    if (whiteRemove.y > 0) && (color(atX: whiteRemove.x, atY: whiteRemove.y - 1) == KonaneColor.empty) {
+      legality = true
+    }
+    if (whiteRemove.y < 15) && (color(atX: whiteRemove.x, atY: whiteRemove.y + 1) == KonaneColor.empty) {
+      legality = true
     }
     return legality
   }
