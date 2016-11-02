@@ -11,7 +11,7 @@ import Foundation
 class KonaneMoveInputSourceHuman: KonaneMoveInputSoure {
 
 	override func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
-		print("What is the first piece you'd like to remove?"\n"X:")
+		print("What is the first piece you'd like to remove?\nX:")
 		var xCoor: Int = readline(()!)!
 		print("Y:")
 		var yCoor: Int = readline(()!)!
