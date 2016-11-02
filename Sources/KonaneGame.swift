@@ -14,6 +14,8 @@ class KonaneGame{
   //lets the player choose what character represents x and what represents y
   let blackCharacter: String
   let whiteCharacter: String
+  let blackPlayer: KonaneMoveInputSource
+  let whitePlayer: KonaneMoveInputSource
 
   init(blackIsHuman: Bool, whiteIsHuman: Bool) {
     //sets whether black and white are humans or AIs
@@ -30,23 +32,43 @@ class KonaneGame{
     //takes user input if player is a human or automatically sets black to 'X' or y to 'O' if the player is an AI
     if blackIsHuman {
       print("Enter the character that you want black to appear as on the display of the board")
-      self.blackCharacter = String(readLine()!)!
+      blackCharacter = String(readLine()!)!
+      blackPlayer = KonaneMoveInputSourceHuman(isBlack: true)
     }
     else {
       print("Black will be displayed as 'X'")
       blackCharacter = "X"
+      blackPlayer = KonaneMoveInputSource(isBlack: true)
     }
     if whiteIsHuman {
       print("Enter the character that you want white to appear as on the display of the board")
-      self.whiteCharacter = String(readLine()!)!
+      whiteCharacter = String(readLine()!)!
+      whitePlayer = KonaneMoveInputSourceHuman(isBlack: false)
     }
     else {
       print("White will be displayed as 'O'")
       whiteCharacter = "O"
+      whitePlayer = KonaneMoveInputSource(isBlack: false)
     }
   }
 
   func play() -> Bool {
+    displayBoard()
+    //takes and checks a remove from black
+    var blackRemoveToCheck = blackPlayer.removeFirstPiece(gameState: gameState)
+    while(!gameState.isLegal(blackRemove: blackRemoveToCheck)) {
+      print("I'm sorry, that is not a legal move")
+      blackRemoveToCheck = blackPlayer.removeFirstPiece(gameState: gameState)
+    }
+    gameState.perform(blackRemove: blackRemoveToCheck)
+    displayBoard()
+    //takes and checks a remove from white
+    var whiteRemoveToCheck = whitePlayer.removeSecondPiece(gameState: gameState)
+    while(!gameState.isLegal(whiteRemove: whiteRemoveToCheck)) {
+      print("I'm sorry, that is not a legal move")
+      whiteRemoveToCheck = whitePlayer.removeSecondPiece(gameState: gameState)
+    }
+    gameState.perform(whiteRemove: whiteRemoveToCheck)
     displayBoard()
     return false
   }
@@ -68,7 +90,7 @@ class KonaneGame{
         lineString.append(" \(blackCharacter) ")
       }
       else {
-        lineString.append("  ")
+        lineString.append("   ")
       }
     }
     return lineString

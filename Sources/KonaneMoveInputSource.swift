@@ -24,13 +24,13 @@ class KonaneMoveInputSource {
 
 class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
   override func removeFirstPiece(gameState: konaneGameState) -> (x: Int, y: Int) {
-    print ("Black, please enter the x coordinate of the piece that you want to move, than the y coordinate")
+    print ("Black, please enter the x coordinate of the piece that you want to remove, than the y coordinate")
     let xLocation = Int(readLine()!)!
     let yLocation = Int(readLine()!)!
     return (xLocation, yLocation)
   }
   override func removeSecondPiece(gameState: konaneGameState) -> (x: Int, y: Int) {
-    print ("White, please enter the x coordinate of the piece that you want to move, than the y coordinate")
+    print ("White, please enter the x coordinate of the piece that you want to remove, than the y coordinate")
     let xLocation = Int(readLine()!)!
     let yLocation = Int(readLine()!)!
     return (xLocation, yLocation)
