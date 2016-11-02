@@ -4,7 +4,7 @@ class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
 			print("Input x (black):")
 			let x = Int(readLine()!)!
 			print("Input y (black):")
-      let y = Int(readLine()!)!
+      			let y = Int(readLine()!)!
 
 			if gameState.isValid(blackRemove: (x, y)) {
 				return (x, y)
