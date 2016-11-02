@@ -12,16 +12,16 @@ class KonaneGame {
             WhiteIsHuman == false
 		}
 	}
-	var private.gameState: KonaneGameState
-	let private.blackInputSource: KonaneMoveInputSource
-	let private.whiteInputSource: KonaneMoveInputSource
+	private var gameState: KonaneGameState
+	private let blackInputSource: KonaneMoveInputSource
+	private let whiteInputSource: KonaneMoveInputSource
 }
 class Konane {
 	let width: Int = 16
 	let height: Int = 16
 	init() {}
-	private.internalboarddatastorage: 
-	private.isBlackTurn: Bool
+	internalboarddatastorage () 
+	private isBlackTurn: Bool
     let getIsBlackTurn: Bool
 	func color(atX: Int, atY: Int) -> KonaneColor
 //Are the following functions? The ones that I pointed out down in the list????
@@ -48,11 +48,11 @@ class KonaneMove {
 	var fromY
 	var toX
 	var toY
-class KonaneGameState
+class KonaneGameState {
     let width: Int = 16
     let height: Int = 16
     var init()
-    private  InternalBoardDataStorage
+    private InternalBoardDataStorage
     /* the InternalBoardDataStorage wasn't working because I think internal by itself is a command so I changed it to be a name all together */
     private var isBlackTurn: Bool
     print(getIsBlackTurn)
@@ -72,15 +72,7 @@ class KonaneGameState
    didBlackWin()
    didWhiteWin()
    /*I don't think you need to add what the function returns as ( ex. -> Bool) but I could be wrong*/
-
-
-
-
-
-
-
-
-
+}
 
 let game = KonaneGame(blackIsHuman: true, whiteIsHuman: true)
 print("Did black win? \(game.play())")
@@ -174,6 +166,4 @@ class KonaneGameState {
    perform(whiteRemove: (x: Int, y: Int))
    didBlackWin()
    didWhiteWin()
-   /*I don't think you need to add what the function returns as ( ex. -> Bool) but I could be wrong*/
-
-                                                                         
+   /*I don't think you need to add what the function returns as ( ex. -> Bool) but I could be wrong*/ 
