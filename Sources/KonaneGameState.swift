@@ -80,19 +80,41 @@ class KonaneGameState {
     func isValid(move: KonaneMove) -> Bool {
       return true
     }
-
+    //Done?
     func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
-    	//WRITE
-
-    	print("Does not work")
-    	return true
+        returnBool = false
+        if isBlackTurn {
+            for column in 0..<width {
+                for row in 0..<height {
+                    if gameBoard[column][row] == KonaneColor.black {
+                        if x + y == 0 || x == width - 1 && y == 0 || x == 0 && y == height - 1 || x == width - 1 && y == height - 1 {
+                            returnBool = true
+                        } else if x == (width/2) - 0 && y == (height/2) - 0 || x == (width/2) - 1  && y == (height/2) - 0 || x == (width/2) - 0 && y == (height/2) - 1 || x == (width/2) - 1 && y == (height/2) - 1 {
+                            returnBool = true
+                        }
+                    }
+                }
+            }
+        }
+        return returnBool
     }
-
+    //Done?
     func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
-    	//WRITE
-
-    	print("Does not work")
-    	return true
+    	returnBool = false
+        if !isBlackTurn {
+            for column in 0..<width {
+                for row in 0..<height {
+                    if gameBoard[column][row] == KonaneColor.white {
+                        if x + y == 0 || x == width - 1 && y == 0 || x == 0 && y == height - 1 || x == width - 1 && y == height - 1 {
+                            returnBool = true
+                        } else if x == (width/2) - 0 && y == (height/2) - 0 || x == (width/2) - 1  && y == (height/2) - 0 || x == (width/2) - 0 && y == (height/2) - 1 || x == (width/2) - 1 && y == (height/2) - 1 {
+                            returnBool = true
+                        }
+                    }
+                }
+            }
+        }
+        return returnBool
     }
 
     func perform(move: KonaneMove) {
