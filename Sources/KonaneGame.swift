@@ -47,7 +47,6 @@ class KonaneGame {
         	whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)
         }
     }
-}
 
 func displayBoard() {
     var arbitraryVariable = 0
@@ -96,4 +95,5 @@ func play() -> Bool {
       break
     }
     return false
+}
 }
