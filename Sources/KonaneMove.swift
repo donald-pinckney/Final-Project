@@ -1,6 +1,6 @@
 //
 //  KonaneMove.swift
-//  
+//
 //
 //  Created by Alex Hill on 10/20/16.
 //
@@ -19,10 +19,10 @@ x	- toY
 
 class KonaneMove {
 
-	let fromX: Int = 0
-	let fromY: Int = 0
-	let toX: Int = 0
-	let toY: Int = 0
+	let fromX: Int
+	let fromY: Int
+	let toX: Int
+	let toY: Int
 
 	init (fromX: Int, fromY: Int, toX: Int, toY: Int) {
 		self.fromX = fromX
@@ -31,4 +31,3 @@ class KonaneMove {
 		self.toY = toY
 	}
 }
-

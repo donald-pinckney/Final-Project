@@ -8,7 +8,7 @@
 
 import Foundation
 
-class KonaneMoveInputSourceHuman: KonaneMoveInputSoure{
+class KonaneMoveInputSourceHuman: KonaneMoveInputSoure {
 
 	override func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
 		print("What is the first piece you'd like to remove?\nX:")

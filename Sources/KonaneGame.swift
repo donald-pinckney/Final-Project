@@ -25,7 +25,7 @@ x   - private whiteInputSource: KonaneMoveInputSource
 //WILL FIX LATER FIRST GETTING INITIALIZATION DONE
 class KonaneGame {
 
-    private var gameState = GameState(width: 16, height: 16, isBlackTurn: true)
+    private var gameState = KonaneGameState(width: 16, height: 16, isBlackTurn: true)
     private let blackInputSource: KonaneMoveInputSource
     private let whiteInputSource: KonaneMoveInputSource
 
