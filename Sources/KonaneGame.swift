@@ -70,6 +70,28 @@ class KonaneGame{
     }
     gameState.perform(whiteRemove: whiteRemoveToCheck)
     displayBoard()
+    for turn in 1...500 {
+      var currentBlackMove = blackPlayer.nextMove(gameState: gameState)
+      while(!gameState.isLegal(move: currentBlackMove)) {
+        print("I'm sorry, but that move is not legal. Please try again.")
+        currentBlackMove = blackPlayer.nextMove(gameState: gameState)
+      }
+      gameState.perform(move: currentBlackMove)
+      if gameState.didBlackWin() {
+        return true
+      }
+      gameState.nextTurn()
+      var currentWhiteMove = whitePlayer.nextMove(gameState: gameState)
+      while(!gameState.isLegal(move: currentBlackMove)) {
+        print("I'm sorry, but that move is not legal. Please try again.")
+        currentWhiteMove = whitePlayer.nextMove(gameState: gameState)
+      }
+      gameState.perform(move: currentWhiteMove)
+      if gameState.didWhiteWin() {
+        return false
+      }
+      gameState.nextTurn()
+    }
     return false
   }
 

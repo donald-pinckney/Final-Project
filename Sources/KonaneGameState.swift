@@ -38,12 +38,8 @@ class konaneGameState{
 
   //tells the game that the turn has changed
   func nextTurn() {
-    if isBlackTurn {
-      isBlackTurn = false
-    }
-    else {
-      isBlackTurn = true
-    }
+    let currentTurn = isBlackTurn
+    isBlackTurn = !currentTurn
   }
 
   //changes an x value and a y value into a location in the array representing the game board
@@ -218,11 +214,37 @@ class konaneGameState{
 
   //checks if black won
   func didBlackWin() -> Bool {
-    return false
+    var didWin = true
+    isBlackTurn = true
+    for xStartToCheck in 0...15 {
+      for yStartToCheck in 0...15 {
+        for xEndToCheck in 0...15 {
+          for yEndToCheck in 0...15 {
+            if isLegal(move: KonaneMove(fromX: xStartToCheck, fromY: yStartToCheck, toX: xEndToCheck, toY: yEndToCheck)) {
+              didWin = false
+            }
+          }
+        }
+      }
+    }
+    return didWin
   }
 
   //checks if white won
   func didWhiteWin() -> Bool {
-    return false
+    var didWin = true
+    isBlackTurn = false
+    for xStartToCheck in 0...15 {
+      for yStartToCheck in 0...15 {
+        for xEndToCheck in 0...15 {
+          for yEndToCheck in 0...15 {
+            if isLegal(move: KonaneMove(fromX: xStartToCheck, fromY: yStartToCheck, toX: xEndToCheck, toY: yEndToCheck)) {
+              didWin = false
+            }
+          }
+        }
+      }
+    }
+    return didWin
   }
 }
