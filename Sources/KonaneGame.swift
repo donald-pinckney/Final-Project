@@ -1,6 +1,6 @@
 //
 //  KonaneGame.swift
-//  
+//
 //
 //  Created by Alex Hill on 10/20/16.
 //
@@ -26,7 +26,7 @@ x   - private whiteInputSource: KonaneMoveInputSource
 class KonaneGame {
 
     private var gameState = KonaneGameState.GameState(width: 16, height:16, isBlackTurn: true)
-    private let blackInputSource: KonaneMoveInputSource 
+    private let blackInputSource: KonaneMoveInputSource
     private let whiteInputSource: KonaneMoveInputSource
 
 
@@ -46,14 +46,14 @@ class KonaneGame {
         	//FIX ONCE AI CODE EXISTS
         	whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)
         }
-    }    
+    }
 }
 
 
 
-func play() {
-    //ADD CONTENTS AND ACTUALLY WRITE CODE
+func play() -> Bool {
+    while(true) { //ADD CONTENTS AND ACTUALLY WRITE CODE
+      break
+    }
+    return false
 }
-
-
-
