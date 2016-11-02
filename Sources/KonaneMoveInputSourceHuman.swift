@@ -12,9 +12,9 @@ class KonaneMoveInputSourceHuman: KonaneMoveInputSoure {
 
 	override func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
 		print("What is the first piece you'd like to remove?\nX:")
-		var xCoor: Int = readline(()!)!
+		var xCoor: Int = readLine(()!)!
 		print("Y:")
-		var yCoor: Int = readline(()!)!
+		var yCoor: Int = readLine(()!)!
 		return (x: xCoor, y: yCoor)
 		// -> isValid(blackremove: ...)
 	}
