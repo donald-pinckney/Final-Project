@@ -68,7 +68,13 @@ class KonaneGameState {
   }
 
   func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
-    return true
+
+    if board[blackRemove.x][blackRemove.y] == KonaneColor.black {
+        return true
+    }
+    
+    return false
+
 
   }
 
