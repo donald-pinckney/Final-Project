@@ -5,8 +5,8 @@ class KonaneGameState {
   private var isBlackTurn = true
 
   init() { // Sets up board
-    var column = [KonaneColor](repeating: KonaneColor.empty, count: height)
-    var board = [[KonaneColor]](repeating: column, count: width)
+    let column = [KonaneColor](repeating: KonaneColor.empty, count: height)
+    board = [[KonaneColor]](repeating: column, count: width)
     for x in 0..<width {
       for y in 0..<height {
         if (x + y) % 2 == 0 {
@@ -18,7 +18,9 @@ class KonaneGameState {
       }
     }
   }
-
+  func getBoard() -> [[KonaneColor]] {
+    return board
+  }
   func getIsBlackTurn() -> Bool {
     return isBlackTurn
   }
@@ -30,35 +32,35 @@ class KonaneGameState {
 
   func isValid(move: KonaneMove) -> Bool {
     // Check if selected piece is valid
-    if !(KonaneMove.fromX < width) && !(KonaneMove.fromY < height) {
+    if !(move.fromX < width) && !(move.fromY < height) {
       return false
       // color matches turn color
-    } else if gameState.getIsBlackTurn() {
-      if board[KonaneMove.fromX][KonaneMove.fromY] != KonaneColor.black {
+    } else if getIsBlackTurn() {
+      if board[move.fromX][move.fromY] != KonaneColor.black {
         return false
       }
-    } else if !gameState.getIsBlackTurn() {
-      if board[KonaneMove.fromX][KonaneMove.fromY] != KonaneColor.white {
+    } else if !getIsBlackTurn() {
+      if board[move.fromX][move.fromY] != KonaneColor.white {
         return false
       }
     }
 
     // Check if move is valid
-    if !(0 <= KonaneMove.toX < width) && !(0 <= toY < height) {
+    if !(move.toX < width) && !(move.toY < height) {
       return false
     }
 
-    if board[KonaneMove.toX][toY] != empty { //makes sure jump target is possible
+    if board[move.toX][move.toY] != KonaneColor.empty { //makes sure jump target is possible
       return false
     }
 
     // Need to add code to check for moves that jump more than once
     // Go over this section with fresh set of eyes
-    if (KonaneMove.fromX - KonaneMove.toX % 2) == 0  && KonaneMove.fromY == toY { //check if target is to the left/right
+    if (move.fromX - move.toX % 2) == 0  && move.fromY == move.toY { //check if target is to the left/right
         return true
     }
 
-    if (KonaneMove.fromY - toY % 2) == 0  && KonaneMove.fromX == KonaneMove.toX { //check if target is to the left/right
+    if (move.fromY - move.toY % 2) == 0  && move.fromX == move.toX { //check if target is to the left/right
         return true
     }
 

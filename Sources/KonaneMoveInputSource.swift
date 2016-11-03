@@ -9,7 +9,7 @@ class KonaneMoveInputSource {
 	func removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
 		fatalError("Needs to be overrided")
 	}
-	func nextMove(gameState: KonaneGameState) -> KonaneMoves {
+	func nextMove(gameState: KonaneGameState) -> KonaneMove {
 		fatalError("Needs to be overrided")
 	}
 }

@@ -18,13 +18,13 @@ class KonaneGame {
 		//black's first turn
 		print("Black needs to remove a piece anywhere on the board.")
 		displayBoard()
-		let blackRemoveLocation = blackInputSource.removeFirstPiece(gameState: gameState.copy())
-		gameState.perform(move: blackRemoveLocation)
+		let blackRemoveLocation = blackInputSource.removeFirstPiece(gameState: gameState)
+		gameState.perform(blackRemove: blackRemoveLocation)
 		//white's first turn
 		print("Now White should remove a piece adjacent to the one removed by Black!")
 		displayBoard()
-		let whiteRemoveLocation = whiteInputSource.removeSecondPiece(gameState: gameState.copy())
-		gameState.perform(move: whiteRemoveLocation)
+		let whiteRemoveLocation = whiteInputSource.removeSecondPiece(gameState: gameState)
+		gameState.perform(whiteRemove: whiteRemoveLocation)
 		//now the game will start
 		while gameState.didWhiteWin() == false && gameState.didBlackWin() == false {
 			let mainGameMove: KonaneMove
@@ -33,15 +33,22 @@ class KonaneGame {
 			if gameState.getIsBlackTurn() {
 				print("It's black's turn")
 				displayBoard()
-				mainGameMove = blackInputSource.nextMove(gameState: gameState.copy())
+				mainGameMove = blackInputSource.nextMove(gameState: gameState)
 			} else {
 				print("It's white's turn")
 				displayBoard()
-				mainGameMove = whiteInputSource.nextMove(gameState: gameState.copy())
+				mainGameMove = whiteInputSource.nextMove(gameState: gameState)
 			}
 			//actually do it
 			gameState.perform(move: mainGameMove)
 		}
+		var blackWin: Bool
+		if gameState.didBlackWin() {
+			blackWin = true
+		} else {
+			blackWin = false
+		}
+		return blackWin
 	}
 	private func displayBoard() {
 		/*
@@ -50,23 +57,39 @@ class KonaneGame {
 		2: append each value for that row, with a space between each one
 		3: print each row
 		*/
-		for i in 0..<gameState.height {
-			print(rowToString(board, i))
+		for i in (0..<gameState.height).reversed() {
+			print(rowToString(gameState.getBoard(), i))
 		}
+		var happy = "    "
+		for i in 0..<gameState.width {
+			happy.append(String(i))
+			if i < 10 {
+				happy.append("  ")
+			} else {
+				happy.append(" ")
+			}
+		}
+		print()
+		print(happy)
 	}
-	private func rowToString(_ b: [[KonanaColor]], _ row: Int) -> String {
-		var returnString: String = ""
+	private func rowToString(_ b: [[KonaneColor]], _ row: Int) -> String {
+		var returnString: String = String(row)
+		if row > 9 {
+			returnString.append("  ")
+		} else {
+			returnString.append("   ")
+		}
 		for i in 0..<gameState.width {
 			let type: String
-			if gameState.board[i][row] == KonaneColor.white {
+			if gameState.getBoard()[i][row] == KonaneColor.white {
 				type = "x"
-			} else if gameState.board[i][row] == KonaneColor.black {
+			} else if gameState.getBoard()[i][row] == KonaneColor.black {
 				type = "o"
 			} else {
 				type = " "
 			}
 			returnString.append(type)
-			returnString.append(" ")
+			returnString.append("  ")
 		}
 		return returnString
 	}

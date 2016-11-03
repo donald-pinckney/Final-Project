@@ -8,7 +8,6 @@ class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
 
 			if gameState.isValid(blackRemove: (x, y)) {
 				return (x, y)
-				break
 			}
 		}
   }
@@ -21,7 +20,6 @@ class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
 
 			if gameState.isValid(whiteRemove: (x, y)) {
 				return (x, y)
-				break
 			}
 		}
   }
@@ -35,6 +33,6 @@ class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
 		print("y coordinate of the destination: ")
 		let destY = Int(readLine()!)!
 
-		return KonaneMove(fromX: pieceX, fromY: pieceY, toX: destX, toY: destX)
+		return KonaneMove(fromX: pieceX, fromY: pieceY, toX: destX, toY: destY)
   }
 }
