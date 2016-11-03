@@ -38,8 +38,12 @@ class konaneGameState{
 
   //tells the game that the turn has changed
   func nextTurn() {
-    let currentTurn = isBlackTurn
-    isBlackTurn = !currentTurn
+    if isBlackTurn {
+      isBlackTurn = false
+    }
+    else {
+      isBlackTurn = true
+    }
   }
 
   //changes an x value and a y value into a location in the array representing the game board
@@ -60,13 +64,16 @@ class konaneGameState{
     //Is the move going to and from actual places
     if move.fromX < 0 || move.fromY < 0 || move.fromX > 15 || move.fromY > 15 || move.toX < 0 || move.toY < 0 || move.toX > 15 || move.toY > 15 {
       moveIsLegal = false
+      print("You are going to or from a space that doesn't exist")
     }
     //Is the move being made by the right player
     if isBlackTurn && (color(atX: move.fromX, atY: move.fromY) != KonaneColor.black) {
       moveIsLegal = false
+      print("It's black's turn and you tried to move a white piece")
     }
     if !isBlackTurn && (color(atX: move.fromX, atY: move.fromY) != KonaneColor.white) {
       moveIsLegal = false
+      print("It's white's turn and you tried to move a black piece")
     }
     //Note: this says which color's turn it is, which will be useful later
     let turnColor: KonaneColor
@@ -82,6 +89,7 @@ class konaneGameState{
       //it must move an even number of spaces
       if (move.fromX - move.toX) % 2 != 0 {
         moveIsLegal = false
+        print("You can't move an odd number of spaces")
       }
       //I need this if...else to make the for loop work, since I don't know which is bigger
       if move.toX > move.fromX {
@@ -91,12 +99,16 @@ class konaneGameState{
           if (xToCheck - move.fromX) % 2 == 0 {
             if color(atX: xToCheck, atY: move.fromY) != KonaneColor.empty {
               moveIsLegal = false
+              print("A space you tried to move into is occupied")
+              break
             }
           }
           //all of the spaces that the player jumps over should be the opposite color as the player
           else {
             if color(atX: xToCheck, atY: move.fromY) == KonaneColor.empty || color(atX: xToCheck, atY: move.fromY) == turnColor {
               moveIsLegal = false
+              print("A space you tried to jump over is either your own piece or empty")
+              break
             }
           }
         }
@@ -108,22 +120,27 @@ class konaneGameState{
           if (move.fromX - xToCheck) % 2 == 0 {
             if color(atX: xToCheck, atY: move.fromY) != KonaneColor.empty {
               moveIsLegal = false
+              print("A space you tried to move into is occupied")
+              break
             }
           }
           //all of the spaces that the player jumps over should be the opposite color as the player
           else {
             if color(atX: xToCheck, atY: move.fromY) == KonaneColor.empty || color(atX: xToCheck, atY: move.fromY) == turnColor {
               moveIsLegal = false
+              print("A space you tried to jump over is either your own piece or empty")
+              break
             }
           }
         }
       }
     }
     //if it is moving in Y and not X
-    else if move.fromX == move.toX && move.fromY != move.toY {
+    if move.fromX == move.toX && move.fromY != move.toY {
       //it must move an even number of spaces
       if (move.fromY - move.toY) % 2 != 0 {
         moveIsLegal = false
+        print("You can't move an odd number of spaces")
       }
       //I need this if...else to make the for loop work, since I don't know which is bigger
       if move.toY > move.fromY {
@@ -133,12 +150,16 @@ class konaneGameState{
           if (yToCheck - move.fromY) % 2 == 0 {
             if color(atX: move.fromX, atY: yToCheck) != KonaneColor.empty {
               moveIsLegal = false
+              print("A space you tried to move into is occupied")
+              break
             }
           }
           //all of the spaces that the player jumps over should be the opposite color as the player
           else {
             if color(atX: move.fromX, atY: yToCheck) == KonaneColor.empty || color(atX: move.fromX, atY: yToCheck) == turnColor {
               moveIsLegal = false
+              print("A space you tried to jump over is either your own piece or empty")
+              break
             }
           }
         }
@@ -150,12 +171,16 @@ class konaneGameState{
           if (move.fromY - yToCheck) % 2 == 0 {
             if color(atX: move.fromX, atY: yToCheck) != KonaneColor.empty {
               moveIsLegal = false
+              print("A space you tried to move into is occupied")
+              break
             }
           }
           //all of the spaces that the player jumps over should be the opposite color as the player
           else {
             if color(atX: move.fromX, atY: yToCheck) == KonaneColor.empty || color(atX: move.fromX, atY: yToCheck) == turnColor {
               moveIsLegal = false
+              print("A space you tried to jump over is either your own piece or empty")
+              break
             }
           }
         }
@@ -164,6 +189,7 @@ class konaneGameState{
     //the player can't move in both X and Y, or move in neither X nor Y
     else {
       moveIsLegal = false
+      print("You just tried to move in both x and y, or neither x nor y")
     }
     return moveIsLegal
   }
@@ -199,7 +225,45 @@ class konaneGameState{
 
   //makes an inputted konane move
   func perform(move: KonaneMove) {
-    print("I still need to code it to make moves. Please try again later")
+    gameBoard[xyToLocation(xValue: move.fromX, yValue: move.fromY)] = KonaneColor.empty
+    if isBlackTurn {
+      gameBoard[xyToLocation(xValue: move.toX, yValue: move.toY)] = KonaneColor.black
+    }
+    else {
+      gameBoard[xyToLocation(xValue: move.toX, yValue: move.toY)] = KonaneColor.white
+    }
+    if move.fromY == move.toY {
+      if move.fromX > move.toX {
+        for xToChange in move.toX + 1..<move.fromX {
+          if (move.fromX - xToChange) % 2 != 0 {
+            gameBoard[xyToLocation(xValue: xToChange, yValue: move.fromY)] = KonaneColor.empty
+          }
+        }
+      }
+      else {
+        for xToChange in move.fromX + 1..<move.toX {
+          if (move.fromX - xToChange) % 2 != 0 {
+            gameBoard[xyToLocation(xValue: xToChange, yValue: move.fromY)] = KonaneColor.empty
+          }
+        }
+      }
+    }
+    else {
+      if move.fromY > move.toY {
+        for yToChange in move.toY + 1..<move.fromX {
+          if (move.fromY - yToChange) % 2 != 0 {
+            gameBoard[xyToLocation(xValue: move.fromX, yValue: yToChange)] = KonaneColor.empty
+          }
+        }
+      }
+      else {
+        for yToChange in move.fromY + 1..<move.toX {
+          if (move.fromY - yToChange) % 2 != 0 {
+            gameBoard[xyToLocation(xValue: move.fromX, yValue: yToChange)] = KonaneColor.empty
+          }
+        }
+      }
+    }
   }
 
   //removes a piece for black
