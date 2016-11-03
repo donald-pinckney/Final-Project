@@ -21,11 +21,7 @@ class KonaneGameState {
     }
    
     func getIsBlackTurn() -> Bool{ //because isBlackTurn is private lol
-        if isBlackTurn == true{ //does this work????
-            return true
-        }else{
-            return false
-        }
+        return isBlackTurn   
     }
 
     func color(atX x: Int, atY y: Int) -> KonaneColor{
@@ -46,7 +42,13 @@ class KonaneGameState {
         return true//YOU STILL NEED TO CHECK: Piece in between, Distance = 1 or -1 (not jumping 2 or diagonal) andouble jumps!!!!
     }
     func isValid(blackRemove: (x: Int, y: Int)) -> Bool{ //checking validity of white and black remove @ start
-        return true //AD SRU
+        if blackRemove.x == 15 && blackRemove.y == 15 || blackRemove.x == 0 && blackRemove.y == 0{
+            return true // outer edges
+        }else if blackRemove.x == 7 && blackRemove.y == 7 || blackRemove.x == 8 && blackRemove.y == 8{
+            return true  //center squares
+        }else{ //you thought you could get away with a bad move? you probably almost did
+            return false
+        } 
     }
     func isValid(whiteRemove: (x: Int, y: Int)) -> Bool{
         return true //ADD HE
