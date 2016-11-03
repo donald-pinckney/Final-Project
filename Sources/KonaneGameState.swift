@@ -29,17 +29,39 @@ class KonaneGameState {
     }
     
     func isValid(move: KonaneMove) -> Bool{ //checking validity of ANY move
-        if move.toX < 0 || move.toY < 0 || move.fromX > 15 || move.fromY > 15 {
+        if move.toX < 0 || move.toY < 0 || move.toX > 15 || move.toY > 15 {
+            return false     // CHECKING FOR OUT OF BOUNDS
+        }else if move.fromX < 0 || move.fromY < 0 || move.fromX > 15 || move.fromY > 15 {
             return false
         }
-        //MKAE FUNCTION TO CHECK IF MOVE IS VALID SO YOU CAN LOOP IT FOR DOUBLE JUMPS
-        if move.fromX + 2 == move.toX {
-            
-        }else if move.fromX - 2 == move.toX {
-            
+
+        var tempX = move.toX
+        var count = 1
+        while tempX - 2 != move.fromX {
+            tempX -= 2
+            count += 1
+        } //THESE TWO FUNCTIONS ^ V SHOULD TOGETHER BE A COOL LOOP FOR THE DOUBLE JUMPS
+        for _ in 0..<count{
+            if move.fromX + 2 != move.toX || move.fromX - 2 != move.toX{
+                return false      
+            }
+        }
+        
+        //NOW I AM FINDING THE DIRECTIONNNNNN
+        var direction = moveDirection.north
+        if move.fromX + 2 == move.toX && move.fromY == move.toY{
+            direction = moveDirection.east 
+        }else if move.fromX == move.toX && move.fromY - 2 == move.toY{
+            direction = moveDirection.south
+        }else if move.fromX - 2 == move.toX && move.fromY == move.toY{
+            direction = moveDirection.west
+        }// no north bc it's already set as north
+        if !checkForPiece(direction, move) {
+            return false
         }
 
-        return true//YOU STILL NEED TO CHECK: Piece in between, Distance = 1 or -1 (not jumping 2 or diagonal) andouble jumps!!!!
+
+        return true//YOU STILL NEED TO CHECK: Piece in between, +Distance = 1 or -1 (not jumping 2 or diagonal) andouble jumps!!!!
     }
     func isValid(blackRemove: (x: Int, y: Int)) -> Bool{ //checking validity of white and black remove @ start
         if blackRemove.x == 15 && blackRemove.y == 15 || blackRemove.x == 0 && blackRemove.y == 0{
@@ -50,8 +72,21 @@ class KonaneGameState {
             return false
         } 
     }
-    func isValid(whiteRemove: (x: Int, y: Int)) -> Bool{
-        return true //ADD HE
+    func isValid(whiteRemove: (x: Int, y: Int), blackRemove: (x: Int, y: Int)) -> Bool{
+        if whiteRemove.x < 0 || whiteRemove.x > 15 || whiteRemove.y < 0 || whiteRemove.y > 15{
+            return false
+        }
+        if blackRemove.x + 1 == whiteRemove.x && blackRemove.y == whiteRemove.y{ //piece on right
+            return true
+        }else if blackRemove.x - 1 == whiteRemove.x && blackRemove.y == whiteRemove.y{ //piece on left
+            return true
+        }else if blackRemove.x == whiteRemove.x && blackRemove.y + 1 == whiteRemove.y{ //piece on top
+            return true
+        }else if blackRemove.x == whiteRemove.x && blackRemove.y - 1 == whiteRemove.y{ //piece on bottom
+            return true
+        }else{
+            return false
+        }
     }
     func checkForPiece(_ direction: moveDirection, _ move: KonaneMove) -> Bool{ //if true is returned, there's a piece lol
         if direction == moveDirection.north {                                   //yes i know theres a better way to do this
