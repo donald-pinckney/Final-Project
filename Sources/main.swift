@@ -17,7 +17,7 @@ class KonaneGame {
      
 }
 let game = KonaneGame(blackIsHuman: true, whiteIsHuman: true)
-print("Did black win?\(game.play())")
+print("Did black win? (game.play())
 enum KonaneColor {
     case black
     case white
