@@ -64,16 +64,13 @@ class konaneGameState{
     //Is the move going to and from actual places
     if move.fromX < 0 || move.fromY < 0 || move.fromX > 15 || move.fromY > 15 || move.toX < 0 || move.toY < 0 || move.toX > 15 || move.toY > 15 {
       moveIsLegal = false
-      print("You are going to or from a space that doesn't exist")
     }
     //Is the move being made by the right player
     if isBlackTurn && (color(atX: move.fromX, atY: move.fromY) != KonaneColor.black) {
       moveIsLegal = false
-      print("It's black's turn and you tried to move a white piece")
     }
     if !isBlackTurn && (color(atX: move.fromX, atY: move.fromY) != KonaneColor.white) {
       moveIsLegal = false
-      print("It's white's turn and you tried to move a black piece")
     }
     //Note: this says which color's turn it is, which will be useful later
     let turnColor: KonaneColor
@@ -83,113 +80,103 @@ class konaneGameState{
     else {
       turnColor = KonaneColor.white
     }
-
-    //if it is moving in X and not Y
-    if move.fromY == move.toY && move.fromX != move.toX {
-      //it must move an even number of spaces
-      if (move.fromX - move.toX) % 2 != 0 {
-        moveIsLegal = false
-        print("You can't move an odd number of spaces")
-      }
-      //I need this if...else to make the for loop work, since I don't know which is bigger
-      if move.toX > move.fromX {
-        //checks the end location, but the start location is checked elsewhere
-        for xToCheck in (move.fromX + 1)...move.toX {
-          //all of the spaces that the player jumps to should be empty
-          if (xToCheck - move.fromX) % 2 == 0 {
-            if color(atX: xToCheck, atY: move.fromY) != KonaneColor.empty {
-              moveIsLegal = false
-              print("A space you tried to move into is occupied")
-              break
+    if moveIsLegal {
+      //if it is moving in X and not Y
+      if move.fromY == move.toY && move.fromX != move.toX {
+        //it must move an even number of spaces
+        if (move.fromX - move.toX) % 2 != 0 {
+          moveIsLegal = false
+        }
+        //I need this if...else to make the for loop work, since I don't know which is bigger
+        if move.toX > move.fromX {
+          //checks the end location, but the start location is checked elsewhere
+          for xToCheck in (move.fromX + 1)...move.toX {
+            //all of the spaces that the player jumps to should be empty
+            if (xToCheck - move.fromX) % 2 == 0 {
+              if color(atX: xToCheck, atY: move.fromY) != KonaneColor.empty {
+                moveIsLegal = false
+                break
+              }
+            }
+            //all of the spaces that the player jumps over should be the opposite color as the player
+            else {
+              if color(atX: xToCheck, atY: move.fromY) == KonaneColor.empty || color(atX: xToCheck, atY: move.fromY) == turnColor {
+                moveIsLegal = false
+                break
+              }
             }
           }
-          //all of the spaces that the player jumps over should be the opposite color as the player
-          else {
-            if color(atX: xToCheck, atY: move.fromY) == KonaneColor.empty || color(atX: xToCheck, atY: move.fromY) == turnColor {
-              moveIsLegal = false
-              print("A space you tried to jump over is either your own piece or empty")
-              break
+        }
+        else {
+          //checks the end location, but the start location is checked elsewhere
+          for xToCheck in move.toX..<move.fromX {
+            //all of the spaces that the player jumps to should be empty
+            if (move.fromX - xToCheck) % 2 == 0 {
+              if color(atX: xToCheck, atY: move.fromY) != KonaneColor.empty {
+                moveIsLegal = false
+                break
+              }
+            }
+            //all of the spaces that the player jumps over should be the opposite color as the player
+            else {
+              if color(atX: xToCheck, atY: move.fromY) == KonaneColor.empty || color(atX: xToCheck, atY: move.fromY) == turnColor {
+                moveIsLegal = false
+                break
+              }
             }
           }
         }
       }
+      //if it is moving in Y and not X
+      else if move.fromX == move.toX && move.fromY != move.toY {
+        //it must move an even number of spaces
+        if (move.fromY - move.toY) % 2 != 0 {
+          moveIsLegal = false
+        }
+        //I need this if...else to make the for loop work, since I don't know which is bigger
+        if move.toY > move.fromY {
+          //checks the end location, but the start location is checked elsewhere
+          for yToCheck in (move.fromY + 1)...move.toY {
+            //all of the spaces that the player jumps to should be empty
+            if (yToCheck - move.fromY) % 2 == 0 {
+              if color(atX: move.fromX, atY: yToCheck) != KonaneColor.empty {
+                moveIsLegal = false
+                break
+              }
+            }
+            //all of the spaces that the player jumps over should be the opposite color as the player
+            else {
+              if color(atX: move.fromX, atY: yToCheck) == KonaneColor.empty || color(atX: move.fromX, atY: yToCheck) == turnColor {
+                moveIsLegal = false
+                break
+              }
+            }
+          }
+        }
+        else {
+          //checks the end location, but the start location is checked elsewhere
+          for yToCheck in move.toY..<move.fromY {
+            //all of the spaces that the player jumps to should be empty
+            if (move.fromY - yToCheck) % 2 == 0 {
+              if color(atX: move.fromX, atY: yToCheck) != KonaneColor.empty {
+                moveIsLegal = false
+                break
+              }
+            }
+            //all of the spaces that the player jumps over should be the opposite color as the player
+            else {
+              if color(atX: move.fromX, atY: yToCheck) == KonaneColor.empty || color(atX: move.fromX, atY: yToCheck) == turnColor {
+                moveIsLegal = false
+                break
+              }
+            }
+          }
+        }
+      }
+      //the player can't move in both X and Y, or move in neither X nor Y
       else {
-        //checks the end location, but the start location is checked elsewhere
-        for xToCheck in move.toX..<move.fromX {
-          //all of the spaces that the player jumps to should be empty
-          if (move.fromX - xToCheck) % 2 == 0 {
-            if color(atX: xToCheck, atY: move.fromY) != KonaneColor.empty {
-              moveIsLegal = false
-              print("A space you tried to move into is occupied")
-              break
-            }
-          }
-          //all of the spaces that the player jumps over should be the opposite color as the player
-          else {
-            if color(atX: xToCheck, atY: move.fromY) == KonaneColor.empty || color(atX: xToCheck, atY: move.fromY) == turnColor {
-              moveIsLegal = false
-              print("A space you tried to jump over is either your own piece or empty")
-              break
-            }
-          }
-        }
-      }
-    }
-    //if it is moving in Y and not X
-    if move.fromX == move.toX && move.fromY != move.toY {
-      //it must move an even number of spaces
-      if (move.fromY - move.toY) % 2 != 0 {
         moveIsLegal = false
-        print("You can't move an odd number of spaces")
       }
-      //I need this if...else to make the for loop work, since I don't know which is bigger
-      if move.toY > move.fromY {
-        //checks the end location, but the start location is checked elsewhere
-        for yToCheck in (move.fromY + 1)...move.toY {
-          //all of the spaces that the player jumps to should be empty
-          if (yToCheck - move.fromY) % 2 == 0 {
-            if color(atX: move.fromX, atY: yToCheck) != KonaneColor.empty {
-              moveIsLegal = false
-              print("A space you tried to move into is occupied")
-              break
-            }
-          }
-          //all of the spaces that the player jumps over should be the opposite color as the player
-          else {
-            if color(atX: move.fromX, atY: yToCheck) == KonaneColor.empty || color(atX: move.fromX, atY: yToCheck) == turnColor {
-              moveIsLegal = false
-              print("A space you tried to jump over is either your own piece or empty")
-              break
-            }
-          }
-        }
-      }
-      else {
-        //checks the end location, but the start location is checked elsewhere
-        for yToCheck in move.toY..<move.fromY {
-          //all of the spaces that the player jumps to should be empty
-          if (move.fromY - yToCheck) % 2 == 0 {
-            if color(atX: move.fromX, atY: yToCheck) != KonaneColor.empty {
-              moveIsLegal = false
-              print("A space you tried to move into is occupied")
-              break
-            }
-          }
-          //all of the spaces that the player jumps over should be the opposite color as the player
-          else {
-            if color(atX: move.fromX, atY: yToCheck) == KonaneColor.empty || color(atX: move.fromX, atY: yToCheck) == turnColor {
-              moveIsLegal = false
-              print("A space you tried to jump over is either your own piece or empty")
-              break
-            }
-          }
-        }
-      }
-    }
-    //the player can't move in both X and Y, or move in neither X nor Y
-    else {
-      moveIsLegal = false
-      print("You just tried to move in both x and y, or neither x nor y")
     }
     return moveIsLegal
   }
@@ -234,14 +221,14 @@ class konaneGameState{
     }
     if move.fromY == move.toY {
       if move.fromX > move.toX {
-        for xToChange in move.toX + 1..<move.fromX {
+        for xToChange in (move.toX + 1)..<move.fromX {
           if (move.fromX - xToChange) % 2 != 0 {
             gameBoard[xyToLocation(xValue: xToChange, yValue: move.fromY)] = KonaneColor.empty
           }
         }
       }
       else {
-        for xToChange in move.fromX + 1..<move.toX {
+        for xToChange in (move.fromX + 1)..<move.toX {
           if (move.fromX - xToChange) % 2 != 0 {
             gameBoard[xyToLocation(xValue: xToChange, yValue: move.fromY)] = KonaneColor.empty
           }
@@ -250,14 +237,14 @@ class konaneGameState{
     }
     else {
       if move.fromY > move.toY {
-        for yToChange in move.toY + 1..<move.fromX {
+        for yToChange in (move.toY + 1)..<move.fromY {
           if (move.fromY - yToChange) % 2 != 0 {
             gameBoard[xyToLocation(xValue: move.fromX, yValue: yToChange)] = KonaneColor.empty
           }
         }
       }
       else {
-        for yToChange in move.fromY + 1..<move.toX {
+        for yToChange in (move.fromY + 1)..<move.toX {
           if (move.fromY - yToChange) % 2 != 0 {
             gameBoard[xyToLocation(xValue: move.fromX, yValue: yToChange)] = KonaneColor.empty
           }

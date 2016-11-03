@@ -56,7 +56,7 @@ class KonaneGame{
     displayBoard()
     //takes and checks a remove from black
     var blackRemoveToCheck = blackPlayer.removeFirstPiece(gameState: gameState)
-    while(!gameState.isLegal(blackRemove: blackRemoveToCheck)) {
+    while !gameState.isLegal(blackRemove: blackRemoveToCheck) {
       print("I'm sorry, that is not a legal move")
       blackRemoveToCheck = blackPlayer.removeFirstPiece(gameState: gameState)
     }
@@ -64,13 +64,15 @@ class KonaneGame{
     displayBoard()
     //takes and checks a remove from white
     var whiteRemoveToCheck = whitePlayer.removeSecondPiece(gameState: gameState)
-    while(!gameState.isLegal(whiteRemove: whiteRemoveToCheck)) {
+    while !gameState.isLegal(whiteRemove: whiteRemoveToCheck) {
       print("I'm sorry, that is not a legal move")
       whiteRemoveToCheck = whitePlayer.removeSecondPiece(gameState: gameState)
     }
     gameState.perform(whiteRemove: whiteRemoveToCheck)
     displayBoard()
-    for turn in 1...500 {
+    var turn = 1
+    var blackWon = false
+    while turn <= 20 {
       print("It is black's turn")
       var currentBlackMove = blackPlayer.nextMove(gameState: gameState)
       while(!gameState.isLegal(move: currentBlackMove)) {
@@ -78,25 +80,32 @@ class KonaneGame{
         currentBlackMove = blackPlayer.nextMove(gameState: gameState)
       }
       gameState.perform(move: currentBlackMove)
-      if gameState.didBlackWin() {
-        return true
-      }
       displayBoard()
+      /*
+      if gameState.didBlackWin() {
+        blackWon = true
+        break
+      }
+      */
       gameState.nextTurn()
       print("It is white's turn")
       var currentWhiteMove = whitePlayer.nextMove(gameState: gameState)
-      while(!gameState.isLegal(move: currentBlackMove)) {
+      while(!gameState.isLegal(move: currentWhiteMove)) {
         print("I'm sorry, but that move is not legal. Please try again.")
         currentWhiteMove = whitePlayer.nextMove(gameState: gameState)
       }
       gameState.perform(move: currentWhiteMove)
-      if gameState.didWhiteWin() {
-        return false
-      }
       displayBoard()
+      /*
+      if gameState.didWhiteWin() {
+        blackWon = false
+        break
+      }
+      */
       gameState.nextTurn()
+      turn += 1
     }
-    return false
+    return blackWon
   }
 
   private func createBoardLineNumber(lineNumber: Int) -> String {
