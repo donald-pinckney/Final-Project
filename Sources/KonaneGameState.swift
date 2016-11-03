@@ -7,9 +7,13 @@ class konaneGameState{
   00 01 02 03 04 ...
   */
   var gameBoard: [KonaneColor] = []
+  let width: Int
+  let height: Int
   init() {
-    for x in 0...15 {
-      for y in 0...15 {
+    self.width = 16
+    self.height = 16
+    for x in 0..<width {
+      for y in 0..<height {
         if x % 2 == 0 {
           if y % 2 == 0 {
             gameBoard.append(KonaneColor.black)
@@ -48,7 +52,7 @@ class konaneGameState{
 
   //changes an x value and a y value into a location in the array representing the game board
   func xyToLocation (xValue: Int, yValue: Int) -> Int {
-    let Location = xValue + 16 * yValue
+    let Location = xValue + width * yValue
     return Location
   }
 
@@ -62,7 +66,7 @@ class konaneGameState{
   func isLegal(move: KonaneMove) -> Bool {
     var moveIsLegal = true
     //Is the move going to and from actual places
-    if move.fromX < 0 || move.fromY < 0 || move.fromX > 15 || move.fromY > 15 || move.toX < 0 || move.toY < 0 || move.toX > 15 || move.toY > 15 {
+    if move.fromX < 0 || move.fromY < 0 || move.fromX > (width - 1) || move.fromY > (height - 1) || move.toX < 0 || move.toY < 0 || move.toX > (width - 1) || move.toY > (height - 1) {
       moveIsLegal = false
     }
     //Is the move being made by the right player
@@ -184,7 +188,7 @@ class konaneGameState{
   //checks if black can remove a piece at a location at the start of the game
   func isLegal(blackRemove: (x: Int, y: Int)) -> Bool {
     //checks if it is one of the 4 positions that black can remove from
-    if (blackRemove.x == 0 || blackRemove.x == 7 || blackRemove.x == 8 || blackRemove.x == 15) && blackRemove.x == blackRemove.y {
+    if (blackRemove.x == 0 || blackRemove.x == ((width / 2) - 1) || blackRemove.x == (width / 2) || blackRemove.x == (width - 1)) && blackRemove.x == blackRemove.y {
       return true
     }
     else {
@@ -198,13 +202,13 @@ class konaneGameState{
     if (whiteRemove.x > 0) && (color(atX: whiteRemove.x - 1, atY: whiteRemove.y) == KonaneColor.empty) {
       legality = true
     }
-    if (whiteRemove.x < 15) && (color(atX: whiteRemove.x + 1, atY: whiteRemove.y) == KonaneColor.empty) {
+    if (whiteRemove.x < (width - 1)) && (color(atX: whiteRemove.x + 1, atY: whiteRemove.y) == KonaneColor.empty) {
       legality = true
     }
     if (whiteRemove.y > 0) && (color(atX: whiteRemove.x, atY: whiteRemove.y - 1) == KonaneColor.empty) {
       legality = true
     }
-    if (whiteRemove.y < 15) && (color(atX: whiteRemove.x, atY: whiteRemove.y + 1) == KonaneColor.empty) {
+    if (whiteRemove.y < (height - 1)) && (color(atX: whiteRemove.x, atY: whiteRemove.y + 1) == KonaneColor.empty) {
       legality = true
     }
     return legality
@@ -267,10 +271,10 @@ class konaneGameState{
   func didBlackWin() -> Bool {
     var didWin = true
     isBlackTurn = true
-    for xStartToCheck in 0...15 {
-      for yStartToCheck in 0...15 {
-        for xEndToCheck in 0...15 {
-          for yEndToCheck in 0...15 {
+    for xStartToCheck in 0..<width {
+      for yStartToCheck in 0..<height {
+        for xEndToCheck in 0..<width {
+          for yEndToCheck in 0..<height {
             if isLegal(move: KonaneMove(fromX: xStartToCheck, fromY: yStartToCheck, toX: xEndToCheck, toY: yEndToCheck)) {
               didWin = false
             }
@@ -285,10 +289,10 @@ class konaneGameState{
   func didWhiteWin() -> Bool {
     var didWin = true
     isBlackTurn = false
-    for xStartToCheck in 0...15 {
-      for yStartToCheck in 0...15 {
-        for xEndToCheck in 0...15 {
-          for yEndToCheck in 0...15 {
+    for xStartToCheck in 0..<width {
+      for yStartToCheck in 0..<height {
+        for xEndToCheck in 0..<width {
+          for yEndToCheck in 0..<height {
             if isLegal(move: KonaneMove(fromX: xStartToCheck, fromY: yStartToCheck, toX: xEndToCheck, toY: yEndToCheck)) {
               didWin = false
             }

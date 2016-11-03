@@ -7,7 +7,7 @@ class KonaneGame{
 
   //finds a location on the board array from an x value and a y value
   func xyToLocation (xValue: Int, yValue: Int) -> Int {
-    let Location = xValue + 16 * yValue
+    let Location = xValue + gameState.width * yValue
     return Location
   }
 
@@ -116,7 +116,7 @@ class KonaneGame{
     else {
       lineString = "\(lineNumber) "
     }
-    for x in 0...15 {
+    for x in 0..<gameState.width {
       let pieceAtLocation: KonaneColor = gameState.gameBoard[xyToLocation(xValue: x, yValue: lineNumber)]
       if pieceAtLocation == KonaneColor.white {
         lineString.append(" \(whiteCharacter) ")
@@ -131,14 +131,26 @@ class KonaneGame{
     return lineString
   }
 
-  // Make this one private when I am done testing it
-  func displayBoard() {
+  private func createBottomLine(numberOfLines: Int) -> String {
+    var bottomLine = "  "
+    for x in 0..<numberOfLines {
+      if x < 9 {
+        bottomLine.append(" 0\(x)")
+      }
+      else {
+        bottomLine.append(" \(x)")
+      }
+    }
+    return bottomLine
+  }
+
+  private func displayBoard() {
     print()
-    for x in 0...15 {
-      print(createBoardLineNumber(lineNumber: 15 - x))
+    for x in 0..<gameState.height {
+      print(createBoardLineNumber(lineNumber: (gameState.height - 1) - x))
       print()
     }
-    print("   00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15")
+    print(createBottomLine(numberOfLines: gameState.width))
   }
 
 }
