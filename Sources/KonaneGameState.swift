@@ -1,14 +1,13 @@
 class KonaneGameState {
         let width: Int = 16
         let height: Int = 16
-        let horizontalLine: String
         /*
         let spacesAmount: String
         let rowNum: [String]
         let columnNums: String
         */
         init() {
-                var boardDataStorage = [[KonaneColor]](repeating: [KonaneColor](repeating: KonaneColor.white, count: width), count: height)
+                boardDataStorage = [[KonaneColor]](repeating: [KonaneColor](repeating: KonaneColor.white, count: width), count: height)
 
                 //Sets up the initial board values by looping through for the y and then x values.
                 for yVal in 0..<height {
@@ -37,28 +36,22 @@ class KonaneGameState {
                         spacesAmount = "    " //4 space
                 }
                 */
-
-                horizontalLine = spacesAmount
-                //columnNums = spacesAmount
-                for xVal in 0..<width {
-                       horionatLine += "+---"
-                       //columnNums += " " + tempColumnNums[xVal]
-                }
-                horizontalLine += "+"
         }
 
         //Stored as [y][x]
-        private let boardDataStorage: [[KonaneColor]]
+        /*private*/ var boardDataStorage: [[KonaneColor]]
 
+/*
         private var isBlackTurn: Bool
-        func getIsBlackTurn() -> Bool
-        func color(atX: Int, atY: Int) -> KonaneColor // Bottom left, 0-indexed
-        func isValid(move: KonaneMove) -> Bool
-        func isValid(blackRemove: (x: Int, y: Int)) -> Bool
-        func isValid(whiteRemove: (x: Int, y: Int)) -> Bool
-        func perform(move: KonaneMove)
-        func perform(blackRemove: (x: Int, y: Int))
-        func perform(whiteRemove: (x: Int, y: Int))
-        func didBlackWin() -> Bool
-        func didWhiteWin() -> Bool
+        func getIsBlackTurn() -> Bool {}
+        func color(atX: Int, atY: Int) -> KonaneColor {} // Bottom left, 0-indexed
+        func isValid(move: KonaneMove) -> Bool {}
+        func isValid(blackRemove: (x: Int, y: Int)) -> Bool {}
+        func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {}
+        func perform(move: KonaneMove) {}
+        func perform(blackRemove: (x: Int, y: Int)) {}
+        func perform(whiteRemove: (x: Int, y: Int)) {}
+        func didBlackWin() -> Bool {}
+        func didWhiteWin() -> Bool {}
+*/
 }
