@@ -48,6 +48,9 @@ class KonaneGameState {
         }
         
         //NOW I AM FINDING THE DIRECTIONNNNNN
+        
+        //MOVE THIS UP SO I CAN USE THE DIRECTION EIUFEQPIUGFBERPIGUBERPUFBER
+
         var direction = moveDirection.north
         if move.fromX + 2 == move.toX && move.fromY == move.toY{
             direction = moveDirection.east 
