@@ -45,3 +45,7 @@ class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
     return KonaneMove(fromX: xStart, fromY: yStart, toX: xEnd, toY: yEnd)
   }
 }
+
+class Peter_KonaneMoveInputSourceAI: KonaneMoveInputSource {
+  
+}

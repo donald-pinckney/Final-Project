@@ -134,7 +134,7 @@ class KonaneGame{
   private func createBottomLine(numberOfLines: Int) -> String {
     var bottomLine = "  "
     for x in 0..<numberOfLines {
-      if x < 9 {
+      if x <= 9 {
         bottomLine.append(" 0\(x)")
       }
       else {
