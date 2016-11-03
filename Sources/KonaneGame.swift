@@ -4,12 +4,12 @@ class KonaneGame {
 	private let whiteInputSource: KonaneMoveInputSource
 	init(blackIsHuman: Bool, whiteIsHuman: Bool) {
 		if blackIsHuman {
-			blackInputSource = KonanMoveInputSourceHuman(isBlack: true)
+			blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)
 		} else {
 			fatalError("No AI Yet!")
 		}
 		if whiteIsHuman {
-			whiteInputSource = KonanMoveInputSourceHuman(isBlack: false)
+			whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)
 		} else {
 			fatalError("No AI Yet!")
 		}
@@ -54,18 +54,18 @@ class KonaneGame {
 			print(rowToString(board, i))
 		}
 	}
-	private func rowToString(_ b: [[KonanaColor]], _ row: Int) -> string {
-		let returnString: String = ""
+	private func rowToString(_ b: [[KonanaColor]], _ row: Int) -> String {
+		var returnString: String = ""
 		for i in 0..<gameState.width {
 			let type: String
-			if board[i][row] == KonaneColor.white {
+			if gameState.board[i][row] == KonaneColor.white {
 				type = "x"
-			} else if board[i][row] == KonaneColor.black {
+			} else if gameState.board[i][row] == KonaneColor.black {
 				type = "o"
 			} else {
 				type = " "
 			}
-			returnString.append()
+			returnString.append(type)
 			returnString.append(" ")
 		}
 		return returnString
