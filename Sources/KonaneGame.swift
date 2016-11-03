@@ -91,7 +91,7 @@ func displayBoard() {
 }
 
 func play() -> Bool {
-    
+
     /*Criteria for function:
     -start the game with remove piece funtions
     -create loop for gameplay with moves
@@ -108,19 +108,19 @@ func play() -> Bool {
     print("What are the coordinates of the piece player1 wants to remove?")
     let blackRemoveCoordx = Int(readLine()!)!
     let blackRemoveCoordy = Int(readLine()!)!
-    
+
     //make first removal's to start the game
-    gameState.perform(blackRemove: (xBlack: blackRemoveCoordx, yBlack: blackRemoveCoordy))
-    
+    gameState.perform(blackRemove: (x: blackRemoveCoordx, y: blackRemoveCoordy))
+
     print("What are the coordinates of the piece player2 wants to remove?")
     let whiteRemoveCoordx = Int(readLine()!)!
     let whiteRemoveCoordy = Int(readLine()!)!
 
-    gameState.perform(whiteRemove: (xWhite: whiteRemoveCoordx, yWhite: whiteRemoveCoordy), blackRemove: (xBlack: blackRemoveCoordx, yBlack: blackRemoveCoordy))
-    
+    gameState.perform(whiteRemove: (x: whiteRemoveCoordx, y: whiteRemoveCoordy))
+
     while winBool == false {
         displayBoard()
-        if isBlackTurn {
+        if gameState.isBlackTurn {
             print("What are the coordinates of the piece player1 wants to move?")
             var xCoordFromX =  Int(readLine()!)!
             var yCoordFromY =  Int(readLine()!)!
@@ -135,9 +135,9 @@ func play() -> Bool {
 
 
         //call funciton to move a piece
-        
+
     }
-    
+
     }    //End of Gameplay
 }
 //End of Class
