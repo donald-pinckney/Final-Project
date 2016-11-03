@@ -28,6 +28,7 @@ class KonaneGame {
     		print(currentRowSquares)
     	}
     	print(rowLine)
+        print("") //Makes a blank line in preparation for the next printed thing.
    	}
 
     init(blackIsHuman: Bool, whiteIsHuman: Bool){
