@@ -1,126 +1,80 @@
-
-class KonaneGame {
-	let game = KonaneGame(blackIsHuman: true, whiteIsHuman: true)
-		print("Did black win? \(game.play())")
-	init() {
-		var BlackIsHuman = Bool
-		var WhiteIsHuman = Bool
-		if BlackIsHuman == false {
-			WhiteIsHuman == true
-		} else {
-			BlackIsHuman == true
-            WhiteIsHuman == false
-		}
-	}
-	private var gameState: KonaneGameState
-	private let blackInputSource: KonaneMoveInputSource
-	private let whiteInputSource: KonaneMoveInputSource
-}
-class Konane {
-	let width: Int = 16
-	let height: Int = 16
-	init() {}
-	internalboarddatastorage () 
-	private isBlackTurn: Bool
-    let getIsBlackTurn: Bool
-	func color(atX: Int, atY: Int) -> KonaneColor
-//Are the following functions? The ones that I pointed out down in the list????
-	func isValid(move: KonaneMove) -> Bool
-	func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
-	if IsValid == false {
-	    print(x, y + "is not valid")
-	    }
-        else {
-    	print("The move is valid")
-		}
-	}
-
-
-}
-enum KonaneColor {
-	case black
-	case white
-	case empty
-}
-class KonaneMove {
-	init(fromX: Int, fromY: Int, toX: Int, toY: Int)
-	var fromX = Int
-	var fromY
-	var toX
-	var toY
-class KonaneGameState {
-    let width: Int = 16
-    let height: Int = 16
-    var init()
-    private InternalBoardDataStorage
-    /* the InternalBoardDataStorage wasn't working because I think internal by itself is a command so I changed it to be a name all together */
-    private var isBlackTurn: Bool
-    print(getIsBlackTurn)
-
-    /*getIsBlackTurn is a function that I'm calling print(color(atX: Int, atY:    Int)) */
-    
-    /* I think this is how to call a function with either print(function) or just saying the function with parameters but I'm not entirely sure */
-   
-   /* Bottom left, 0-indexed are the following properties functions, cuz I'm not really sure... */
-   
-   isValid(move: KonaneMove)  
-   isValid(blackRemove: (x: Int, y: Int))
-   isValid(whiteRemove: (x: Int, y: Int))
-   perform(move: KonaneMove)
-   perform(blackRemove: (x: Int, y: Int))                   
-   perform(whiteRemove: (x: Int, y: Int))
-   didBlackWin()
-   didWhiteWin()
-   /*I don't think you need to add what the function returns as ( ex. -> Bool) but I could be wrong*/
-}
+import Foundation
 
 let game = KonaneGame(blackIsHuman: true, whiteIsHuman: true)
 print("Did black win? \(game.play())")
 
 class KonaneGame {
-
-     private var gameState: KonaneGameState
-     private let blackInputSource: KonaneMoveInputSource
-     private let whiteInputSource: KonaneMoveInputSource
-    init(blackIsHuman: Bool, whiteIsHuman: Bool) {
-        if blackIsHuman == false {
-            blackInputSource = KonaneMoveInputSourceAI(isBlack: true) 
+	init(blackIsHuman: Bool, whiteIsHuman: Bool) {
+	    if blackIsHuman == false {
+		    // Set input to AI source
+            fatalError("No AI yet")
         } else {
-         	blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)   
+		    blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)
         }
+
         if whiteIsHuman == false {
-            whiteInputSource = KonaneMoveInputSourceAI(isWhite: true)
+            fatalError("No AI yet")
         } else {
-            whiteInputSource = KonaneMoveInputSourceHuman(isWhite: true)
-     
+            whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)
+        }
+
+        
+	}
+	private var gameState: KonaneGameState = KonaneGameState()
+	private let blackInputSource: KonaneMoveInputSource
+	private let whiteInputSource: KonaneMoveInputSource
+
+    func play() -> Bool {
+
+    }
+
+    private func displayBoard() {
+
+    }
+
 }
-let game = KonaneGame(blackIsHuman: true, whiteIsHuman: true)
-print("Did black win?\(game.play())")
+
+
 enum KonaneColor {
-    case black
-    case white
-    case empty
+	case black
+	case white
+	case empty
 }
+
 class KonaneMove {
-    init(fromX: Int, fromY: Int, toX: Int, toY: Int){
+	init(fromX: Int, fromY: Int, toX: Int, toY: Int) {
         self.fromX = fromX
         self.fromY = fromY
         self.toX = toX
         self.toY = toY
     }
-    var fromX: Int
-    var fromY: Int
-    var toX: Int
-    var toY: Int
+
+	var fromX: Int
+	var fromY: Int 
+	var toX: Int 
+	var toY: Int
 }
+
+
 class KonaneMoveInputSource {
-    init(isBlack: Bool)
-    var isBlack
-    init(_:removeFirstPiece(gameState: KonaneGameState)) -> (x: Int, y: Int)
-    init(_:removeSecondPiece(gameState: KonaneGameState)) -> (x: Int, y: Int)
-    let removeFirstPiece
-    let removeSecondPiece
-    nextMove(gameState: KonaneGameState) -> KonaneMove
+    init(isBlack: Bool) {
+        self.isBlack = isBlack
+    }
+    var isBlack: Bool
+
+
+
+    func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
+        fatalError("Override this function")
+    }
+
+    func removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {   
+        fatalError("Override this function")
+    }
+
+    func nextMove(gameState: KonaneGameState) -> KonaneMove {
+        fatalError("Override this function")
+    }
 }
 class KonaneGameState {
     let width: Int = 16
@@ -158,12 +112,3 @@ class KonaneGameState {
    
    /* Bottom left, 0-indexed are the following properties functions, cuz I'm not really sure... */
    
-   isValid(move: KonaneMove)  
-   isValid(blackRemove: (x: Int, y: Int))
-   isValid(whiteRemove: (x: Int, y: Int))
-   perform(move: KonaneMove)
-   perform(blackRemove: (x: Int, y: Int))                   
-   perform(whiteRemove: (x: Int, y: Int))
-   didBlackWin()
-   didWhiteWin()
-   /*I don't think you need to add what the function returns as ( ex. -> Bool) but I could be wrong*/ 
