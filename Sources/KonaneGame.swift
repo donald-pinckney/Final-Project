@@ -82,9 +82,9 @@ class KonaneGame {
 		for i in 0..<gameState.width {
 			let type: String
 			if gameState.getBoard()[i][row] == KonaneColor.white {
-				type = "x"
-			} else if gameState.getBoard()[i][row] == KonaneColor.black {
 				type = "o"
+			} else if gameState.getBoard()[i][row] == KonaneColor.black {
+				type = "x"
 			} else {
 				type = " "
 			}
