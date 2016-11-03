@@ -1,15 +1,46 @@
 class KonaneGame {
 
     private let gameState = KonaneGameState()
-/*
+
 	private let blackInputSource: KonaneMoveInputSource
 	private let whiteInputSource: KonaneMoveInputSource
-*/
     private let rowLine: String
-//	func play() -> Bool {} // Returns true if black wins. Technically contains main code (?).
+
+    init(blackIsHuman: Bool, whiteIsHuman: Bool) {
+        //Stuff goes here.
+        if blackIsHuman {
+            blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)
+        } else {
+            fatalError("AI doesn't work yet")
+        }
+        if whiteIsHuman {
+            whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)
+        } else {
+            fatalError("AI doesn't work yet")
+        }
+
+        //Creates the horizontal line for printing the board.
+        var rowLine: String = "+"
+        for _ in 0..<gameState.width {
+            rowLine += "---+"
+        }
+        self.rowLine = rowLine
+    }
+
+
+	func play() -> Bool { /* Returns true if black wins. Technically contains main code (?). */ 
+
+        displayBoard()
+        let blackRemove = blackInputSource.removeFirstPiece(gameState: gameState)
+        gameState.perform(blackRemove: blackRemove)
+        //Repeat for white.
+        
+        return true //Change when done writing.
+
+    }
 
 	//Displays the game board.
-    /*private*/ func displayBoard() {
+    private func displayBoard() {
         //Makes and prints each row of the board
 
     	for yVal in (0..<gameState.height).reversed() {
@@ -31,16 +62,6 @@ class KonaneGame {
         print("") //Makes a blank line in preparation for the next printed thing.
    	}
 
-    init(blackIsHuman: Bool, whiteIsHuman: Bool){
-		//Stuff goes here.
-
-
-		//Creates the horizontal line for printing the board.
-		var rowLine: String = "+"
-		for _ in 0..<gameState.width {
-    		rowLine += "---+"
-    	}
-        self.rowLine = rowLine
-	}
+    
 
 }

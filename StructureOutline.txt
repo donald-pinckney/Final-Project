@@ -28,7 +28,7 @@ enum KonaneColor {
 	case black, white, empty 
 }
 
-KonaneMove
+KonaneMove //Stores move, doesn't do move.
 	- init(fromX: Int, fromY: Int, toX: Int, toY: Int)
 	- fromX
 	- fromY

@@ -39,19 +39,28 @@ class KonaneGameState {
         }
 
         //Stored as [y][x]
-        /*private*/ var boardDataStorage: [[KonaneColor]]
+        /*private*/var boardDataStorage: [[KonaneColor]]
 
-/*
-        private var isBlackTurn: Bool
-        func getIsBlackTurn() -> Bool {}
-        func color(atX: Int, atY: Int) -> KonaneColor {} // Bottom left, 0-indexed
-        func isValid(move: KonaneMove) -> Bool {}
-        func isValid(blackRemove: (x: Int, y: Int)) -> Bool {}
-        func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {}
-        func perform(move: KonaneMove) {}
-        func perform(blackRemove: (x: Int, y: Int)) {}
-        func perform(whiteRemove: (x: Int, y: Int)) {}
-        func didBlackWin() -> Bool {}
-        func didWhiteWin() -> Bool {}
-*/
+        // private var isBlackTurn: Bool
+        // func getIsBlackTurn() -> Bool {}
+        // func color(atX: Int, atY: Int) -> KonaneColor {} // Bottom left, 0-indexed
+        // func isValid(move: KonaneMove) -> Bool {}
+        func isValid(blackRemove: (x: Int, y: Int)) -> Bool { //Checks if black can remove first piece.
+            if (blackRemove.x == 0 && blackRemove.y == 0) || (blackRemove.x == (width-1) && blackRemove.y == (height-1)) || (blackRemove.x == (width/2-1) && blackRemove.y == (height/2-1)) || (blackRemove.x == (width/2) && blackRemove.y == (height/2)) { //Relies on width and height being even.
+                return true
+            } else {
+                return false
+            }
+        }
+        // func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {}
+        // func perform(move: KonaneMove) {}
+        func perform(blackRemove: (x: Int, y: Int)) { //Removes black's first piece.
+            if isValid(blackRemove: blackRemove) {
+                boardDataStorage[x][y] = KonaneColor.empty
+            } //else {}
+        }
+        // func perform(whiteRemove: (x: Int, y: Int)) {}
+        // func didBlackWin() -> Bool {}
+        // func didWhiteWin() -> Bool {}
+
 }
