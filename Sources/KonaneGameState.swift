@@ -61,8 +61,31 @@ class KonaneGameState {
     }
 
     public var gameBoard: [[KonaneColor]] = []
-    
-    
+
+    func populateGameBoard() {
+        for column in 0..<width {
+            gameBoard.append([]) //Each column is an array
+            for row in 0..<height {
+                if column % 2 == 0 { //If column even -> black first
+                    if row % 2 == 0 {
+                        gameBoard[column].append(KonaneColor.black)
+                    }
+                    else {
+                        gameBoard[column].append(KonaneColor.white)
+                    }
+                }
+                else {
+                    if row % 2 == 0 { //If column odd -> white first
+                        gameBoard[column].append(KonaneColor.white)
+                    }
+                    else {
+                        gameBoard[column].append(KonaneColor.black)
+                    }
+                }
+            }
+        }
+    }
+
     func getIsBlackTurn() -> Bool {
     	if isBlackTurn {
     		return true
