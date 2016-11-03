@@ -244,7 +244,7 @@ class konaneGameState{
         }
       }
       else {
-        for yToChange in (move.fromY + 1)..<move.toX {
+        for yToChange in (move.fromY + 1)..<move.toY {
           if (move.fromY - yToChange) % 2 != 0 {
             gameBoard[xyToLocation(xValue: move.fromX, yValue: yToChange)] = KonaneColor.empty
           }

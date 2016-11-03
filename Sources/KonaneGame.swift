@@ -81,12 +81,12 @@ class KonaneGame{
       }
       gameState.perform(move: currentBlackMove)
       displayBoard()
-      /*
+
       if gameState.didBlackWin() {
         blackWon = true
         break
       }
-      */
+
       gameState.nextTurn()
       print("It is white's turn")
       var currentWhiteMove = whitePlayer.nextMove(gameState: gameState)
@@ -96,12 +96,12 @@ class KonaneGame{
       }
       gameState.perform(move: currentWhiteMove)
       displayBoard()
-      /*
+
       if gameState.didWhiteWin() {
         blackWon = false
         break
       }
-      */
+
       gameState.nextTurn()
       turn += 1
     }
