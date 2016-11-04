@@ -78,7 +78,7 @@ class KonaneGameState {
   }
 
   func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
-    if // find way to say end goal is empty
+    // find way to say end goal is empty
     if board[whiteRemove.x][whiteRemove.y] == KonaneColor.white {
       if whiteRemove.x = blackRemove.x + 1 || blackRemove.x - 1
       return true
