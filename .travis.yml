@@ -1,0 +1,9 @@
+dist: trusty
+sudo: required
+
+language: c
+compiler: clang
+install:
+    - bash .travis.install_swift.sh
+    - export PATH=$PATH:~/bin/swift/usr/bin
+script: testing/.travis.sh
