@@ -58,10 +58,11 @@ class KonaneGameState {
         //This function is basically process of elimination for all the not valid parts of a move
         
         //This one checks if where you are going is out of bounds.
-        //ASK: Why do I need a fromX if that was already validated in the last move? Possibly remove
+        
         if move.toX < 0 || move.toY < 0 || move.toX > 15 || move.toY > 15 {
             return false
-        
+        }
+
         //Finding the direction of the move, to be used in checkForPiece and the double jumps. Maybe. :)
         var direction = moveDirection.north
         if move.fromX + 2 == move.toX && move.fromY == move.toY{
@@ -82,6 +83,8 @@ class KonaneGameState {
         }else if direction == moveDirection.west && move.fromX - move.toX % 2 != 0 {
             return false
         }
+
+        //Get the number of spaces moved. Divide by 2. check for piece for each one, increasing x and y MAKE IT WORKKA{WOEGFWUPEFGWPIE
         //Do a loop to checkForPiece(made that one)
         //Find a way to combine the two so you can do both double jumps and single jumps
         
@@ -117,3 +120,4 @@ class KonaneGameState {
         }
     }
 }
+
