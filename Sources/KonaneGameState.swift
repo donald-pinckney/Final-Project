@@ -27,7 +27,33 @@ class KonaneGameState {
     func color(atX x: Int, atY y: Int) -> KonaneColor{
         return gameBoard[x][y]
     }
-    
+    func checkForPiece(_ direction: moveDirection, _ move: KonaneMove) -> Bool{ //if true is returned, there's a piece lol
+        if direction == moveDirection.north {                                   //yes i know theres a better way to do this
+            if getIsBlackTurn(){
+                return gameBoard[move.fromX][move.fromY + 1] == KonaneColor.white
+            }else{
+                return gameBoard[move.fromX][move.fromY + 1] == KonaneColor.black
+            }
+        }else if direction == moveDirection.east {
+            if getIsBlackTurn(){
+                return gameBoard[move.fromX + 1][move.fromY] == KonaneColor.white
+            }else{
+                return gameBoard[move.fromX + 1][move.fromY] == KonaneColor.black
+            }
+        }else if direction == moveDirection.south {
+            if getIsBlackTurn(){
+                return gameBoard[move.fromX][move.fromY - 1] == KonaneColor.white
+            }else{
+                return gameBoard[move.fromX][move.fromY - 1] == KonaneColor.black
+            }
+        }else{ //movedirection west
+            if getIsBlackTurn(){
+                return gameBoard[move.fromX - 1][move.fromY] == KonaneColor.white
+            }else{
+                return gameBoard[move.fromX - 1][move.fromY] == KonaneColor.black
+            }
+        }
+    }
     func isValid(move: KonaneMove) -> Bool{ //checking validity of ANY move
         //This function is basically process of elimination for all the not valid parts of a move
         
@@ -88,33 +114,6 @@ class KonaneGameState {
             return true
         }else{
             return false
-        }
-    }
-    func checkForPiece(_ direction: moveDirection, _ move: KonaneMove) -> Bool{ //if true is returned, there's a piece lol
-        if direction == moveDirection.north {                                   //yes i know theres a better way to do this
-            if getIsBlackTurn(){
-                return gameBoard[move.fromX][move.fromY + 1] == KonaneColor.white
-            }else{
-                return gameBoard[move.fromX][move.fromY + 1] == KonaneColor.black
-            }
-        }else if direction == moveDirection.east {
-            if getIsBlackTurn(){
-                return gameBoard[move.fromX + 1][move.fromY] == KonaneColor.white
-            }else{
-                return gameBoard[move.fromX + 1][move.fromY] == KonaneColor.black
-            }
-        }else if direction == moveDirection.south {
-            if getIsBlackTurn(){
-                return gameBoard[move.fromX][move.fromY - 1] == KonaneColor.white
-            }else{
-                return gameBoard[move.fromX][move.fromY - 1] == KonaneColor.black
-            }
-        }else{ //movedirection west
-            if getIsBlackTurn(){
-                return gameBoard[move.fromX - 1][move.fromY] == KonaneColor.white
-            }else{
-                return gameBoard[move.fromX - 1][move.fromY] == KonaneColor.black
-            }
         }
     }
 }
