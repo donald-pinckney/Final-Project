@@ -91,14 +91,53 @@ func displayBoard() {
 }
 
 func play() -> Bool {
-    while(true) { //ADD CONTENTS AND ACTUALLY WRITE CODE
-      break
+    
+    /*Criteria for function:
+    -start the game with remove piece funtions
+    -create loop for gameplay with moves
+        -finish when didWin funcitons return true
+    -return a bool for true
+    -display a win and lose message
+*/
+    //Start of Gameplay
+    //Starts game by displaying the game board
+    //player1 is black
+    //player2 is white
+    var winBool = false
+
+    print("What are the coordinates of the piece player1 wants to remove?")
+    let blackRemoveCoordx = Int(readLine()!)!
+    let blackRemoveCoordy = Int(readLine()!)!
+    
+    //make first removal's to start the game
+    gameState.perform(blackRemove: (xBlack: blackRemoveCoordx, yBlack: blackRemoveCoordy))
+    
+    print("What are the coordinates of the piece player2 wants to remove?")
+    let whiteRemoveCoordx = Int(readLine()!)!
+    let whiteRemoveCoordy = Int(readLine()!)!
+
+    gameState.perform(whiteRemove: (xWhite: whiteRemoveCoordx, yWhite: whiteRemoveCoordy), blackRemove: (xBlack: blackRemoveCoordx, yBlack: blackRemoveCoordy))
+    
+    while winBool == false {
+        displayBoard()
+        if isBlackTurn {
+            print("What are the coordinates of the piece player1 wants to move?")
+            var xCoordFromX =  Int(readLine()!)!
+            var yCoordFromY =  Int(readLine()!)!
+            print("How far do you want to move from these coordinates?")
+            var xCoordToX =  Int(readLine()!)!
+            var yCoordToY =  Int(readLine()!)!
+
+            var move: KonaneMove = KonaneMove(fromX: xCoordFromX, fromY: yCoordFromY, toX: xCoordToX, toY: yCoordToY)
+        } else {
+            //Code for !isBlackTurn
+        }
+
+
+        //call funciton to move a piece
+        
     }
-    return false
+    
+    }    //End of Gameplay
 }
-}
-
-
-
-
-
+//End of Class
