@@ -100,25 +100,25 @@ class KonaneGameState {
     }
     //Done?
     func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
-    	var returnBool = false
-        if !isBlackTurn {
-            for column in 0..<width {
-                for row in 0..<height {
-                    if gameBoard[column][row] == KonaneColor.white {
-                        if whiteRemove.x + whiteRemove.y == 0 || whiteRemove.x == width - 1 && whiteRemove.y == 0 || whiteRemove.x == 0 && whiteRemove.y == height - 1 || whiteRemove.x == width - 1 && whiteRemove.y == height - 1 {
-                            returnBool = true
-                        } else if whiteRemove.x == (width/2) - 0 && whiteRemove.y == (height/2) - 0 || whiteRemove.x == (width/2) - 1  && whiteRemove.y == (height/2) - 0 || whiteRemove.x == (width/2) - 0 && whiteRemove.y == (height/2) - 1 || whiteRemove.x == (width/2) - 1 && whiteRemove.y == (height/2) - 1 {
-                            returnBool = true
-                        }
-                    }
-                }
-            }
+        if gameBoard[whiteRemove.x][whiteRemove.y] == KonaneColor.white {
+          if gameBoard[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty {
+            return true
+          } else if gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty {
+            return true
+          } else if gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty {
+            return true
+          } else if gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty {
+            return true
+          } else {
+            return false
+          }
+        } else {
+          return false
         }
-        return returnBool
     }
 
     func perform(move: KonaneMove) {
-        
+
         //WRITE
     	print("Does not work")
     }
