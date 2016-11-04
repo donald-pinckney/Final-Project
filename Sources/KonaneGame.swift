@@ -19,15 +19,8 @@ class KonaneGame{
 
   init(blackIsHuman: Bool, whiteIsHuman: Bool) {
     //sets whether black and white are humans or AIs
-    if whiteIsHuman && blackIsHuman {
-      self.whiteIsHuman = whiteIsHuman
-      self.blackIsHuman = blackIsHuman
-    }
-    else {
-      print("Sorry, no AIs yet")
-      self.blackIsHuman = true
-      self.whiteIsHuman = true
-    }
+    self.whiteIsHuman = whiteIsHuman
+    self.blackIsHuman = blackIsHuman
     //sets what characters represent the players when showing the board
     //takes user input if player is a human or automatically sets black to 'X' or y to 'O' if the player is an AI
     if blackIsHuman {

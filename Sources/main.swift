@@ -1,4 +1,4 @@
-let game = KonaneGame(blackIsHuman: true, whiteIsHuman: true)
+let game = KonaneGame(blackIsHuman: true, whiteIsHuman: false)
 if game.play() {
   print("Black won")
 }
