@@ -52,7 +52,7 @@ class KonaneGameState {
 
   var width: Int
 	var height: Int
-	private var isBlackTurn: Bool
+    var isBlackTurn: Bool
 
     init (width: Int, height: Int, isBlackTurn: Bool) {
         self.width = width
