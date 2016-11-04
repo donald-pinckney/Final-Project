@@ -35,10 +35,8 @@ class KonaneGameState {
         //ASK: Why do I need a fromX if that was already validated in the last move? Possibly remove
         if move.toX < 0 || move.toY < 0 || move.toX > 15 || move.toY > 15 {
             return false
-        }else if move.fromX < 0 || move.fromY < 0 || move.fromX > 15 || move.fromY > 15 {
-            return false
-        }
         
+        //Finding the direction of the move, to be used in checkForPiece and the double jumps. Maybe. :)
         var direction = moveDirection.north
         if move.fromX + 2 == move.toX && move.fromY == move.toY{
             direction = moveDirection.east
@@ -46,9 +44,18 @@ class KonaneGameState {
             direction = moveDirection.south
         }else if move.fromX - 2 == move.toX && move.fromY == move.toY{
             direction = moveDirection.west
-        }// no north bc it's already set as north
+        }//North not included bc that's the default value
         
         //So. First you find a way to check if the number from -> to is % 2.
+        if direction == moveDirection.north && move.toY - move.fromY % 2 != 0{
+            return false
+        }else if direction == moveDirection.east && move.toX - move.fromX % 2 != 0 {
+            return false
+        }else if direction == moveDirection.south && move.fromY - move.toY % 2 != 0 {
+            return false
+        }else if direction == moveDirection.west && move.fromX - move.toX % 2 != 0 {
+            return false
+        ]
         //Do a loop to checkForPiece(made that one)
         //Find a way to combine the two so you can do both double jumps and single jumps
         
