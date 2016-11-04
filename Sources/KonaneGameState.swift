@@ -4,6 +4,8 @@ class KonaneGameState {
   private var board: [[KonaneColor]]
   private var isBlackTurn = true
 
+  private var blackRemove: (x: Int, y: Int) = (-1, -1)
+
   init() { // Sets up board
     let column = [KonaneColor](repeating: KonaneColor.empty, count: height)
     board = [[KonaneColor]](repeating: column, count: width)
@@ -78,17 +80,16 @@ class KonaneGameState {
   }
 
   func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
-    // find way to say end goal is empty
     if board[whiteRemove.x][whiteRemove.y] == KonaneColor.white {
-      if whiteRemove.x = blackRemove.x + 1 || blackRemove.x - 1
-      return true
-    } else if {
-      if whiteRemove.y = blackRemove.y + 1 || blackRemove.y - 1
-      return true
+      if whiteRemove.x == blackRemove.x + 1 || whiteRemove.x == blackRemove.x - 1 {
+        return true
+      } else if whiteRemove.y == blackRemove.y + 1 || whiteRemove.y == blackRemove.y - 1 {
+          return true
+      }
     }
-    return true
-
+    return false
   }
+  
   func perform(move: KonaneMove) {
     print("WIP")
     isBlackTurn = !isBlackTurn
@@ -97,6 +98,7 @@ class KonaneGameState {
     let coords = blackRemove
     if isValid(blackRemove: coords) {
       board[coords.x][coords.y] = KonaneColor.empty
+      self.blackRemove = blackRemove
     } else {
       fatalError("bad remove coords")
     }
