@@ -1,7 +1,5 @@
 import Foundation
 
-let game = KonaneGame(blackIsHuman: true, whiteIsHuman: true)
-print("Did black win? \(game.play())")
 
 class KonaneGame {
 	init(blackIsHuman: Bool, whiteIsHuman: Bool) {
@@ -33,7 +31,8 @@ class KonaneGame {
     }
 
 }
-
+let game = KonaneGame(blackIsHuman: true, whiteIsHuman: true)
+print("Did black win? \(game.play())")
 
 enum KonaneColor {
 	case black
@@ -57,10 +56,10 @@ class KonaneMove {
 
 
 class KonaneMoveInputSource {
+    var isBlack: Bool
     init(isBlack: Bool) {
         self.isBlack = isBlack
     }
-    var isBlack: Bool
 
 
 
@@ -79,10 +78,9 @@ class KonaneMoveInputSource {
 class KonaneGameState {
     let width: Int = 16
     let height: Int = 16
-    private let InternalBoardDataStorage: [[KonaneColor]] = [[KonaneColor]](repeating: [KonaneColor](repeating: KonaneColor.empty, count: height), count: width)
     /* the InternalBoardDataStorage wasn't working because I think internal by itself is a command so I changed it to be a name all together */
     private var isBlackTurn: Bool
-    init() {
+    init(_ height: Int,_ width: Int, InternalBoardDataStorage: [[KonaneColor]]) {
         for x in 0..<width {
             for y in 0..<height {
                 if (x + y) % 2 == 0{
@@ -93,7 +91,10 @@ class KonaneGameState {
                     }
             }
          }
+         self.height = height
+         self.width = width
     }
+    private var InternalBoardDataStorage: [[KonaneColor]] = [[KonaneColor]](repeating: [KonaneColor](repeating: KonaneColor.empty, count: height), count: width)
     /*getIsBlackTurn is a function that I'm calling print(color(atX: Int, atY:Int))*/
     /* I think this is how to call a function with either print(function) or just   saying the function with parameters but I'm not entirely sure */                                                                                   /* Bottom left, 0-indexed are the following properties functions, cuz I'm not    really sure... */
     /*
@@ -107,7 +108,7 @@ class KonaneGameState {
     didWhiteWin()
     */
 }
-        /*I don't think you need to add what the function returns as ( ex. -> Bool) but  I could be wrong*/                                                                            }
+        /*I don't think you need to add what the function returns as ( ex. -> Bool) but  I could be wrong*/                                                                            
     /* I think this is how to call a function with either print(function) or just saying the function with parameters but I'm not entirely sure */
    
    /* Bottom left, 0-indexed are the following properties functions, cuz I'm not really sure... */
