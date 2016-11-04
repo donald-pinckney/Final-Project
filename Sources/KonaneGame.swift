@@ -105,6 +105,8 @@ func play() -> Bool {
     //player2 is white
     var winBool = false
 
+    displayBoard()
+    
     print("What are the coordinates of the piece player1 wants to remove?")
     let blackRemoveCoordx = Int(readLine()!)!
     let blackRemoveCoordy = Int(readLine()!)!
@@ -129,15 +131,33 @@ func play() -> Bool {
             var yCoordToY =  Int(readLine()!)!
 
             var move: KonaneMove = KonaneMove(fromX: xCoordFromX, fromY: yCoordFromY, toX: xCoordToX, toY: yCoordToY)
+            gameState.perform(move: move)
+            winBool = gameState.didBlackWin()
+            
         } else {
-            //Code for !isBlackTurn
+            print("What are the coordinates of the piece player2 wants to move?")
+            var xCoordFromX =  Int(readLine()!)!
+            var yCoordFromY =  Int(readLine()!)!
+            print("How far do you want to move from these coordinates?")
+            var xCoordToX =  Int(readLine()!)!
+            var yCoordToY =  Int(readLine()!)!
+            
+            var move: KonaneMove = KonaneMove(fromX: xCoordFromX, fromY: yCoordFromY, toX: xCoordToX, toY: yCoordToY)
+            gameState.perform(move: move)
+            winBool = gameState.didWhiteWin()
         }
+        
+        if winBool && gameState.isBlackTurn {
+            print("Player1 has won the game!")
+        } else if winBool && !gameState.isBlackTurn{
+            print("Player1 has won the game!")
+        }
+        return winBool
 
 
         //call funciton to move a piece
 
     }
-
     }    //End of Gameplay
 }
 //End of Class
