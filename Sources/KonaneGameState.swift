@@ -55,7 +55,7 @@ class KonaneGameState {
             return false
         }else if direction == moveDirection.west && move.fromX - move.toX % 2 != 0 {
             return false
-        ]
+        }
         //Do a loop to checkForPiece(made that one)
         //Find a way to combine the two so you can do both double jumps and single jumps
         
