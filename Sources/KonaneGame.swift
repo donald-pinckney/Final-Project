@@ -33,7 +33,10 @@ class KonaneGame {
         displayBoard()
         let blackRemove = blackInputSource.removeFirstPiece(gameState: gameState)
         gameState.perform(blackRemove: blackRemove)
-        //Repeat for white. Then do code for a turn.
+        displayBoard()
+        let whiteRemove = whiteInputSource.removeSecondPiece(gameState: gameState)
+        gameState.perform(whiteRemove: whiteRemove)
+        //Do code for a turn.
         
         return true //Change when done writing.
 
@@ -59,7 +62,7 @@ class KonaneGame {
     		print(currentRowSquares)
     	}
     	print(rowLine)
-        print("") //Makes a blank line in preparation for the next printed thing.
+        print() //Makes a blank line in preparation for the next printed thing.
    	}
 
     

@@ -63,7 +63,16 @@ class KonaneGameState {
             }
         }
 
-        // func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {}
+        func isValid(whiteRemove: (x: Int, y: Int)) -> Bool { //Checks if white can remove second piece. Checks the four pieces around the first piece black removed.
+
+            if /*Do for all four cases: above below left right.*/ {
+                return true
+            } else {
+                print("Invalid move! Please choose a different piece.")
+                print()
+                return false
+            }
+        }
         // func perform(move: KonaneMove) {}
 
         func perform(blackRemove: (x: Int, y: Int)) { //Removes black's first piece. Assumes move is valid (should already be checked).
@@ -74,7 +83,13 @@ class KonaneGameState {
 
         }
 
-        // func perform(whiteRemove: (x: Int, y: Int)) {}
+        func perform(whiteRemove: (x: Int, y: Int)) { //Removes white's first piece. Assumes move is valid (should already be checked).
+
+            let x: Int = whiteRemove.x
+            let y: Int = whiteRemove.y
+            boardDataStorage[y][x] = KonaneColor.empty
+
+        }
         // func didBlackWin() -> Bool {}
         // func didWhiteWin() -> Bool {}
 
