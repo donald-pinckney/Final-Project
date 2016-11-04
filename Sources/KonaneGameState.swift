@@ -87,9 +87,9 @@ class KonaneGameState {
             for column in 0..<width {
                 for row in 0..<height {
                     if gameBoard[column][row] == KonaneColor.black {
-                        if x + y == 0 || x == width - 1 && y == 0 || x == 0 && y == height - 1 || x == width - 1 && y == height - 1 {
+                        if blackRemove.x + blackRemove.y == 0 || blackRemove.x == width - 1 && blackRemove.y == 0 || blackRemove.x == 0 && blackRemove.y == height - 1 || blackRemove.x == width - 1 && blackRemove.y == height - 1 {
                             returnBool = true
-                        } else if x == (width/2) - 0 && y == (height/2) - 0 || x == (width/2) - 1  && y == (height/2) - 0 || x == (width/2) - 0 && y == (height/2) - 1 || x == (width/2) - 1 && y == (height/2) - 1 {
+                        } else if blackRemove.x == (width/2) - 0 && blackRemove.y == (height/2) - 0 || blackRemove.x == (width/2) - 1  && blackRemove.y == (height/2) - 0 || blackRemove.x == (width/2) - 0 && blackRemove.y == (height/2) - 1 || blackRemove.x == (width/2) - 1 && blackRemove.y == (height/2) - 1 {
                             returnBool = true
                         }
                     }
@@ -105,9 +105,9 @@ class KonaneGameState {
             for column in 0..<width {
                 for row in 0..<height {
                     if gameBoard[column][row] == KonaneColor.white {
-                        if x + y == 0 || x == width - 1 && y == 0 || x == 0 && y == height - 1 || x == width - 1 && y == height - 1 {
+                        if whiteRemove.x + whiteRemove.y == 0 || whiteRemove.x == width - 1 && whiteRemove.y == 0 || whiteRemove.x == 0 && whiteRemove.y == height - 1 || whiteRemove.x == width - 1 && whiteRemove.y == height - 1 {
                             returnBool = true
-                        } else if x == (width/2) - 0 && y == (height/2) - 0 || x == (width/2) - 1  && y == (height/2) - 0 || x == (width/2) - 0 && y == (height/2) - 1 || x == (width/2) - 1 && y == (height/2) - 1 {
+                        } else if whiteRemove.x == (width/2) - 0 && whiteRemove.y == (height/2) - 0 || whiteRemove.x == (width/2) - 1  && whiteRemove.y == (height/2) - 0 || whiteRemove.x == (width/2) - 0 && whiteRemove.y == (height/2) - 1 || whiteRemove.x == (width/2) - 1 && whiteRemove.y == (height/2) - 1 {
                             returnBool = true
                         }
                     }
