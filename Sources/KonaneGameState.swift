@@ -82,7 +82,7 @@ class KonaneGameState {
     }
     //Done?
     func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
-        returnBool = false
+        var returnBool = false
         if isBlackTurn {
             for column in 0..<width {
                 for row in 0..<height {
@@ -100,7 +100,7 @@ class KonaneGameState {
     }
     //Done?
     func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
-    	returnBool = false
+    	var returnBool = false
         if !isBlackTurn {
             for column in 0..<width {
                 for row in 0..<height {

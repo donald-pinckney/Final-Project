@@ -37,7 +37,7 @@ class KonaneMoveInputSource {
 	}
 
 	func nextMove(gameState: KonaneGameState) -> KonaneMove {
-		var move = KonaneMove(fromX: 1, fromY: 1, toX: 1, toY: 1)
+		let move = KonaneMove(fromX: 1, fromY: 1, toX: 1, toY: 1)
 		return(move)
 	}
 }
