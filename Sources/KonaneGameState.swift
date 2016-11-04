@@ -118,21 +118,21 @@ class KonaneGameState {
     }
 
     func perform(move: KonaneMove) {
-    	//WRITE
-
+        
+        //WRITE
     	print("Does not work")
     }
 
     func perform(blackRemove: (x: Int, y: Int)) {
-    	//WRITE
-
-    	print("Does not work")
+        if isValid(blackRemove: (x: blackRemove.x, y: blackRemove.y)) {
+            gameBoard[blackRemove.x][blackRemove.y] = KonaneColor.empty
+        }
     }
 
     func perform(whiteRemove: (x: Int, y: Int)) {
-    	//WRITE
-
-    	print("Does not work")
+        if isValid(whiteRemove: (x: whiteRemove.x, y: whiteRemove.y)) {
+            gameBoard[whiteRemove.x][whiteRemove.y] = KonaneColor.empty
+        }
     }
 
     func didBlackWin() -> Bool {
