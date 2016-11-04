@@ -28,12 +28,12 @@ class KonaneGame {
     }
 
 
-	func play() -> Bool { /* Returns true if black wins. Technically contains main code (?). */ 
+	func play() -> Bool { /* Returns true if black wins. Technically contains main code for running game moves. */ 
 
         displayBoard()
         let blackRemove = blackInputSource.removeFirstPiece(gameState: gameState)
         gameState.perform(blackRemove: blackRemove)
-        //Repeat for white.
+        //Repeat for white. Then do code for a turn.
         
         return true //Change when done writing.
 
