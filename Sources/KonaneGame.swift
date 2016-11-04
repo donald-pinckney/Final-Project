@@ -38,7 +38,7 @@ class KonaneGame{
     else {
       print("Black will be displayed as 'X'")
       blackCharacter = "X"
-      blackPlayer = KonaneMoveInputSource(isBlack: true)
+      blackPlayer = Peter_KonaneMoveInputSourceAI(isBlack: true)
     }
     if whiteIsHuman {
       print("Enter the character that you want white to appear as on the display of the board")
@@ -48,7 +48,7 @@ class KonaneGame{
     else {
       print("White will be displayed as 'O'")
       whiteCharacter = "O"
-      whitePlayer = KonaneMoveInputSource(isBlack: false)
+      whitePlayer = Peter_KonaneMoveInputSourceAI(isBlack: false)
     }
   }
 
