@@ -50,7 +50,7 @@ x	- didWhiteWin() -> Bool
 //SINCE it is included in KonaneColor.swift
 class KonaneGameState {
 
-  var width: Int
+    var width: Int
 	var height: Int
     var isBlackTurn: Bool
 
@@ -61,7 +61,8 @@ class KonaneGameState {
     }
 
     public var gameBoard: [[KonaneColor]] = []
-
+    
+    
     func getIsBlackTurn() -> Bool {
     	if isBlackTurn {
     		return true

@@ -104,7 +104,7 @@ func play() -> Bool {
     //player1 is black
     //player2 is white
     var winBool = false
-
+    gameState.initializeBoard
     displayBoard()
     
     print("What are the coordinates of the piece player1 wants to remove?")
