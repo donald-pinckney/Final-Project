@@ -112,9 +112,17 @@ class KonaneGameState {
                 for row in 0..<height {
                     if gameBoard[column][row] == KonaneColor.black {
                         if blackRemove.x + blackRemove.y == 0 || blackRemove.x == width - 1 && blackRemove.y == 0 || blackRemove.x == 0 && blackRemove.y == height - 1 || blackRemove.x == width - 1 && blackRemove.y == height - 1 {
-                            returnBool = true
+                            if gameBoard[blackRemove.x][blackRemove.y] == KonaneColor.black {
+                                returnBool = true
+                            } else {
+                                print("error: that is not a black tile")
+                            }
                         } else if blackRemove.x == (width/2) - 0 && blackRemove.y == (height/2) - 0 || blackRemove.x == (width/2) - 1  && blackRemove.y == (height/2) - 0 || blackRemove.x == (width/2) - 0 && blackRemove.y == (height/2) - 1 || blackRemove.x == (width/2) - 1 && blackRemove.y == (height/2) - 1 {
-                            returnBool = true
+                                if gameBoard[blackRemove.x][blackRemove.y] == KonaneColor.black {
+                                returnBool = true
+                                } else {
+                                print("error: that is not a black tile")
+                            }
                         }
                     }
                 }
@@ -134,9 +142,13 @@ class KonaneGameState {
           } else if gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty {
             return true
           } else {
+            print("error with checking spaces around tile")
+
             return false
           }
         } else {
+            print("error not white tile")
+
           return false
         }
     }
@@ -156,6 +168,8 @@ class KonaneGameState {
     func perform(whiteRemove: (x: Int, y: Int)) {
         if isValid(whiteRemove: (x: whiteRemove.x, y: whiteRemove.y)) {
             gameBoard[whiteRemove.x][whiteRemove.y] = KonaneColor.empty
+        } else {
+            print("error")
         }
     }
 
