@@ -270,7 +270,6 @@ class konaneGameState{
   //checks if black won
   func didBlackWin() -> Bool {
     var didWin = true
-    isBlackTurn = true
     for xStartToCheck in 0..<width {
       for yStartToCheck in 0..<height {
         for xEndToCheck in 0..<width {
@@ -288,7 +287,6 @@ class konaneGameState{
   //checks if white won
   func didWhiteWin() -> Bool {
     var didWin = true
-    isBlackTurn = false
     for xStartToCheck in 0..<width {
       for yStartToCheck in 0..<height {
         for xEndToCheck in 0..<width {

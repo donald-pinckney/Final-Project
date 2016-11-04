@@ -3,5 +3,5 @@ if game.play() {
   print("Black won")
 }
 else {
-  print("Black lost")
+  print("White won")
 }
