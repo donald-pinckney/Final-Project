@@ -29,42 +29,34 @@ class KonaneGameState {
     }
     
     func isValid(move: KonaneMove) -> Bool{ //checking validity of ANY move
+        //This function is basically process of elimination for all the not valid parts of a move
+        
+        //This one checks if where you are going is out of bounds.
+        //ASK: Why do I need a fromX if that was already validated in the last move? Possibly remove
         if move.toX < 0 || move.toY < 0 || move.toX > 15 || move.toY > 15 {
-            return false     // CHECKING FOR OUT OF BOUNDS
+            return false
         }else if move.fromX < 0 || move.fromY < 0 || move.fromX > 15 || move.fromY > 15 {
             return false
         }
-
-        var tempX = move.toX
-        var count = 1
-        while tempX - 2 != move.fromX {
-            tempX -= 2
-            count += 1
-        } //THESE TWO FUNCTIONS ^ V SHOULD TOGETHER BE A COOL LOOP FOR THE DOUBLE JUMPS
-        for _ in 0..<count{
-            if move.fromX + 2 != move.toX || move.fromX - 2 != move.toX{
-                return false      
-            }
-        }
         
-        //NOW I AM FINDING THE DIRECTIONNNNNN
-        
-        //MOVE THIS UP SO I CAN USE THE DIRECTION EIUFEQPIUGFBERPIGUBERPUFBER
-
         var direction = moveDirection.north
         if move.fromX + 2 == move.toX && move.fromY == move.toY{
-            direction = moveDirection.east 
+            direction = moveDirection.east
         }else if move.fromX == move.toX && move.fromY - 2 == move.toY{
             direction = moveDirection.south
         }else if move.fromX - 2 == move.toX && move.fromY == move.toY{
             direction = moveDirection.west
         }// no north bc it's already set as north
+        
+        //So. First you find a way to check if the number from -> to is % 2.
+        //Do a loop to checkForPiece(made that one)
+        //Find a way to combine the two so you can do both double jumps and single jumps
+        
         if !checkForPiece(direction, move) {
             return false
         }
 
-
-        return true//YOU STILL NEED TO CHECK: Piece in between, +Distance = 1 or -1 (not jumping 2 or diagonal) andouble jumps!!!!
+        return true
     }
     func isValid(blackRemove: (x: Int, y: Int)) -> Bool{ //checking validity of white and black remove @ start
         if blackRemove.x == 15 && blackRemove.y == 15 || blackRemove.x == 0 && blackRemove.y == 0{
