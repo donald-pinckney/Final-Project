@@ -10,11 +10,11 @@ class Peter_KonaneMoveInputSourceAI: KonaneMoveInputSource {
     if gameState.color(atX: 0, atY: 0) == KonaneColor.empty {
       pieceToRemove = (0, 1)
     }
-    else if gameState.color(atX: 15, atY: 15) == KonaneColor.empty {
-      pieceToRemove = (15, 14)
+    else if gameState.color(atX: gameState.width - 1, atY: gameState.height - 1) == KonaneColor.empty {
+      pieceToRemove = (gameState.width - 1, gameState.height - 2)
     }
     else {
-      pieceToRemove = (7, 8)
+      pieceToRemove = (gameState.width / 2, (gameState.height / 2) - 1)
     }
     return pieceToRemove
   }

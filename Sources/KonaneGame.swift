@@ -67,7 +67,6 @@ class KonaneGame{
     var blackWon = false
     while turn <= 100 {
       print("It is black's turn")
-      print("black's turn is \(gameState.getBlackTurn())")
       var currentBlackMove = blackPlayer.nextMove(gameState: gameState)
       while(!gameState.isLegal(move: currentBlackMove)) {
         print("I'm sorry, but that move is not legal. Please try again.")
@@ -82,7 +81,6 @@ class KonaneGame{
       }
 
       print("It is white's turn")
-      print("black's turn is \(gameState.getBlackTurn())")
       var currentWhiteMove = whitePlayer.nextMove(gameState: gameState)
       while(!gameState.isLegal(move: currentWhiteMove)) {
         print("I'm sorry, but that move is not legal. Please try again.")
