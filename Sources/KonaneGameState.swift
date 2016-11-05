@@ -1,3 +1,4 @@
+import Foundation
 class KonaneGameState {
     let width = 16
     let height = 16
@@ -84,13 +85,48 @@ class KonaneGameState {
             return false
         }
 
+        //This makes sure there's a piece between fromX/Y and toX/Y.
+        if !checkForPiece(direction, move) {
+            return false
+        }
+        
+        var count = 0
+        if direction == moveDirection.north || direction == moveDirection.south {
+            count = Int(sqrt(pow(Double(move.fromY - move.toY), Double(2)))) //This should work, just eliminating any negatives because no! thanks!   
+        }else if direction == moveDirection.east || direction == moveDirection.west{
+            count = Int(sqrt(pow(Double(move.fromX - move.toX), Double(2)))) //lmao
+        }
+
+        //This should check for a piece by breaking move into a bunch of singluar moves and testing each lmao
+        for i in 0...count {
+            if i % 2 != 0 {
+                if direction == moveDirection.north {
+                    let tempMove = KonaneMove(fromX: move.fromX, fromY: count - 2, toX: move.toX, toY: count)
+                    if !checkForPiece(direction, tempMove){
+                        return false
+                    }
+                }else if direction == moveDirection.east {
+                    let tempMove = KonaneMove(fromX: count - 2, fromY: move.fromY, toX: count, toY: move.toY)
+                    if !checkForPiece(direction, tempMove){
+                        return false
+                    }
+                }else if direction == moveDirection.south {
+                    let tempMove = KonaneMove(fromX: move.fromX, fromY: count + 2, toX: move.toX, toY: count)
+                    if !checkForPiece(direction, tempMove){
+                        return false
+                    }
+                }else if direction == moveDirection.west {
+                    let tempMove = KonaneMove(fromX: count + 2, fromY: move.fromY, toX: count, toY: move.toY)
+                    if !checkForPiece(direction, tempMove){
+                        return false
+                    }
+                }
+            }
+        }
         //Get the number of spaces moved. Divide by 2. check for piece for each one, increasing x and y MAKE IT WORKKA{WOEGFWUPEFGWPIE
         //Do a loop to checkForPiece(made that one)
         //Find a way to combine the two so you can do both double jumps and single jumps
         
-        if !checkForPiece(direction, move) {
-            return false
-        }
 
         return true
     }
