@@ -2,6 +2,10 @@ class KonaneGameState {
         //Rules say should be even but doesn't NEED to be. Code says needs to be even right now.
         let width: Int = 16
         let height: Int = 16
+
+        //-1 so that it can't be used until it is changed.
+        private var firstX: Int = -1
+        private var firstY: Int = -1
         /*
         let spacesAmount: String
         let rowNum: [String]
@@ -65,7 +69,7 @@ class KonaneGameState {
 
         func isValid(whiteRemove: (x: Int, y: Int)) -> Bool { //Checks if white can remove second piece. Checks the four pieces around the first piece black removed.
 
-            if /*Do for all four cases: above below left right.*/ {
+            if ((whiteRemove.x == firstX && (whiteRemove.y == firstY + 1 || whiteRemove.y == firstY - 1)) || (whiteRemove.y == firstY && (whiteRemove.x == firstX + 1 || whiteRemove.x == firstX - 1))) { //Checks for all four cases: above below left right. Needs the space that black removed.
                 return true
             } else {
                 print("Invalid move! Please choose a different piece.")
@@ -79,8 +83,9 @@ class KonaneGameState {
 
             let x: Int = blackRemove.x
             let y: Int = blackRemove.y
+            firstX = x
+            firstY = y
             boardDataStorage[y][x] = KonaneColor.empty
-
         }
 
         func perform(whiteRemove: (x: Int, y: Int)) { //Removes white's first piece. Assumes move is valid (should already be checked).

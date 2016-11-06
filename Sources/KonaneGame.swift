@@ -36,6 +36,7 @@ class KonaneGame {
         displayBoard()
         let whiteRemove = whiteInputSource.removeSecondPiece(gameState: gameState)
         gameState.perform(whiteRemove: whiteRemove)
+        displayBoard()
         //Do code for a turn.
         
         return true //Change when done writing.

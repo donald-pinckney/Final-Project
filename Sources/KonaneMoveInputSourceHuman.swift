@@ -1,7 +1,9 @@
 class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
+
+	let gameState = KonaneGameState()
+	
 	override func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
 
-		let gameState = KonaneGameState()
 		var x: Int = 0
 		var y: Int = 0
 		let loop = true
@@ -25,7 +27,6 @@ class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
 
     override func removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
 
-		let gameState = KonaneGameState()
 		var x: Int = 0
 		var y: Int = 0
 		let loop = true
