@@ -6,28 +6,33 @@ class KonaneGame {
         if blackIsHuman{
             blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)    
         }else{
-            print("Yo.")
+            fatalError("No AI")
             blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)
         }
         if whiteIsHuman{
-            whiteInputSource = KonaneMoveInputSourceHuman(isBlack: true)        
+            whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)        
         }else{
-            print("Yo.")
-            whiteInputSource = KonaneMoveInputSourceHuman(isBlack: true)
+            fatalError("No AI")
+            whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)
         }
     }
 
     func play() -> Bool{
-        //do th stuf
+        //Start: Remove first pieces
+        //I think isValid shall be within... perform()
+        //and a loop
+        //so
+        //a loop with perform, displayboard, asking for move and whatnot
+        //
         return true
     }
 
     func displayboard(){
         for indexY in (0..<gameState.width).reversed(){//prints ROWS
             if indexY > 9{
-                print("\(indexY)", terminator:"   ")//Terminator is 3 spaces; this prints the index of y wait what
+                print("\(indexY)", terminator:"   ")//Terminator is 3 spaces; this prints the index of y
             }else{
-                print("\(indexY)", terminator:"    ")//Terminator is 4 space
+                print("\(indexY)", terminator:"    ")//Terminator is 4 spaces because there's one less number
             }
             for indexX in 0..<gameState.height{//prints the THINGS in the rows
                 if gameState.color(atX: indexX, atY: indexY) == KonaneColor.black{
