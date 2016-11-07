@@ -122,29 +122,33 @@ func play() -> Bool {
 
     while winBool == false {
         displayBoard()
-        if gameState.isBlackTurn {
+        if gameState.isBlackTurn == true{
             print("What are the coordinates of the piece player1 wants to move?")
-            var xCoordFromX =  Int(readLine()!)!
-            var yCoordFromY =  Int(readLine()!)!
-            print("How far do you want to move from these coordinates?")
-            var xCoordToX =  Int(readLine()!)!
-            var yCoordToY =  Int(readLine()!)!
+            let xCoordFromX =  Int(readLine()!)!
+            let yCoordFromY =  Int(readLine()!)!
+            print("Where do you want to move that tile too?")
+            let xCoordToX =  Int(readLine()!)!
+            let yCoordToY =  Int(readLine()!)!
 
-            var move: KonaneMove = KonaneMove(fromX: xCoordFromX, fromY: yCoordFromY, toX: xCoordToX, toY: yCoordToY)
+            let move: KonaneMove = KonaneMove(fromX: xCoordFromX, fromY: yCoordFromY, toX: xCoordToX, toY: yCoordToY)
             gameState.perform(move: move)
             winBool = gameState.didBlackWin()
+            gameState.isBlackTurn = false
 
-        } else {
+        } else if gameState.isBlackTurn == false {
             print("What are the coordinates of the piece player2 wants to move?")
-            var xCoordFromX =  Int(readLine()!)!
-            var yCoordFromY =  Int(readLine()!)!
-            print("How far do you want to move from these coordinates?")
-            var xCoordToX =  Int(readLine()!)!
-            var yCoordToY =  Int(readLine()!)!
+            let xCoordFromX =  Int(readLine()!)!
+            let yCoordFromY =  Int(readLine()!)!
+            print("Where do you want to move that tile too?")
+            let xCoordToX =  Int(readLine()!)!
+            let yCoordToY =  Int(readLine()!)!
 
-            var move: KonaneMove = KonaneMove(fromX: xCoordFromX, fromY: yCoordFromY, toX: xCoordToX, toY: yCoordToY)
+            let move: KonaneMove = KonaneMove(fromX: xCoordFromX, fromY: yCoordFromY, toX: xCoordToX, toY: yCoordToY)
             gameState.perform(move: move)
             winBool = gameState.didWhiteWin()
+            gameState.isBlackTurn = true
+        } else {
+            print("Error in play function")
         }
 
         if winBool && gameState.isBlackTurn {
@@ -152,12 +156,13 @@ func play() -> Bool {
         } else if winBool && !gameState.isBlackTurn{
             print("Player1 has won the game!")
         }
-        return winBool
+
 
 
         //call funciton to move a piece
 
     }
+        return winBool
     }    //End of Gameplay
 }
 //End of Class
