@@ -107,14 +107,15 @@ func play() -> Bool {
     gameState.populateGameBoard()
     displayBoard()
 
-    print("What are the coordinates of the piece player1 wants to remove?")
+    print("What are the coordinates of the piece player1 (x's) wants to remove?")
     let blackRemoveCoordx = Int(readLine()!)!
     let blackRemoveCoordy = Int(readLine()!)!
 
     //make first removal's to start the game
     gameState.perform(blackRemove: (x: blackRemoveCoordx, y: blackRemoveCoordy))
     displayBoard()
-    print("What are the coordinates of the piece player2 wants to remove?")
+    
+    print("What are the coordinates of the piece player2 (o's) wants to remove?")
     let whiteRemoveCoordx = Int(readLine()!)!
     let whiteRemoveCoordy = Int(readLine()!)!
 
@@ -123,7 +124,7 @@ func play() -> Bool {
     while winBool == false {
         displayBoard()
         if gameState.isBlackTurn == true{
-            print("What are the coordinates of the piece player1 wants to move?")
+            print("What are the coordinates of the piece player1 (x's) wants to move?")
             let xCoordFromX =  Int(readLine()!)!
             let yCoordFromY =  Int(readLine()!)!
             print("Where do you want to move that tile too?")
@@ -136,7 +137,7 @@ func play() -> Bool {
             gameState.isBlackTurn = false
 
         } else if gameState.isBlackTurn == false {
-            print("What are the coordinates of the piece player2 wants to move?")
+            print("What are the coordinates of the piece player2 (o's) wants to move?")
             let xCoordFromX =  Int(readLine()!)!
             let yCoordFromY =  Int(readLine()!)!
             print("Where do you want to move that tile too?")
@@ -151,9 +152,9 @@ func play() -> Bool {
             print("Error in play function")
         }
 
-        if winBool && gameState.isBlackTurn {
-            print("Player1 has won the game!")
-        } else if winBool && !gameState.isBlackTurn{
+        if winBool && gameState.isBlackTurn == true {
+            print("Player1 (x's) has won the game!")
+        } else if winBool && gameState.isBlackTurn == false{
             print("Player1 has won the game!")
         }
 

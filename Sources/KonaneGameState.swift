@@ -179,7 +179,6 @@ class KonaneGameState {
                 }
             }
         } else if isBlackTurn == false{
-            //How do I correctly access the gameBoard and the enum? - FIX
             //Check if this is a valid piece for the user to move
             if gameBoard[move.fromX][move.fromY] == KonaneColor.white {
                 //Is this how I actually add values?
@@ -363,17 +362,89 @@ class KonaneGameState {
         }
     }
 
+    
+    
+    //FIX FIX FIX FIX FIX
+    //I think when the code tries to access a number that is not in the array, for example -2 identifier, the code cannot handle it.
     func didBlackWin() -> Bool {
-    	//WRITE
-
-    	print("Did win function does not work yet!")
-    	return false
+        var returnBool = true
+        for column in 0..<width {
+            for row in 0..<height {
+                if isBlackTurn == true {
+                    if 1 < row && row < 13 && 1 < column && column < 13 {
+                        if gameBoard[column][row] == KonaneColor.black {
+                            if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] == KonaneColor.empty{
+                                returnBool = false
+                            } else if gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] == KonaneColor.empty{
+                                returnBool = false
+                            } else if gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] == KonaneColor.empty{
+                                returnBool = false
+                            } else if gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] == KonaneColor.empty {
+                                returnBool = false
+                            }
+                        }
+                    } else if column < 1 {
+                        if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty {
+                            returnBool = false
+                        }
+                    } else if column > 14 {
+                        if gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty {
+                            returnBool = false
+                        }
+                    } else if row < 1 {
+                        if gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty {
+                            returnBool = false
+                        }
+                    } else if row > 14 {
+                        if gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty {
+                            returnBool = false
+                        }
+                    } else {
+                    }
+                }
+            }
+        }
+        return returnBool
     }
 
     func didWhiteWin() -> Bool {
-    	//WRITE
-
-    	print("Did win function does not work yet!")
-    	return false
+        var returnBool = true
+        for column in 0..<width {
+            for row in 0..<height {
+                if isBlackTurn == false {
+                    
+                    if gameBoard[column][row] == KonaneColor.white {
+                        if gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] == KonaneColor.empty{
+                            returnBool = false
+                        } else if gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] == KonaneColor.empty{
+                            returnBool = false
+                        } else if gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] == KonaneColor.empty{
+                            returnBool = false
+                        } else if gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] == KonaneColor.empty {
+                            returnBool = false
+                        }
+                    } else if column < 1 {
+                        if gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty {
+                            returnBool = false
+                        }
+                    } else if column > 14 {
+                        if gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty {
+                            returnBool = false
+                        }
+                    } else if row < 1 {
+                        if gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty {
+                            returnBool = false
+                        }
+                    } else if row > 14 {
+                        if gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty {
+                            returnBool = false
+                        }
+                    } else {
+                        print("Error in didBlackWin")
+                    }
+                }
+            }
+        }
+        return returnBool
     }
 }
