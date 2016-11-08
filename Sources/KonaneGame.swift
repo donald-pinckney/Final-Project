@@ -6,19 +6,26 @@ class KonaneGame {
         if blackIsHuman{
             blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)    
         }else{
-            fatalError("No AI")
+            print("No AI")
             blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)
         }
         if whiteIsHuman{
             whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)        
         }else{
-            fatalError("No AI")
+            print("No AI")
             whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)
         }
     }
 
     func play() -> Bool{
-        //Start: Remove first pieces
+        //Start: remove pieces
+        print("Welcome to Konane!!! :D")
+        displayboard()
+        print("Black player: which piece would you like to remove?\n Enter x, then y.", terminator:" ")
+        let blackRmvx = readLine()!
+        print("And for y?", terminator:" ")
+        let blackRmvy = readLine()!
+        isValid(blackRemove: (blackRmvx, blackRmvy))
         //I think isValid shall be within... perform()
         //and a loop
         //so

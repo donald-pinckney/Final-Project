@@ -155,5 +155,11 @@ class KonaneGameState {
             return false
         }
     }
+    /*func perform(blackRemove: (_ x: Int, _ y: Int)){
+        gameBoard[x][y] = KonaneColor.empty
+    }
+    func perform(whiteRemove: (_ x: Int, _ y: Int)){
+        gameBoard[x][y] = KonaneColor.empty
+    }*/
 }
 
