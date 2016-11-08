@@ -412,16 +412,17 @@ class KonaneGameState {
         for column in 0..<width {
             for row in 0..<height {
                 if isBlackTurn == false {
-                    
-                    if gameBoard[column][row] == KonaneColor.white {
-                        if gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] == KonaneColor.empty{
-                            returnBool = false
-                        } else if gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] == KonaneColor.empty{
-                            returnBool = false
-                        } else if gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] == KonaneColor.empty{
-                            returnBool = false
-                        } else if gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] == KonaneColor.empty {
-                            returnBool = false
+                    if 1 < row && row < 13 && 1 < column && column < 13 {
+                        if gameBoard[column][row] == KonaneColor.black {
+                            if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] == KonaneColor.empty{
+                                returnBool = false
+                            } else if gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] == KonaneColor.empty{
+                                returnBool = false
+                            } else if gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] == KonaneColor.empty{
+                                returnBool = false
+                            } else if gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] == KonaneColor.empty {
+                                returnBool = false
+                            }
                         }
                     } else if column < 1 {
                         if gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty {
@@ -439,9 +440,7 @@ class KonaneGameState {
                         if gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty {
                             returnBool = false
                         }
-                    } else {
-                        print("Error in didBlackWin")
-                    }
+                    } else {                    }
                 }
             }
         }
