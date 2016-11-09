@@ -30,7 +30,7 @@ import Foundation
 
 KonaneGameState
 x	- width: Int = 16
-x	- height: Int = 16
+x	- height - 1: Int = 16
 x	- init()
 x	- private internal board data storage
 x	- private isBlackTurn: Bool
@@ -65,7 +65,7 @@ class KonaneGameState {
     func populateGameBoard() {
         for column in 0..<width {
             gameBoard.append([]) //Each column is an array
-            for row in 0..<height {
+            for row in 0..<height{
                 if column % 2 == 0 { //If column even -> black first
                     if row % 2 == 0 {
                         gameBoard[column].append(KonaneColor.black)
@@ -241,7 +241,7 @@ class KonaneGameState {
             for column in 0..<width {
                 for row in 0..<height {
                     if gameBoard[column][row] == KonaneColor.black {
-                        if blackRemove.x + blackRemove.y == 0 || blackRemove.x == width - 1 && blackRemove.y == 0 || blackRemove.x == 0 && blackRemove.y == height - 1 || blackRemove.x == width - 1 && blackRemove.y == height - 1 {
+                        if blackRemove.x + blackRemove.y == 0 || blackRemove.x == width - 1 && blackRemove.y == 0 || blackRemove.x == 0 && blackRemove.y == height - 1 || blackRemove.x == width - 1 && blackRemove.y == height - 1{
                             if gameBoard[blackRemove.x][blackRemove.y] == KonaneColor.black {
                                 returnBool = true
                             } else {
@@ -261,26 +261,52 @@ class KonaneGameState {
         return returnBool
     }
     //Done?
+    //Checking the index value of an array that does not exist
     func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
         if gameBoard[whiteRemove.x][whiteRemove.y] == KonaneColor.white {
-          if gameBoard[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty {
-            return true
-          } else if gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty {
-            return true
-          } else if gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty {
-            return true
-          } else if gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty {
-            return true
-          } else {
-            print("error with checking spaces around tile")
-
-            return false
-          }
+            //If the piece chosen is not in the left bottom corner, only test up and right
+            if whiteRemove.x == 0 && whiteRemove.y == 0 {
+                if gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty {
+                    return true
+                } // if the piece is in the top left corner, only test down and right
+            } else if whiteRemove.x == 0 && whiteRemove.y == height - 1 {
+                if gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty {
+                return true
+                }
+            } else if whiteRemove.x == width - 1 && whiteRemove.y == height - 1{
+                if gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty || gameBoard[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty {
+                    return true
+                }
+            } else if whiteRemove.x == width - 1 && whiteRemove.y == 0 {
+                if gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty {
+                    return true
+                }
+            } else if whiteRemove.x < 1 {
+                if gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty {
+                    return true
+                }
+            } else if whiteRemove.x > 14 {
+                if gameBoard[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty {
+                    return true
+                }
+            } else if whiteRemove.y < 1 {
+                if gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty || gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty {
+                    return true
+                }
+            } else if whiteRemove.y > 14 {
+                if gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty || gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty {
+                    return true
+                }
+            } else {
+                print("Not a valid piece to remove")
+                return false
+            }
         } else {
-            print("error not white tile")
-
-          return false
+            print("error with checking spaces around tile")
+        return false
         }
+        print("That is not a white piece")
+        return false
     }
 
     func perform(move: KonaneMove) {

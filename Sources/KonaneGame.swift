@@ -107,18 +107,21 @@ func play() -> Bool {
     gameState.populateGameBoard()
     displayBoard()
 
-    print("What are the coordinates of the piece player1 (x's) wants to remove?")
-    let blackRemoveCoordx = Int(readLine()!)!
-    let blackRemoveCoordy = Int(readLine()!)!
-
-    //make first removal's to start the game
+        print("What are the coordinates of the piece player1 (x's) wants to remove?")
+        let blackRemoveCoordx = Int(readLine()!)!
+        let blackRemoveCoordy = Int(readLine()!)!
+    
+    
+        //make first removal's to start the game
     gameState.perform(blackRemove: (x: blackRemoveCoordx, y: blackRemoveCoordy))
     displayBoard()
     
-    print("What are the coordinates of the piece player2 (o's) wants to remove?")
-    let whiteRemoveCoordx = Int(readLine()!)!
-    let whiteRemoveCoordy = Int(readLine()!)!
+    
+        print("What are the coordinates of the piece player2 (o's) wants to remove?")
+        let whiteRemoveCoordx = Int(readLine()!)!
+        let whiteRemoveCoordy = Int(readLine()!)!
 
+    
     gameState.perform(whiteRemove: (x: whiteRemoveCoordx, y: whiteRemoveCoordy))
 
     while winBool == false {
@@ -151,7 +154,9 @@ func play() -> Bool {
         } else {
             print("Error in play function")
         }
-
+        
+        displayBoard()
+        
         if winBool && gameState.isBlackTurn == true {
             print("Player1 (x's) has won the game!")
         } else if winBool && gameState.isBlackTurn == false{
