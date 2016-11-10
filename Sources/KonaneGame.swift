@@ -33,12 +33,38 @@ class KonaneGame {
         displayBoard()
         let blackRemove = blackInputSource.removeFirstPiece(gameState: gameState)
         gameState.perform(blackRemove: blackRemove)
+
         displayBoard()
         let whiteRemove = whiteInputSource.removeSecondPiece(gameState: gameState)
         gameState.perform(whiteRemove: whiteRemove)
-        displayBoard()
+
         //Do code for a turn.
-        
+
+        /* Order: 
+        1.Print Board
+        2.Check winner (check what pieces of color can move, store for input). If no moves, other player is winner. This is where .play returns true or false
+        3.Player input: 
+            a.From
+            b.To
+            c.Verify if valid.
+        4.Do turn.
+        5.Switch player. Part of do turn.
+        6.Repeat. (loop)
+        */
+
+        let loop = true
+        while loop {
+            displayBoard()
+            //checkwin
+
+            //Gets player input, checks if valid, switches player.
+            if gameState.getIsBlackTurn() {
+                let playerMove = blackInputSource.nextMove(gameState: gameState)
+            } else {
+                let playerMove = whiteInputSource.nextMove(gameState: gameState)
+            }
+            gameState.perform(move: playerMove)
+        }
         return true //Change when done writing.
 
     }
