@@ -300,4 +300,197 @@ class konaneGameState{
     }
     return didWin
   }
+
+  //checks the color at a space on an inputted board
+  func simColor(atX: Int, atY: Int, board: [KonaneColor]) -> KonaneColor {
+    let location = xyToLocation(xValue: atX, yValue: atY)
+    return board[location]
+  }
+
+  //checks legality on an inputted board
+  func simLegal(move: KonaneMove, simBoard: [KonaneColor], simTurn: Bool) -> Bool {
+    var moveIsLegal = true
+    //Is the move going to and from actual places
+    if move.fromX < 0 || move.fromY < 0 || move.fromX > (width - 1) || move.fromY > (height - 1) || move.toX < 0 || move.toY < 0 || move.toX > (width - 1) || move.toY > (height - 1) {
+      moveIsLegal = false
+    }
+    //Is the move being made by the right player
+    if simTurn && (color(atX: move.fromX, atY: move.fromY) != KonaneColor.black) {
+      moveIsLegal = false
+    }
+    if !simTurn && (color(atX: move.fromX, atY: move.fromY) != KonaneColor.white) {
+      moveIsLegal = false
+    }
+    //Note: this says which color's turn it is, which will be useful later
+    let turnColor: KonaneColor
+    if simTurn {
+      turnColor = KonaneColor.black
+    }
+    else {
+      turnColor = KonaneColor.white
+    }
+    if moveIsLegal {
+      //if it is moving in X and not Y
+      if move.fromY == move.toY && move.fromX != move.toX {
+        //it must move an even number of spaces
+        if (move.fromX - move.toX) % 2 != 0 {
+          moveIsLegal = false
+        }
+        //I need this if...else to make the for loop work, since I don't know which is bigger
+        if move.toX > move.fromX {
+          //checks the end location, but the start location is checked elsewhere
+          for xToCheck in (move.fromX + 1)...move.toX {
+            //all of the spaces that the player jumps to should be empty
+            if (xToCheck - move.fromX) % 2 == 0 {
+              if simColor(atX: xToCheck, atY: move.fromY, board: simBoard) != KonaneColor.empty {
+                moveIsLegal = false
+                break
+              }
+            }
+            //all of the spaces that the player jumps over should be the opposite color as the player
+            else {
+              if simColor(atX: xToCheck, atY: move.fromY, board: simBoard) == KonaneColor.empty || simColor(atX: xToCheck, atY: move.fromY, board: simBoard) == turnColor {
+                moveIsLegal = false
+                break
+              }
+            }
+          }
+        }
+        else {
+          //checks the end location, but the start location is checked elsewhere
+          for xToCheck in move.toX..<move.fromX {
+            //all of the spaces that the player jumps to should be empty
+            if (move.fromX - xToCheck) % 2 == 0 {
+              if simColor(atX: xToCheck, atY: move.fromY, board: simBoard) != KonaneColor.empty {
+                moveIsLegal = false
+                break
+              }
+            }
+            //all of the spaces that the player jumps over should be the opposite color as the player
+            else {
+              if simColor(atX: xToCheck, atY: move.fromY, board: simBoard) == KonaneColor.empty || simColor(atX: xToCheck, atY: move.fromY, board: simBoard) == turnColor {
+                moveIsLegal = false
+                break
+              }
+            }
+          }
+        }
+      }
+      //if it is moving in Y and not X
+      else if move.fromX == move.toX && move.fromY != move.toY {
+        //it must move an even number of spaces
+        if (move.fromY - move.toY) % 2 != 0 {
+          moveIsLegal = false
+        }
+        //I need this if...else to make the for loop work, since I don't know which is bigger
+        if move.toY > move.fromY {
+          //checks the end location, but the start location is checked elsewhere
+          for yToCheck in (move.fromY + 1)...move.toY {
+            //all of the spaces that the player jumps to should be empty
+            if (yToCheck - move.fromY) % 2 == 0 {
+              if simColor(atX: move.fromX, atY: yToCheck, board: simBoard) != KonaneColor.empty {
+                moveIsLegal = false
+                break
+              }
+            }
+            //all of the spaces that the player jumps over should be the opposite color as the player
+            else {
+              if simColor(atX: move.fromX, atY: yToCheck, board: simBoard) == KonaneColor.empty || simColor(atX: move.fromX, atY: yToCheck, board: simBoard) == turnColor {
+                moveIsLegal = false
+                break
+              }
+            }
+          }
+        }
+        else {
+          //checks the end location, but the start location is checked elsewhere
+          for yToCheck in move.toY..<move.fromY {
+            //all of the spaces that the player jumps to should be empty
+            if (move.fromY - yToCheck) % 2 == 0 {
+              if simColor(atX: move.fromX, atY: yToCheck, board: simBoard) != KonaneColor.empty {
+                moveIsLegal = false
+                break
+              }
+            }
+            //all of the spaces that the player jumps over should be the opposite color as the player
+            else {
+              if simColor(atX: move.fromX, atY: yToCheck, board: simBoard) == KonaneColor.empty || simColor(atX: move.fromX, atY: yToCheck, board: simBoard) == turnColor {
+                moveIsLegal = false
+                break
+              }
+            }
+          }
+        }
+      }
+      //the player can't move in both X and Y, or move in neither X nor Y
+      else {
+        moveIsLegal = false
+      }
+    }
+    return moveIsLegal
+  }
+
+  //creates a fake gameboard for testing a move, tests the move, and returns the number of possible moves for the opponent
+  func possibleMoveNumber(move: KonaneMove) -> Int {
+    var simBoard = gameBoard
+    simBoard[xyToLocation(xValue: move.fromX, yValue: move.fromY)] = KonaneColor.empty
+    if isBlackTurn {
+      simBoard[xyToLocation(xValue: move.toX, yValue: move.toY)] = KonaneColor.black
+    }
+    else {
+      simBoard[xyToLocation(xValue: move.toX, yValue: move.toY)] = KonaneColor.white
+    }
+    if move.fromY == move.toY {
+      if move.fromX > move.toX {
+        for xToChange in (move.toX + 1)..<move.fromX {
+          if (move.fromX - xToChange) % 2 != 0 {
+            simBoard[xyToLocation(xValue: xToChange, yValue: move.fromY)] = KonaneColor.empty
+          }
+        }
+      }
+      else {
+        for xToChange in (move.fromX + 1)..<move.toX {
+          if (move.fromX - xToChange) % 2 != 0 {
+            simBoard[xyToLocation(xValue: xToChange, yValue: move.fromY)] = KonaneColor.empty
+          }
+        }
+      }
+    }
+    else {
+      if move.fromY > move.toY {
+        for yToChange in (move.toY + 1)..<move.fromY {
+          if (move.fromY - yToChange) % 2 != 0 {
+            simBoard[xyToLocation(xValue: move.fromX, yValue: yToChange)] = KonaneColor.empty
+          }
+        }
+      }
+      else {
+        for yToChange in (move.fromY + 1)..<move.toY {
+          if (move.fromY - yToChange) % 2 != 0 {
+            simBoard[xyToLocation(xValue: move.fromX, yValue: yToChange)] = KonaneColor.empty
+          }
+        }
+      }
+    }
+    var simTurn: Bool
+    if isBlackTurn {
+      simTurn = false
+    }
+    else {
+      simTurn = true
+    }
+    var moveNumber = 0
+    for xStartToCheck in 0..<width {
+      for yStartToCheck in 0..<height {
+        for xEndToCheck in 0..<width {
+          for yEndToCheck in 0..<height {
+            if simLegal(move: KonaneMove(fromX: xStartToCheck, fromY: yStartToCheck, toX: xEndToCheck, toY: yEndToCheck), simBoard: simBoard, simTurn: simTurn) {
+              moveNumber += 1
+            }
+          }
+        }
+      }
+    }
+    return moveNumber
+  }
 }

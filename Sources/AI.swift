@@ -33,26 +33,18 @@ class Peter_KonaneMoveInputSourceAI: KonaneMoveInputSource {
         }
       }
     }
-    var multipleJumpList: [KonaneMove] = []
-    var singleJumpList: [KonaneMove] = []
-    for moveToCheck in moveList {
-      if ((moveToCheck.toX - moveToCheck.fromX) > 2) || ((moveToCheck.fromX - moveToCheck.toX) > 2) || ((moveToCheck.toY - moveToCheck.fromY) > 2) || ((moveToCheck.fromY - moveToCheck.toY) > 2) {
-        multipleJumpList.append(moveToCheck)
+    var minMoves = 1000
+    var minMoveList: [KonaneMove] = []
+    for moveToRank in moveList {
+      if gameState.possibleMoveNumber(move: moveToRank) < minMoves {
+        minMoves = gameState.possibleMoveNumber(move: moveToRank)
+        minMoveList = [moveToRank]
       }
-      else {
-        singleJumpList.append(moveToCheck)
+      else if gameState.possibleMoveNumber(move: moveToRank) == minMoves {
+        minMoveList.append(moveToRank)
       }
     }
-    let moveToUse: KonaneMove
-    if multipleJumpList.count > 0 {
-      let place = random() % multipleJumpList.count
-      moveToUse = multipleJumpList[place]
-    }
-    else {
-      let place = random() % singleJumpList.count
-      moveToUse = singleJumpList[place]
-    }
-    return moveToUse
+    let movePickNumber = random() % minMoveList.count
+    return minMoveList[movePickNumber]
   }
-
 }
