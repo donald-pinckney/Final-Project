@@ -21,12 +21,44 @@ class KonaneGame {
         //Start: remove pieces
         print("Welcome to Konane!!! :D")
         displayboard()
-        print("Black player: which piece would you like to remove?\n Enter x, then y.", terminator:" ")
-        let blackRmvx = readLine()!
+        print("Black player: which piece would you like to remove?\nEnter x, then y.", terminator:" ")
+        var blackRmvx = Int(readLine()!)!
         print("And for y?", terminator:" ")
-        let blackRmvy = readLine()!
-        isValid(blackRemove: (blackRmvx, blackRmvy))
-        //I think isValid shall be within... perform()
+        var blackRmvy = Int(readLine()!)!
+        
+        var blackNotValid = !gameState.isValid(blackRemove: (blackRmvx, blackRmvy))   
+        
+        while blackNotValid {
+            print("Sorry, that's not a valid move. Try again?\nEnter x:", terminator:" ")
+            blackRmvx = Int(readLine()!)!
+            print("And y?", terminator:" ")
+            blackRmvy = Int(readLine()!)!
+            if gameState.isValid(blackRemove: (blackRmvx, blackRmvy)){
+                blackNotValid = false 
+            }
+        }//So the move's valid now. ok go 
+        gameState.perform(blackRemove: (blackRmvx, blackRmvy))
+        displayboard()
+        
+        //Time for whiteeeremovi
+        print("Now, white player!! You get to remove something! :D\nX first:", terminator:" ")
+        var whiteRmvx = Int(readLine()!)!
+        print("And now for y!!!", terminator:" ")
+        var whiteRmvy = Int(readLine()!)!
+
+        var whiteNotValid = !gameState.isValid(whiteRemove: (whiteRmvx, whiteRmvy), blackRemove: (blackRmvx, blackRmvy))
+        while whiteNotValid {
+            print("Sorry, that's not a valid move D: Try again?\n Enter x:", terminator:" ")
+            whiteRmvx = Int(readLine()!)!
+            print("Now y...", terminator:" ")
+            whiteRmvy = Int(readLine()!)!
+            if gameState.isValid(whiteRemove: (whiteRmvx, whiteRmvy), blackRemove: (blackRmvx, blackRmvy)){
+                whiteNotValid = false
+            }
+        }//Aight.
+        displayboard()
+
+        //I think isValid NOTshall be within... perform()
         //and a loop
         //so
         //a loop with perform, displayboard, asking for move and whatnot
@@ -44,9 +76,11 @@ class KonaneGame {
             for indexX in 0..<gameState.height{//prints the THINGS in the rows
                 if gameState.color(atX: indexX, atY: indexY) == KonaneColor.black{
                     print("[X]", terminator:"")
+                }else if gameState.color(atX: indexX, atY: indexY) == KonaneColor.white{
+                    print("[O]", terminator:"")
                 }else{
                     print("[ ]", terminator:"")
-                }   
+                }
             }
             print("")
         }

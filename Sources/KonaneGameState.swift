@@ -158,12 +158,12 @@ class KonaneGameState {
             return false
         }
     }
-    /*func perform(blackRemove: (_ x: Int, _ y: Int)){
-        gameBoard[x][y] = KonaneColor.empty
+    func perform(blackRemove: (x: Int, y: Int)){
+        gameBoard[blackRemove.x][blackRemove.y] = KonaneColor.empty
     }
-    func perform(whiteRemove: (_ x: Int, _ y: Int)){
-        gameBoard[x][y] = KonaneColor.empty
-    }*/
+    func perform(whiteRemove: (x: Int, y: Int)){
+        gameBoard[whiteRemove.x][whiteRemove.y] = KonaneColor.empty
+    }
     func perform(move: KonaneMove){
         //isValid will be run before this function is called in main.swift
         
@@ -177,6 +177,26 @@ class KonaneGameState {
         }
 
         //REMOVING PIECE IN MIDDLE!!!! HEY!!
+    }
+    func didBlackWin() -> Bool {
+        for x in 0..<16 {
+            for y in 0..<16 {
+                if color(atX: x, atY: y) == KonaneColor.white{
+                    return false
+                }
+            }
+        }
+        return true
+    }
+    func didWhiteWin() -> Bool {
+        for x in 0..<16 {
+            for y in 0..<16 {
+                if color(atX: x, atY: y) == KonaneColor.black{
+                    return false
+                }
+            }
+        }
+        return true
     }
 }
 
