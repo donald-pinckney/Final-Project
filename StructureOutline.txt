@@ -23,9 +23,9 @@ KonaneGameState
 	- perform(whiteRemove: (x: Int, y: Int))
 	- didBlackWin() -> Bool
 	- didWhiteWin() -> Bool
-	
-enum KonaneColor { 
-	case black, white, empty 
+
+enum KonaneColor {
+	case black, white, empty
 }
 
 KonaneMove

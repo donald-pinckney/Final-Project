@@ -41,6 +41,3 @@ This will take a while (~ 20 minutes) to setup. Then, you can run the command:
 6. When you have semi-complete work that you would like to submit (you can submit unlimited times later too), `git push` your latest code, and then open a pull request to this repository from your fork.
 7. Look at the README on this repository to see your semi-official scores (this should be updated automagically).
 8. At the due date, your fork will be cloned, and will be tested and looked through manually to ensure it is legit, and to give some human feedback on code structure.
-
-
-Alex wuz here
