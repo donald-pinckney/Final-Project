@@ -116,7 +116,7 @@ class KonaneGame{
         lineString.append(" \(blackCharacter) ")
       }
       else {
-        lineString.append("   ")
+        lineString.append(" - ")
       }
     }
     return lineString
