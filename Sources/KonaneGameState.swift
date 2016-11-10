@@ -100,17 +100,7 @@ class KonaneGameState {
   }
 
   func perform(move: KonaneMove) {
-    // not finished
-    if isBlackTurn {
-      // select black piece here
-      // choose destination
-      // find way to choose if 2nd jump wanted
-
-    } else {
-      // select white piece here
-      // choose destination
-      // find way to choose if 2nd jump wanted
-    }
+    print("WIP")
     isBlackTurn = !isBlackTurn
   }
   func perform(blackRemove: (x: Int, y: Int)) {
