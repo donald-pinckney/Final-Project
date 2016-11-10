@@ -99,10 +99,37 @@ class KonaneGameState {
     return false
   }
 
+func removeMiddlePieces(KonaneMoveInput move: KonaneMove) {
+  if (move.toX - move.fromX) % 2 != 0 {
+    let startX = move.fromX
+    let destX = move.toX
+    for i in startX...destX {
+      board[i][move.fromY] = KonaneColor.empty
+    }
+  }
+  if (move.toY - move.fromY) % 2 != 0 {
+    let startY = move.fromY
+    let destY = move.toY
+    for i in startY...destY {
+      board[move.fromX][i] = KonaneColor.empty
+    }
+  }
+}
+
   func perform(move: KonaneMove) {
-    print("WIP")
+    board[move.fromX][move.fromY] = KonaneColor.empty
+    if isBlackTurn {
+      board[move.toX][move.toY] = KonaneColor.black
+      removeMiddlePieces(KonaneMoveInput: move)
+    }
+    if !isBlackTurn {
+      board[move.toX][move.toY] = KonaneColor.white
+      removeMiddlePieces(KonaneMoveInput: move)
+    }
     isBlackTurn = !isBlackTurn
   }
+
+
   func perform(blackRemove: (x: Int, y: Int)) {
     let coords = blackRemove
     if isValid(blackRemove: coords) {
