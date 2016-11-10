@@ -216,39 +216,51 @@ class konaneGameState{
 
   //makes an inputted konane move
   func perform(move: KonaneMove) {
+    //the space you move from is now blank
     gameBoard[xyToLocation(xValue: move.fromX, yValue: move.fromY)] = KonaneColor.empty
+    //the space you move to is the color of the space you move from
     if isBlackTurn {
       gameBoard[xyToLocation(xValue: move.toX, yValue: move.toY)] = KonaneColor.black
     }
     else {
       gameBoard[xyToLocation(xValue: move.toX, yValue: move.toY)] = KonaneColor.white
     }
+    //when moving in x
     if move.fromY == move.toY {
+      //if you are moving left
       if move.fromX > move.toX {
         for xToChange in (move.toX + 1)..<move.fromX {
+          //the spaces you jump over are empty
           if (move.fromX - xToChange) % 2 != 0 {
             gameBoard[xyToLocation(xValue: xToChange, yValue: move.fromY)] = KonaneColor.empty
           }
         }
       }
+      //if you are moving right
       else {
         for xToChange in (move.fromX + 1)..<move.toX {
+          //the spaces you jump over are empty
           if (move.fromX - xToChange) % 2 != 0 {
             gameBoard[xyToLocation(xValue: xToChange, yValue: move.fromY)] = KonaneColor.empty
           }
         }
       }
     }
+    //if you are moving in y
     else {
+      //if you are moving down
       if move.fromY > move.toY {
         for yToChange in (move.toY + 1)..<move.fromY {
+          //the spaces you jump over are empty
           if (move.fromY - yToChange) % 2 != 0 {
             gameBoard[xyToLocation(xValue: move.fromX, yValue: yToChange)] = KonaneColor.empty
           }
         }
       }
+      //if you are moving up
       else {
         for yToChange in (move.fromY + 1)..<move.toY {
+          //the spaces you jump over are empty
           if (move.fromY - yToChange) % 2 != 0 {
             gameBoard[xyToLocation(xValue: move.fromX, yValue: yToChange)] = KonaneColor.empty
           }
@@ -270,6 +282,7 @@ class konaneGameState{
   //checks if black won
   func didBlackWin() -> Bool {
     var didWin = true
+    //out of all possible moves for white, are any legal
     for xStartToCheck in 0..<width {
       for yStartToCheck in 0..<height {
         for xEndToCheck in 0..<width {
@@ -287,6 +300,7 @@ class konaneGameState{
   //checks if white won
   func didWhiteWin() -> Bool {
     var didWin = true
+    //out of all the possible moves for black, are any legal
     for xStartToCheck in 0..<width {
       for yStartToCheck in 0..<height {
         for xEndToCheck in 0..<width {
@@ -432,7 +446,9 @@ class konaneGameState{
 
   //creates a fake gameboard for testing a move, tests the move, and returns the number of possible moves for the opponent
   func possibleMoveNumber(move: KonaneMove) -> Int {
+    //makes a fake gameboard
     var simBoard = gameBoard
+    //this makes a move, see documentation for perform(move)
     simBoard[xyToLocation(xValue: move.fromX, yValue: move.fromY)] = KonaneColor.empty
     if isBlackTurn {
       simBoard[xyToLocation(xValue: move.toX, yValue: move.toY)] = KonaneColor.black
@@ -472,6 +488,7 @@ class konaneGameState{
         }
       }
     }
+    //in the simulation, it is now the next turn
     var simTurn: Bool
     if isBlackTurn {
       simTurn = false
@@ -480,6 +497,7 @@ class konaneGameState{
       simTurn = true
     }
     var moveNumber = 0
+    //counts the number of moves that are legal for the other player
     for xStartToCheck in 0..<width {
       for yStartToCheck in 0..<height {
         for xEndToCheck in 0..<width {

@@ -21,10 +21,10 @@ class KonaneGame{
     //sets whether black and white are humans or AIs
     self.whiteIsHuman = whiteIsHuman
     self.blackIsHuman = blackIsHuman
-    //sets what characters represent the players when showing the board
-    //takes user input if player is a human or automatically sets black to 'X' or y to 'O' if the player is an AI, creates player interfaces
+    //sets what characters represent the players when showing the board, creates player interfaces
+    //takes user input if player is a human or automatically sets black to 'X' or y to 'O' if the player is an AI
     if blackIsHuman {
-      print("Enter the character that you want black to appear as on the display of the board")
+      print("Enter the character that you want black to appear as on the display of the board. It must be 1 character.")
       blackCharacter = String(readLine()!)!
       blackPlayer = KonaneMoveInputSourceHuman(isBlack: true)
     }
@@ -34,7 +34,7 @@ class KonaneGame{
       blackPlayer = Peter_KonaneMoveInputSourceAI(isBlack: true)
     }
     if whiteIsHuman {
-      print("Enter the character that you want white to appear as on the display of the board")
+      print("Enter the character that you want white to appear as on the display of the board. It must be 1 character.")
       whiteCharacter = String(readLine()!)!
       whitePlayer = KonaneMoveInputSourceHuman(isBlack: false)
     }
@@ -107,14 +107,17 @@ class KonaneGame{
     return blackWon
   }
 
+  //makes a string representing a line for the board
   private func createBoardLineNumber(lineNumber: Int) -> String {
     var lineString = ""
+    //adds the line number to the string (with a 0 if it is 1 digit so that they are all the same length)
     if lineNumber <= 9 {
       lineString = "0\(lineNumber) "
     }
     else {
       lineString = "\(lineNumber) "
     }
+    //adds the character representing the color at a space
     for x in 0..<gameState.width {
       let pieceAtLocation: KonaneColor = gameState.gameBoard[xyToLocation(xValue: x, yValue: lineNumber)]
       if pieceAtLocation == KonaneColor.white {
@@ -130,9 +133,11 @@ class KonaneGame{
     return lineString
   }
 
+  //creates a line representing x coordinates to go at the bottom of the board
   private func createBottomLine(numberOfLines: Int) -> String {
     var bottomLine = "  "
     for x in 0..<numberOfLines {
+      // add a the number of the column for each column (with a 0 if it is 1 digit so that they are all the same length)
       if x <= 9 {
         bottomLine.append(" 0\(x)")
       }
@@ -143,12 +148,15 @@ class KonaneGame{
     return bottomLine
   }
 
+  //prints the whole board
   private func displayBoard() {
     print()
+    //for every y value, make and print a line
     for x in 0..<gameState.height {
       print(createBoardLineNumber(lineNumber: (gameState.height - 1) - x))
       print()
     }
+    //print the line at the bottom showing x coordinates
     print(createBottomLine(numberOfLines: gameState.width))
   }
 
