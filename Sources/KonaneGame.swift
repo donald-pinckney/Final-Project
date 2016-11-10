@@ -90,6 +90,21 @@ func displayBoard() {
     print()
 }
 
+    
+    
+    func askForInput() -> (xCoord: Int, yCoord: Int) {
+        while true {
+            let x = Int(readLine()!)
+            let y = Int(readLine()!)
+            if x != nil && y != nil && x! < gameState.height && y! < gameState.height && x! >= 0 && y! >= 0 {
+                return (xCoord: x!, yCoord: y!)
+            } else  {
+                print("This is not a valid input. Try again")
+            }
+        }
+    }
+    
+    
 func play() -> Bool {
 
     /*Criteria for function:
@@ -108,12 +123,10 @@ func play() -> Bool {
     displayBoard()
 
         print("What are the coordinates of the piece player1 (x's) wants to remove?")
-        let blackRemoveCoordx = Int(readLine()!)!
-        let blackRemoveCoordy = Int(readLine()!)!
-    
+            let removeBlackTuple = askForInput()
     
         //make first removal's to start the game
-    gameState.perform(blackRemove: (x: blackRemoveCoordx, y: blackRemoveCoordy))
+    gameState.perform(blackRemove: (x: removeBlackTuple.xCoord, y: removeBlackTuple.yCoord))
     displayBoard()
     
     

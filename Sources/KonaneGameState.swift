@@ -234,6 +234,7 @@ class KonaneGameState {
         }
         return returnBool
     }
+    //IDK what this does
     //Done?
     func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
         var returnBool = false
@@ -265,27 +266,11 @@ class KonaneGameState {
     func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
         if gameBoard[whiteRemove.x][whiteRemove.y] == KonaneColor.white {
             //If the piece chosen is not in the left bottom corner, only test up and right
-            if whiteRemove.x == 0 && whiteRemove.y == 0 {
-                if gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty {
-                    return true
-                } // if the piece is in the top left corner, only test down and right
-            } else if whiteRemove.x == 0 && whiteRemove.y == height - 1 {
-                if gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty {
-                return true
-                }
-            } else if whiteRemove.x == width - 1 && whiteRemove.y == height - 1{
-                if gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty || gameBoard[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty {
-                    return true
-                }
-            } else if whiteRemove.x == width - 1 && whiteRemove.y == 0 {
-                if gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty {
-                    return true
-                }
-            } else if whiteRemove.x < 1 {
+            if whiteRemove.x < 1 {
                 if gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty {
                     return true
                 }
-            } else if whiteRemove.x > 14 {
+            } else if whiteRemove.x > width - 2 {
                 if gameBoard[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty {
                     return true
                 }
@@ -293,8 +278,12 @@ class KonaneGameState {
                 if gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty || gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty {
                     return true
                 }
-            } else if whiteRemove.y > 14 {
+            } else if whiteRemove.y > height - 2 {
                 if gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty || gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty {
+                    return true
+                }
+            } else if whiteRemove.x > 0 && whiteRemove.x < width - 1 && whiteRemove.y > 0 && whiteRemove.y < height - 1 {
+                if gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty || gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty {
                     return true
                 }
             } else {
