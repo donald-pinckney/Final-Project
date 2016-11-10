@@ -1,13 +1,13 @@
 import Foundation
 class Peter_KonaneMoveInputSourceAI: KonaneMoveInputSource {
-  //removes the piece at (0,0) (for black in the first remove)
+  //removes the piece at the upper right of the middle (for black in the first remove)
   override func removeFirstPiece(gameState: konaneGameState) -> (x: Int, y: Int) {
-    return (0, 0)
+    return (gameState.width / 2 , gameState.height / 2)
   }
 
   //chooses a second piece to remove (for white)
   override func removeSecondPiece(gameState: konaneGameState) -> (x: Int, y: Int) {
-    var pieceToRemove: (int, int)
+    var pieceToRemove: (Int, Int)
     //if the (0,0) piece is missing, remove the (0,1) piece
     if gameState.color(atX: 0, atY: 0) == KonaneColor.empty {
       pieceToRemove = (0, 1)
