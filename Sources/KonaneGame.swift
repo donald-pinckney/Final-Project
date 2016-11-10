@@ -56,7 +56,39 @@ class KonaneGame {
                 whiteNotValid = false
             }
         }//Aight.
+        gameState.perform(whiteRemove: (whiteRmvx, whiteRmvy))
         displayboard()
+        
+        print("Time for normal play!!")
+        while !gameState.didWhiteWin() && !gameState.didBlackWin() {
+            blackNotValid = true
+            
+            while blackNotValid {
+                print("Black player: Enter from-X", terminator:" ")
+                let blackMoveFx = Int(readLine()!)!
+                print("Now from-y:", terminator:" ")
+                let blackMoveFy = Int(readLine()!)!
+                print("Enter to-x:", terminator:" ")
+                let blackMoveTx = Int(readLine()!)!
+                print("Enter to-y:", terminator:" ")
+                let blackMoveTy = Int(readLine()!)!
+                let blackMove = KonaneMove(fromX: blackMoveFx, fromY: blackMoveFy, toX: blackMoveTx, toY: blackMoveTy)
+                blackNotValid = !gameState.isValid(move: blackMove)
+                if blackNotValid{
+                    print("Sorry, that move doesn't work. *Robot voice* Reinitializing Black-Move loop. Beep Beep Boop!")
+                }else{
+                    gameState.perform(move: blackMove)
+                    displayboard()
+                    blackNotValid = false
+                }
+            }
+        }
+        
+        if gameState.didWhiteWin() {
+            print("Congratulations, white player!!! You won!")
+        }else{
+            print("Congratulations, black player!!! You won!")
+        }
 
         //I think isValid NOTshall be within... perform()
         //and a loop
