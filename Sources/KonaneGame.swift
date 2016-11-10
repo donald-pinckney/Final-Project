@@ -15,10 +15,10 @@ class KonaneGame {
         
         
     }
-    private var gameState = KonaneGameState()
+    private var gameState = KonaneGameState(height: 16, width: 16, isBlackTurn: true)
     private let blackInputSource: KonaneMoveInputSource
     private let whiteInputSource: KonaneMoveInputSource
-    
+
     func play() -> Bool {
         // a bool saying `if its time to play or not    
     }

@@ -1,9 +1,10 @@
 class KonaneGameState {
-    let width: Int = 16
-    let height: Int = 16
+    var width: Int = 16
+    var height: Int = 16
     // the InternalBoardDataStorage wasn't working because I think internal by itself is a command so I changed it to be a name all together
     private var isBlackTurn: Bool
-    init(_ height: Int,_ width: Int) {
+    init(_ height: Int,_ width: Int,_ isBlackTurn: Bool ) {
+        self.isBlackTurn = isBlackTurn
         self.width = width
         self.height = height
         InternalBoardDataStorage = [[KonaneColor]](repeating: [KonaneColor](repeating: KonaneColor.empty, count: height), count: width)
@@ -36,19 +37,27 @@ class KonaneGameState {
     func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
         return true
     }
-    func perform(move: KonaneMove) -> Int {
-        //CHANGE YOUR FUKING RETURN TYPE!!!!!!
-        let placeHolder = 5
-        // GET RID OF THIS VARIABLE!!!!! ITS WORTHLESS!
-        return placeHolder
+    func perform(move: KonaneMove){
+        
     }
-    func perform(blackRemove: (x: Int, y: Int)) ->  {
+    func perform(blackRemove: (x: Int, y: Int)) -> Int {
+        //YOU MIGHT HAVE TO RETURN A TUPLE ( is that what its called? when you return multiple return values)
+        let holdMyPlace = 6
+        return holdMyPlace 
+        //BOI THIS VALUE HAS NO VALUE SO GET RID OF IT!!!
     }
-    func perform(whiteRemove: (x: Int, y: Int)) {
+    func perform(whiteRemove: (x: Int, y: Int)) -> Int {
+        // SAME DEAL AS PREFORM(BLACKREMOVE) YOU GOTTA REPLACE EVERYTHING!!!!!!
+        let placeMyHold = 7
+        return placeMyHold
     }
     func didBlckWin() -> Bool {
+       // IS THIS RETURNED AS TRUE? I DONT KNOW YET SO FIX IT!!!!
+       return true
     }
     func didWhiteWin() -> Bool {
+        // I DONT KNOW DID WHITE WIN? YOU DECIDE, BUT FIRST FIX THE CODE!!!!
+        return true
     }
     
 }
