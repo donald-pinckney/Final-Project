@@ -42,4 +42,4 @@ This will take a while (~ 20 minutes) to setup. Then, you can run the command:
 7. Look at the README on this repository to see your semi-official scores (this should be updated automagically).
 8. At the due date, your fork will be cloned, and will be tested and looked through manually to ensure it is legit, and to give some human feedback on code structure.
 
-Jishnu, Wentao, Justin, Shohn wuz here?
+Jishnu, Wentao, Justin, Shohn wuz here? Me!
