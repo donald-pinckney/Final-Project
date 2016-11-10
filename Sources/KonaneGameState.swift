@@ -397,7 +397,7 @@ class KonaneGameState {
         for column in 0..<width {
             for row in 0..<height {
                 if isBlackTurn == true {
-                    if 1 < row && row < 13 && 1 < column && column < 13 {
+                    if 1 < row && row < 14 && 1 < column && column < 13 {
                         if gameBoard[column][row] == KonaneColor.black {
                             if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] == KonaneColor.empty{
                                 returnBool = false
