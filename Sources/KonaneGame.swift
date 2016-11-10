@@ -122,45 +122,67 @@ func play() -> Bool {
     gameState.populateGameBoard()
     displayBoard()
 
-        print("What are the coordinates of the piece player1 (x's) wants to remove?")
-            let removeBlackTuple = askForInput()
     
-        //make first removal's to start the game
-    gameState.perform(blackRemove: (x: removeBlackTuple.xCoord, y: removeBlackTuple.yCoord))
+    while true {
+        print("What are the coordinates of the piece player1 (x's) wants to remove?")
+        let removeBlackTuple = askForInput()
+        
+        if gameState.isValid(blackRemove: (x: removeBlackTuple.xCoord, y: removeBlackTuple.yCoord)) {
+            gameState.perform(blackRemove: (x: removeBlackTuple.xCoord, y: removeBlackTuple.yCoord))
+            break
+        } else {
+            print("Not a valid move")
+        }
+
+    }
+    
+        displayBoard()
+    
+    while true {
+        print("What are the coordinates of the piece player2 (o's) wants to remove?")
+        let removeWhiteTuple = askForInput()
+        
+        if gameState.isValid(whiteRemove: (x: removeWhiteTuple.xCoord, y: removeWhiteTuple.yCoord)) {
+            gameState.perform(whiteRemove: (x: removeWhiteTuple.xCoord, y: removeWhiteTuple.yCoord))
+            break
+        } else {
+            print("Not a valid move")
+        }
+
+    }
+    
+    
     displayBoard()
     
-    
-        print("What are the coordinates of the piece player2 (o's) wants to remove?")
-        let whiteRemoveCoordx = Int(readLine()!)!
-        let whiteRemoveCoordy = Int(readLine()!)!
-
-    
-    gameState.perform(whiteRemove: (x: whiteRemoveCoordx, y: whiteRemoveCoordy))
-
     while winBool == false {
-        displayBoard()
+        
         if gameState.isBlackTurn == true{
-            print("What are the coordinates of the piece player1 (x's) wants to move?")
-            let xCoordFromX =  Int(readLine()!)!
-            let yCoordFromY =  Int(readLine()!)!
-            print("Where do you want to move that tile too?")
-            let xCoordToX =  Int(readLine()!)!
-            let yCoordToY =  Int(readLine()!)!
-
-            let move: KonaneMove = KonaneMove(fromX: xCoordFromX, fromY: yCoordFromY, toX: xCoordToX, toY: yCoordToY)
+            
+            var move: KonaneMove = KonaneMove(fromX: 0, fromY: 0, toX: 0, toY: 0)
+            while true {
+                print("What are the coordinates of the piece player1 (x's) wants to move?")
+                let fromCoordTuple = askForInput()
+                print("Where do you want to move that tile too?")
+                let toCoordTuple = askForInput()
+                
+                move = KonaneMove(fromX: fromCoordTuple.xCoord, fromY: fromCoordTuple.yCoord, toX: toCoordTuple.xCoord, toY: toCoordTuple.yCoord)
+                
+                if gameState.isValid(move: move) {
+                    break
+                }
+            }
+            
             gameState.perform(move: move)
             winBool = gameState.didBlackWin()
             gameState.isBlackTurn = false
 
         } else if gameState.isBlackTurn == false {
             print("What are the coordinates of the piece player2 (o's) wants to move?")
-            let xCoordFromX =  Int(readLine()!)!
-            let yCoordFromY =  Int(readLine()!)!
+            let fromCoordTuple = askForInput()
             print("Where do you want to move that tile too?")
-            let xCoordToX =  Int(readLine()!)!
-            let yCoordToY =  Int(readLine()!)!
+            let toCoordTuple = askForInput()
 
-            let move: KonaneMove = KonaneMove(fromX: xCoordFromX, fromY: yCoordFromY, toX: xCoordToX, toY: yCoordToY)
+            let move: KonaneMove = KonaneMove(fromX: fromCoordTuple.xCoord, fromY: fromCoordTuple.yCoord, toX: toCoordTuple.xCoord, toY: toCoordTuple.yCoord)
             gameState.perform(move: move)
             winBool = gameState.didWhiteWin()
             gameState.isBlackTurn = true
