@@ -22,7 +22,7 @@ class KonaneGame{
     self.whiteIsHuman = whiteIsHuman
     self.blackIsHuman = blackIsHuman
     //sets what characters represent the players when showing the board
-    //takes user input if player is a human or automatically sets black to 'X' or y to 'O' if the player is an AI
+    //takes user input if player is a human or automatically sets black to 'X' or y to 'O' if the player is an AI, creates player interfaces
     if blackIsHuman {
       print("Enter the character that you want black to appear as on the display of the board")
       blackCharacter = String(readLine()!)!
@@ -65,30 +65,38 @@ class KonaneGame{
     displayBoard()
     var turn = 1
     var blackWon = false
+    //It can't last more than 100 turns
     while turn <= 100 {
       print("It is black's turn")
+      //gets the next move for black
       var currentBlackMove = blackPlayer.nextMove(gameState: gameState)
+      //gets a new move if the current one isn't legal
       while(!gameState.isLegal(move: currentBlackMove)) {
         print("I'm sorry, but that move is not legal. Please try again.")
         currentBlackMove = blackPlayer.nextMove(gameState: gameState)
       }
+      //makes the next move for black
       gameState.perform(move: currentBlackMove)
       displayBoard()
       gameState.nextTurn()
+      //checks if black won
       if gameState.didBlackWin() {
         blackWon = true
         break
       }
-
       print("It is white's turn")
+      //gets the next move for white
       var currentWhiteMove = whitePlayer.nextMove(gameState: gameState)
+      //gets a new move if the current one isn't legal
       while(!gameState.isLegal(move: currentWhiteMove)) {
         print("I'm sorry, but that move is not legal. Please try again.")
         currentWhiteMove = whitePlayer.nextMove(gameState: gameState)
       }
+      //makes the next move for black
       gameState.perform(move: currentWhiteMove)
       displayBoard()
       gameState.nextTurn()
+      //checks if white won
       if gameState.didWhiteWin() {
         blackWon = false
         break
