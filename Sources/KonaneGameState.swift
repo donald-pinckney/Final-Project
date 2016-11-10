@@ -59,11 +59,14 @@ class KonaneGameState {
         //This function is basically process of elimination for all the not valid parts of a move
         
         //This one checks if where you are going is out of bounds.
-        
         if move.toX < 0 || move.toY < 0 || move.toX > 15 || move.toY > 15 {
             return false
         }
-
+        
+        //Lol, can't have some white piece beating up a black one and dragging it off the board. Ha ha.
+        if gameBoard[move.toX][move.toY] != KonaneColor.empty{
+            return false
+        }       
         //Finding the direction of the move, to be used in checkForPiece and the double jumps. Maybe. :)
         var direction = moveDirection.north
         if move.fromX + 2 == move.toX && move.fromY == move.toY{
@@ -161,5 +164,19 @@ class KonaneGameState {
     func perform(whiteRemove: (_ x: Int, _ y: Int)){
         gameBoard[x][y] = KonaneColor.empty
     }*/
+    func perform(move: KonaneMove){
+        //isValid will be run before this function is called in main.swift
+        
+        gameBoard[move.fromX][move.fromY] = KonaneColor.white
+        
+        //The toX/toY piece being 'moved'
+        if getIsBlackTurn() {
+            gameBoard[move.toX][move.toY] = KonaneColor.black
+        }else{
+            gameBoard[move.toX][move.toY] = KonaneColor.white
+        }
+
+        //REMOVING PIECE IN MIDDLE!!!! HEY!!
+    }
 }
 
