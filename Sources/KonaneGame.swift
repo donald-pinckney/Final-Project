@@ -60,10 +60,18 @@ class KonaneGame {
             //Gets player input, checks if valid, switches player.
             if gameState.getIsBlackTurn() {
                 let playerMove = blackInputSource.nextMove(gameState: gameState)
+                gameState.perform(move: playerMove)
             } else {
                 let playerMove = whiteInputSource.nextMove(gameState: gameState)
+                gameState.perform(move: playerMove)
             }
-            gameState.perform(move: playerMove)
+            
+
+
+            //Just to temporarily appease compiler warnings.
+            if true && false {
+                    break
+            }
         }
         return true //Change when done writing.
 

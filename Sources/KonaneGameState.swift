@@ -42,10 +42,12 @@ class KonaneGameState {
                 }
                 */
 
+                /*
                 //Makes sure board dimensions are even.
-                if height % 2 != 0 || width % 2 != 0 {
+                if (height % 2 != 0 || width % 2 != 0) {
                     fatalError("Make board dimensions even!")
                 }
+                */
 
                 isBlackTurn = true
         }
@@ -63,12 +65,14 @@ class KonaneGameState {
         
         func isValid(move: KonaneMove) -> Bool { //Checks if from- values are of correct color, checks if to values are in 4 spaces around, checks if there is opponent piece in between(later expand to check if in same row or column and can do jumps)
 
-            let fromColor = boardDataStorage[move.fromY][move.X]
-            let toColor = boardDataStorage[move.toY][to.X]
+            let fromColor = boardDataStorage[move.fromY][move.fromX]
+            let toColor = boardDataStorage[move.toY][move.toX]
             var currentColorTurn = KonaneColor.white
 
             if isBlackTurn {
                 currentColorTurn = KonaneColor.black
+            } else {
+            	currentColorTurn = KonaneColor.white
             }
 
             if ((fromColor == currentColorTurn && toColor == currentColorTurn) && (move.fromX == move.toX && (move.toY == move.fromY + 2 || move.toY == move.fromY - 2)) || (move.fromY == move.toY && (move.toX == move.fromX + 2 || move.toX == move.fromX - 2))) /*Need to check for space in between*/ {

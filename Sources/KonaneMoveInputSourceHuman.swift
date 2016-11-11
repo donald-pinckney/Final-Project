@@ -9,9 +9,9 @@ class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
 
 	    	print("Black: What piece do you want to remove?")
 	        print("X:")
-	        var x = Int(readLine()!)!
+	        let x = Int(readLine()!)!
 	        print("Y:")
-	        var y = Int(readLine()!)!
+	        let y = Int(readLine()!)!
 	        print()
 
 	        let isValid = gameState.isValid(blackRemove: (x: x, y: y))
@@ -30,9 +30,9 @@ class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
 
 	    	print("White: What piece do you want to remove?")
 	        print("X:")
-	        var x = Int(readLine()!)!
+	        let x = Int(readLine()!)!
 	        print("Y:")
-	        var y = Int(readLine()!)!
+	        let y = Int(readLine()!)!
 	        print()
 
 	        let isValid = gameState.isValid(whiteRemove: (x: x, y: y))
@@ -56,9 +56,9 @@ class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
 	    		print("White: What piece do you want to move?")
 	    	}
 	        print("X:")
-	        var fromX = Int(readLine()!)!
+	        let fromX = Int(readLine()!)!
 	        print("Y:")
-	        var fromY = Int(readLine()!)!
+	        let fromY = Int(readLine()!)!
 	        print()
 
 	        if isBlackTurn {
@@ -67,9 +67,9 @@ class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
 	    		print("White: Where do you want to move to?")
 	    	}
 	        print("X:")
-	        var toX = Int(readLine()!)!
+	        let toX = Int(readLine()!)!
 	        print("Y:")
-	        var toY = Int(readLine()!)!
+	        let toY = Int(readLine()!)!
 	        print()
 
 	        let possibleMove = KonaneMove(fromX: fromX, fromY: fromY, toX: toX, toY: toY)
