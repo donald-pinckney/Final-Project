@@ -1,19 +1,20 @@
 class KonaneMoveInputSource {
-    let isBlack: Bool
 
-    init(isBlack: Bool) {
-        self.isBlack = isBlack
-    }
+	init(isBlack: Bool) {
+		self.isBlack = isBlack
+	}
+    var isBlack: Bool
 
     func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
-        fatalError("Override me!")
+    	fatalError("Override this function!")
     }
 
     func removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
-        fatalError("Override me!")
+    	fatalError("Override this function!")
     }
 
     func nextMove(gameState: KonaneGameState) -> KonaneMove {
-        fatalError("Override me!")
+    	fatalError("Override this function!")
     }
+
 }

@@ -1,96 +1,105 @@
 class KonaneGame {
-    private let gameState: KonaneGameState = KonaneGameState()
-    private let blackInputSource: KonaneMoveInputSource
-    private let whiteInputSource: KonaneMoveInputSource
+
+    private let gameState = KonaneGameState()
+
+	private let blackInputSource: KonaneMoveInputSource
+	private let whiteInputSource: KonaneMoveInputSource
+    private let rowLine: String
 
     init(blackIsHuman: Bool, whiteIsHuman: Bool) {
+        //Stuff goes here.
         if blackIsHuman {
             blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)
         } else {
-            fatalError("Doesn't work yet!")
+            fatalError("AI doesn't work yet")
         }
-
         if whiteIsHuman {
             whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)
         } else {
-            fatalError("Doesn't work yet!")
+            fatalError("AI doesn't work yet")
         }
+
+        //Creates the horizontal line for printing the board.
+        var rowLine: String = "+"
+        for _ in 0..<gameState.width {
+            rowLine += "---+"
+        }
+        self.rowLine = rowLine
     }
 
-    func play() -> Bool {
-        // Remove Phase
-        print("Black starts by removing a middle or corner black piece")
+
+	func play() -> Bool { /* Returns true if black wins. Technically contains main code for running game moves. */ 
+
         displayBoard()
+        let blackRemove = blackInputSource.removeFirstPiece(gameState: gameState)
+        gameState.perform(blackRemove: blackRemove)
 
-        let blackRemovePoint = blackInputSource.removeFirstPiece(gameState: gameState.copy())
-        gameState.perform(blackRemove: blackRemovePoint)
-
-        print("Now white removes an adjacent white piece")
         displayBoard()
+        let whiteRemove = whiteInputSource.removeSecondPiece(gameState: gameState)
+        gameState.perform(whiteRemove: whiteRemove)
 
-        let whiteRemovePoint = whiteInputSource.removeSecondPiece(gameState: gameState.copy())
-        gameState.perform(whiteRemove: whiteRemovePoint)
+        //Do code for a turn.
 
-        // Now, main game loop
-        while gameState.didBlackWin() == false && gameState.didWhiteWin() == false {
+        /* Order: 
+        1.Print Board
+        2.Check winner (check what pieces of color can move, store for input). If no moves, other player is winner. This is where .play returns true or false
+        3.Player input: 
+            a.From
+            b.To
+            c.Verify if valid.
+        4.Do turn.
+        5.Switch player. Part of do turn.
+        6.Repeat. (loop)
+        */
 
-            let move: KonaneMove
+        let loop = true
+        while loop {
+            displayBoard()
+            //checkwin
+
+            //Gets player input, checks if valid, switches player.
             if gameState.getIsBlackTurn() {
-                print("It is black's turn to jump")
-                displayBoard()
-                move = blackInputSource.nextMove(gameState: gameState.copy())
+                let playerMove = blackInputSource.nextMove(gameState: gameState)
+                gameState.perform(move: playerMove)
             } else {
-                print("It is white's turn to jump")
-                displayBoard()
-                move = whiteInputSource.nextMove(gameState: gameState.copy())
+                let playerMove = whiteInputSource.nextMove(gameState: gameState)
+                gameState.perform(move: playerMove)
             }
             
-            gameState.perform(move: move)
-        }
 
-        let blackWins = gameState.didBlackWin()
-        if blackWins {
-            print("Black wins!")
-        } else {
-            print("White wins!")
+
+            //Just to temporarily appease compiler warnings.
+            if true && false {
+                    break
+            }
         }
-        return blackWins
+        return true //Change when done writing.
+
     }
 
+	//Displays the game board.
     private func displayBoard() {
-        displayASCIIBoard()
-    }
+        //Makes and prints each row of the board
 
-    private func displayASCIIBoard() {
-        for y in (0..<gameState.height).reversed() {
-            var lineText = "\(y)   "
-            if y < 10 {
-                lineText.append(" ")
-            }
-            for x in (0..<gameState.width) {
-                let color = gameState.color(atX: x, atY: y)
-                let colorText: String
-                if color == KonaneColor.black {
-                    colorText = "x"
-                } else if color == KonaneColor.white {
-                    colorText = "o"
-                } else {
-                    colorText = " "
-                }
-                lineText.append("\(colorText)   ")
-            }
-            print(lineText)
-        }
+    	for yVal in (0..<gameState.height).reversed() {
+    		var currentRowSquares: String = "|"
+    		for xVal in 0..<gameState.width {
+    			//Turns the enum value into something the computer can print.
+    			if gameState.boardDataStorage[yVal][xVal] == KonaneColor.black {
+    				currentRowSquares += " X |"
+    			} else if gameState.boardDataStorage[yVal][xVal] == KonaneColor.white {
+    				currentRowSquares += " O |"
+    			} else {
+    				currentRowSquares += "   |"
+    			}
+    		}
+    		print(rowLine)
+    		print(currentRowSquares)
+    	}
+    	print(rowLine)
+        print() //Makes a blank line in preparation for the next printed thing.
+   	}
 
-        // Bottom row of coordinates
-        var bottomRow = "     "
-        for x in 0..<gameState.width {
-            bottomRow.append("\(x)  ")
-            if x < 10 {
-                bottomRow.append(" ")
-            }
-        }
-        print()
-        print(bottomRow)
-    }
+    
+
 }

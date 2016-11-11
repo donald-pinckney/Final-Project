@@ -1,42 +1,85 @@
-class KonaneMoveInputSourceHuman : KonaneMoveInputSource {
-    override func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
-        while true {
-            print("Input x coord to remove black piece:")
-            let x = Int(readLine()!)!
-            print("Input y coord to remove black piece:")
-            let y = Int(readLine()!)!
-            
-            if gameState.isValid(blackRemove: (x, y)) {
-                return (x, y)
-            }
-        }
+class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
+
+	//let gameState = KonaneGameState() Might be unneccesary.
+	
+	override func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
+
+		let loop = true
+		while loop {
+
+	    	print("Black: What piece do you want to remove?")
+	        print("X:")
+	        let x = Int(readLine()!)!
+	        print("Y:")
+	        let y = Int(readLine()!)!
+	        print()
+
+	        let isValid = gameState.isValid(blackRemove: (x: x, y: y))
+
+	        //Ensures that the move is valid before exiting the loop.
+	        if isValid {
+	        	return (x, y)
+	        }
+	    }
     }
 
     override func removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
-        while true {
-            print("Input x coord to remove white piece:")
-            let x = Int(readLine()!)!
-            print("Input y coord to remove white piece:")
-            let y = Int(readLine()!)!
-            
-            if gameState.isValid(whiteRemove: (x, y)) {
-                return (x, y)
-            }
-        }
+
+		let loop = true
+		while loop {
+
+	    	print("White: What piece do you want to remove?")
+	        print("X:")
+	        let x = Int(readLine()!)!
+	        print("Y:")
+	        let y = Int(readLine()!)!
+	        print()
+
+	        let isValid = gameState.isValid(whiteRemove: (x: x, y: y))
+
+	        //Ensures that the move is valid before exiting the loop.
+	        if isValid {
+	        	return (x, y)
+	        }
+	    }
     }
+    
+    override func nextMove(gameState: KonaneGameState) -> KonaneMove { //Asks for move, checks, puts values in KonaneMove, returns said KonaneMove.
 
-    override func nextMove(gameState: KonaneGameState) -> KonaneMove {
-        print("Input x coord to move from:")
-        let fx = Int(readLine()!)!
-        print("Input y coord to move from:")
-        let fy = Int(readLine()!)!
+    	let isBlackTurn = gameState.getIsBlackTurn()
+    	let loop = true
+		while loop {
 
-        print("Input x coord to move to:")
-        let tx = Int(readLine()!)!
-        print("Input y coord to move to:")
-        let ty = Int(readLine()!)!
+			if isBlackTurn {
+	    		print("Black: What piece do you want to move?")
+	    	} else {
+	    		print("White: What piece do you want to move?")
+	    	}
+	        print("X:")
+	        let fromX = Int(readLine()!)!
+	        print("Y:")
+	        let fromY = Int(readLine()!)!
+	        print()
 
+	        if isBlackTurn {
+	    		print("Black: Where do you want to move to?")
+	    	} else {
+	    		print("White: Where do you want to move to?")
+	    	}
+	        print("X:")
+	        let toX = Int(readLine()!)!
+	        print("Y:")
+	        let toY = Int(readLine()!)!
+	        print()
 
-        return KonaneMove(fromX: fx, fromY: fy, toX: tx, toY: ty)
-    }
+	        let possibleMove = KonaneMove(fromX: fromX, fromY: fromY, toX: toX, toY: toY)
+
+	        let isValid = gameState.isValid(move: possibleMove)
+
+	        //Ensures that the move is valid before exiting the loop.
+	        if isValid {
+	        	return possibleMove
+	        }
+	    }
+	}
 }
