@@ -379,14 +379,12 @@ class KonaneGameState {
 
     
     
-    //FIX FIX FIX FIX FIX
-    //I think when the code tries to access a number that is not in the array, for example -2 identifier, the code cannot handle it.
     func didBlackWin() -> Bool {
         var returnBool = true
         for column in 0..<width {
             for row in 0..<height {
                 if isBlackTurn == true {
-                    if 1 < row && row < 14 && 1 < column && column < 13 {
+                    if 1 < row && row < height - 3 && 1 < column && column < width - 3 {
                         if gameBoard[column][row] == KonaneColor.black {
                             if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] == KonaneColor.empty{
                                 returnBool = false
@@ -398,23 +396,55 @@ class KonaneGameState {
                                 returnBool = false
                             }
                         }
-                    } else if column < 1 {
+                        //tests top left square of 4
+                    } else if column < 2 && row > height - 3{
                         if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty {
                             returnBool = false
+                        } else if gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty {
+                            returnBool = false
                         }
-                    } else if column > 14 {
+                        //tests top right square of 4
+                    } else if column > width - 3 && row > height - 3{
                         if gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty {
                             returnBool = false
+                        } else if gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty {
+                            returnBool = false
                         }
-                    } else if row < 1 {
+                        //tests bottom left
+                    } else if row < 2 && column < 2{
                         if gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty {
                             returnBool = false
-                        }
-                    } else if row > 14 {
-                        if gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty {
+                        } else if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty {
                             returnBool = false
                         }
-                    } else {
+                        //tests bottom right
+                    } else if row > height - 3 && column > width - 3{
+                        if gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty {
+                            returnBool = false
+                        } else if gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty {
+                            returnBool = false
+                        }
+                        //tests not corners and not center board. Does test left side
+                    } else if 1 < row && row < height - 3 && column < 2 {
+                        if gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty || gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty || gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty {
+                            returnBool = false
+                        }
+                        //tests not corners and not center. Does test right side
+                    } else if 1 < row && row < height - 3 && column > width - 3 {
+                        if gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty || gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty || gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty {
+                            returnBool = false
+                        }
+                        //tests not corners and not center. Does test up
+                    } else if row > height - 3 && 1 < column && column < width - 3 {
+                        if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty || gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty || gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty {
+                            returnBool = false
+                        }
+                        // tests not corners and not conter. Does test down
+                    } else if row < 2 && 1 < column && column < width - 3 {
+                        if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty || gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty || gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty {
+                            returnBool = false
+                        }
+
                     }
                 }
             }
@@ -427,9 +457,9 @@ class KonaneGameState {
         for column in 0..<width {
             for row in 0..<height {
                 if isBlackTurn == false {
-                    if 1 < row && row < 13 && 1 < column && column < 13 {
-                        if gameBoard[column][row] == KonaneColor.black {
-                            if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] == KonaneColor.empty{
+                    if 1 < row && row < height - 3 && 1 < column && column < width - 3 {
+                        if gameBoard[column][row] == KonaneColor.white {
+                            if gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] == KonaneColor.empty{
                                 returnBool = false
                             } else if gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] == KonaneColor.empty{
                                 returnBool = false
@@ -439,23 +469,35 @@ class KonaneGameState {
                                 returnBool = false
                             }
                         }
-                    } else if column < 1 {
-                        if gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty {
+                        //tests top left square of 4
+                    } else if column < 1 && row > height - 3{
+                        if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty {
+                            returnBool = false
+                        } else if gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty {
                             returnBool = false
                         }
-                    } else if column > 14 {
+                        //tests top right square of 4
+                    } else if column > width - 3 && row > height - 3{
                         if gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty {
                             returnBool = false
+                        } else if gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty {
+                            returnBool = false
                         }
-                    } else if row < 1 {
+                        //tests bottom left
+                    } else if row < 1 && column < 1{
                         if gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty {
                             returnBool = false
-                        }
-                    } else if row > 14 {
-                        if gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty {
+                        } else if gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty {
                             returnBool = false
                         }
-                    } else {                    }
+                        //tests bottom right
+                    } else if row > height - 3 && column > width - 3{
+                        if gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty {
+                            returnBool = false
+                        } else if gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty {
+                            returnBool = false
+                        }
+                    }
                 }
             }
         }

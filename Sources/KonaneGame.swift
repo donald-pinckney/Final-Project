@@ -25,7 +25,7 @@ x   - private whiteInputSource: KonaneMoveInputSource
 //WILL FIX LATER FIRST GETTING INITIALIZATION DONE
 class KonaneGame {
 
-    private var gameState = KonaneGameState(width: 16, height: 16, isBlackTurn: true)
+    private var gameState = KonaneGameState(width: 8, height: 8, isBlackTurn: true)
     private let blackInputSource: KonaneMoveInputSource
     private let whiteInputSource: KonaneMoveInputSource
 
@@ -169,12 +169,15 @@ func play() -> Bool {
                 
                 if gameState.isValid(move: move) {
                     break
+                } else {
+                    print("That was not a valid move, try again")
                 }
             }
             
             gameState.perform(move: move)
             winBool = gameState.didBlackWin()
             gameState.isBlackTurn = false
+            displayBoard()
 
         } else if gameState.isBlackTurn == false {
             print("What are the coordinates of the piece player2 (o's) wants to move?")
@@ -186,16 +189,16 @@ func play() -> Bool {
             gameState.perform(move: move)
             winBool = gameState.didWhiteWin()
             gameState.isBlackTurn = true
+            displayBoard()
         } else {
             print("Error in play function")
         }
         
-        displayBoard()
         
-        if winBool && gameState.isBlackTurn == true {
+        if winBool && gameState.isBlackTurn == false {
             print("Player1 (x's) has won the game!")
-        } else if winBool && gameState.isBlackTurn == false{
-            print("Player1 has won the game!")
+        } else if winBool && gameState.isBlackTurn == true{
+            print("Player2 (o's) has won the game!")
         }
 
 
