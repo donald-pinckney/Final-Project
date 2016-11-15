@@ -363,15 +363,17 @@ class KonaneGameState {
 
     }
 
-    func perform(blackRemove: (x: Int, y: Int)) {
-        if isValid(blackRemove: (x: blackRemove.x, y: blackRemove.y)) {
-            gameBoard[blackRemove.x][blackRemove.y] = KonaneColor.empty
+    func perform(blackRemove: (xCoord: Int, yCoord: Int)) {
+        if isValid(blackRemove: (x: blackRemove.xCoord, y: blackRemove.yCoord)) {
+            gameBoard[blackRemove.xCoord][blackRemove.yCoord] = KonaneColor.empty
+        } else {
+            print("error")
         }
     }
 
-    func perform(whiteRemove: (x: Int, y: Int)) {
-        if isValid(whiteRemove: (x: whiteRemove.x, y: whiteRemove.y)) {
-            gameBoard[whiteRemove.x][whiteRemove.y] = KonaneColor.empty
+    func perform(whiteRemove: (xCoord: Int, yCoord: Int)) {
+        if isValid(whiteRemove: (x: whiteRemove.xCoord, y: whiteRemove.yCoord)) {
+            gameBoard[whiteRemove.xCoord][whiteRemove.yCoord] = KonaneColor.empty
         } else {
             print("error")
         }

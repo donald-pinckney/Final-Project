@@ -28,12 +28,12 @@ class KonaneMoveInputSource {
 		self.isBlack = isBlack
 	}
 		// Placeholder functions defined in subclasses
-	func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
-		return(x: 1, y: 1)
+	func removeFirstPiece(gameState: KonaneGameState) -> (xCoord: Int, yCoord: Int) {
+        return(xCoord: 1, yCoord: 1)
 	}
 
-	func removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
-		return(x: 1, y: 1)
+	func removeSecondPiece(gameState: KonaneGameState) -> (xCoord: Int, yCoord: Int) {
+		return(xCoord: 1, yCoord: 1)
 	}
 
 	func nextMove(gameState: KonaneGameState) -> KonaneMove {

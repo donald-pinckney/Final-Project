@@ -33,18 +33,18 @@ class KonaneGame {
     init(blackIsHuman: Bool, whiteIsHuman: Bool) {
 
         if blackIsHuman {
-        	blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)
+            blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)
         }
         else {
         	//FIX ONCE AI CODE EXISTS
-        	blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)
+            blackInputSource = KonaneMoveInputSourceAI(isBlack: true)
         }
         if whiteIsHuman {
-        	whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)
+            whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)
         }
         else {
         	//FIX ONCE AI CODE EXISTS
-        	whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)
+            whiteInputSource = KonaneMoveInputSourceAI(isBlack: false)
         }
     }
 
@@ -107,106 +107,54 @@ func displayBoard() {
     
 func play() -> Bool {
 
-    /*Criteria for function:
-    -start the game with remove piece funtions
-    -create loop for gameplay with moves
-        -finish when didWin funcitons return true
-    -return a bool for true
-    -display a win and lose message
-*/
-    //Start of Gameplay
-    //Starts game by displaying the game board
-    //player1 is black
-    //player2 is white
     var winBool = false
+    var move: KonaneMove = KonaneMove(fromX: 0, fromY: 0, toX: 0, toY: 0)
+    
+    //real play function
     gameState.populateGameBoard()
+    
     displayBoard()
-
     
-    while true {
-        print("What are the coordinates of the piece player1 (x's) wants to remove?")
-        let removeBlackTuple = askForInput()
-        
-        if gameState.isValid(blackRemove: (x: removeBlackTuple.xCoord, y: removeBlackTuple.yCoord)) {
-            gameState.perform(blackRemove: (x: removeBlackTuple.xCoord, y: removeBlackTuple.yCoord))
-            break
-        } else {
-            print("Not a valid move")
-        }
-
-    }
+    gameState.perform(blackRemove: blackInputSource.removeFirstPiece(gameState: gameState))
     
-        displayBoard()
+    displayBoard()
     
-    while true {
-        print("What are the coordinates of the piece player2 (o's) wants to remove?")
-        let removeWhiteTuple = askForInput()
-        
-        if gameState.isValid(whiteRemove: (x: removeWhiteTuple.xCoord, y: removeWhiteTuple.yCoord)) {
-            gameState.perform(whiteRemove: (x: removeWhiteTuple.xCoord, y: removeWhiteTuple.yCoord))
-            break
-        } else {
-            print("Not a valid move")
-        }
-
-    }
-    
+    gameState.perform(whiteRemove: whiteInputSource.removeSecondPiece(gameState: gameState))
     
     displayBoard()
     
     while winBool == false {
-        
-        if gameState.isBlackTurn == true{
-            
-            var move: KonaneMove = KonaneMove(fromX: 0, fromY: 0, toX: 0, toY: 0)
-            while true {
-                print("What are the coordinates of the piece player1 (x's) wants to move?")
-                let fromCoordTuple = askForInput()
-                print("Where do you want to move that tile too?")
-                let toCoordTuple = askForInput()
-                
-                move = KonaneMove(fromX: fromCoordTuple.xCoord, fromY: fromCoordTuple.yCoord, toX: toCoordTuple.xCoord, toY: toCoordTuple.yCoord)
-                
-                if gameState.isValid(move: move) {
-                    break
-                } else {
-                    print("That was not a valid move, try again")
-                }
-            }
-            
-            gameState.perform(move: move)
-            winBool = gameState.didBlackWin()
-            gameState.isBlackTurn = false
-            displayBoard()
-
-        } else if gameState.isBlackTurn == false {
-            print("What are the coordinates of the piece player2 (o's) wants to move?")
-            let fromCoordTuple = askForInput()
-            print("Where do you want to move that tile too?")
-            let toCoordTuple = askForInput()
-
-            let move: KonaneMove = KonaneMove(fromX: fromCoordTuple.xCoord, fromY: fromCoordTuple.yCoord, toX: toCoordTuple.xCoord, toY: toCoordTuple.yCoord)
-            gameState.perform(move: move)
-            winBool = gameState.didWhiteWin()
-            gameState.isBlackTurn = true
-            displayBoard()
+        if gameState.isBlackTurn {
+            move = blackInputSource.nextMove(gameState: gameState)
+        } else if !gameState.isBlackTurn {
+            move = whiteInputSource.nextMove(gameState: gameState)
         } else {
-            print("Error in play function")
+            print("Error not black or white's turn?")
         }
         
+        gameState.perform(move: move)
         
-        if winBool && gameState.isBlackTurn == false {
-            print("Player1 (x's) has won the game!")
-        } else if winBool && gameState.isBlackTurn == true{
-            print("Player2 (o's) has won the game!")
+        if gameState.didBlackWin() {
+            winBool = true
+        } else if gameState.didWhiteWin() {
+            winBool = true
         }
-
-
-
-        //call funciton to move a piece
-
+        
+        //Changes turn
+        gameState.isBlackTurn = !gameState.isBlackTurn
+        
+        displayBoard()
     }
-        return winBool
-    }    //End of Gameplay
+    
+    if winBool && gameState.isBlackTurn == false {
+        print("Player1 (x's) has won the game!")
+    } else if winBool && gameState.isBlackTurn == true{
+        print("Player2 (o's) has won the game!")
+    }
+    return winBool
+    }
+
+
+    
 }
 //End of Class

@@ -11,12 +11,23 @@
 import Foundation
 
 class KonaneMoveInputSourceAI: KonaneMoveInputSource {
-
+    
 	override func nextMove(gameState: KonaneGameState) -> KonaneMove {
 		//Code	
-		var moves = possibleMoves(gameState)
-	}	
+		//var moves = possibleMoves(gameState)
+        return KonaneMove(fromX: 0, fromY: 0, toX: 0, toY: 0)
+	}
+    
+    override func removeFirstPiece(gameState: KonaneGameState) -> (xCoord: Int, yCoord: Int) {
+        return (xCoord: 0, yCoord: 0)
+    }
+    
+    override func removeSecondPiece(gameState: KonaneGameState) -> (xCoord: Int, yCoord: Int) {
+        return (xCoord: 0, yCoord: 0)
+    }
+    /*
 
+    
 	func possibleMoves(gameState: KonaneGameState) -> [KonaneMove] {
 
 		var playerColor: KonaneColor
@@ -71,4 +82,5 @@ class KonaneMoveInputSourceAI: KonaneMoveInputSource {
 		}
 		return moves
 	}
+*/
 }
