@@ -64,10 +64,10 @@ class KonaneGame {
         while !gameState.didWhiteWin() && !gameState.didBlackWin() {
             while true { //Black's turn
                 print("Black player, move a piece.\nFrom:")
-                var bfxy = getInput() //bfxy = Black From XY
+                let bfxy = getInput() //bfxy = Black From XY
                 print("To:")
-                var btxy = getInput() //btxy = Black To XY
-                var blackMove = KonaneMove(fromX: bfxy.xO, fromY: bfxy.yO, toX: btxy.xO, toY: btxy.yO)
+                let btxy = getInput() //btxy = Black To XY
+                let blackMove = KonaneMove(fromX: bfxy.xO, fromY: bfxy.yO, toX: btxy.xO, toY: btxy.yO)
                 if gameState.isValid(move: blackMove) {
                     break
                 }else {
@@ -77,10 +77,10 @@ class KonaneGame {
     
             while true { //White's turn
                 print("White player, move a piece.\nFrom:")
-                var wfxy = getInput() //wfxy = White From XY
+                let wfxy = getInput() //wfxy = White From XY
                 print("To:")
-                var wtxy = getInput() //wtxy = White To XY
-                var whiteMove = KonaneMove(fromX: wfxy.xO, fromY: wfxy.yO, toX: wtxy.xO, toY: wtxy.yO)
+                let wtxy = getInput() //wtxy = White To XY
+                let whiteMove = KonaneMove(fromX: wfxy.xO, fromY: wfxy.yO, toX: wtxy.xO, toY: wtxy.yO)
                 if gameState.isValid(move: whiteMove) {
                     break
                 }else {
@@ -89,6 +89,14 @@ class KonaneGame {
             }   
         }
 
+        //Wrapping it all up :)
+        if gameState.didBlackWin() {
+            print("Congratulations, black player! You won!")
+        }else {
+            print("Congratulations, white player! You won!")
+        }
+        
+        //Huh.   
         return true
     }
 
