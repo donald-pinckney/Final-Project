@@ -76,7 +76,16 @@ class KonaneGame {
             }
     
             while true { //White's turn
-
+                print("White player, move a piece.\nFrom:")
+                var wfxy = getInput() //wfxy = White From XY
+                print("To:")
+                var wtxy = getInput() //wtxy = White To XY
+                var whiteMove = KonaneMove(fromX: wfxy.xO, fromY: wfxy.yO, toX: wtxy.xO, toY: wtxy.yO)
+                if gameState.isValid(move: whiteMove) {
+                    break
+                }else {
+                    print("Invalid move.")
+                }
             }   
         }
 
