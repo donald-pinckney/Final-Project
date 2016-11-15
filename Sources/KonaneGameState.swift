@@ -69,11 +69,11 @@ class KonaneGameState {
         }       
         //Finding the direction of the move, to be used in checkForPiece and the double jumps. Maybe. :)
         var direction = moveDirection.north
-        if move.fromX + 2 == move.toX && move.fromY == move.toY{
+        if move.fromX < move.toX && move.fromY == move.toY{
             direction = moveDirection.east
-        }else if move.fromX == move.toX && move.fromY - 2 == move.toY{
+        }else if move.fromX == move.toX && move.fromY > move.toY{
             direction = moveDirection.south
-        }else if move.fromX - 2 == move.toX && move.fromY == move.toY{
+        }else if move.fromX > move.toX && move.fromY == move.toY{
             direction = moveDirection.west
         }//North not included bc that's the default value
         
