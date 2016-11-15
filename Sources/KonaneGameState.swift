@@ -164,7 +164,7 @@ class KonaneGameState {
     }
     func perform(move: KonaneMove){
         //isValid will be run before this function is called in main.swift
-        gameBoard[move.fromX][move.fromY] = KonaneColor.white
+        gameBoard[move.fromX][move.fromY] = KonaneColor.empty
         
         //The toX/toY piece being 'moved'
         if getIsBlackTurn() {
@@ -176,8 +176,8 @@ class KonaneGameState {
         //REMOVING PIECE IN MIDDLE!!!! HEY!!
     }
     func didBlackWin() -> Bool {
-        for x in 0..<16 {
-            for y in 0..<16 {
+        for x in 0..<width - 2 {    //AUEPRIUVBPBPRIUVBPRIUEBVPIRBVPEIURBVPREIUBLUIWPVUBWRPIUVBWRPIU
+            for y in 0..<height - 2 {
                 if color(atX: x, atY: y) == KonaneColor.empty{
                     if color(atX: x + 2, atY: y) == KonaneColor.black {
                         return false
@@ -194,16 +194,34 @@ class KonaneGameState {
         return true 
     }
     func didWhiteWin() -> Bool {
-        for x in 0..<16 {
-            for y in 0..<16 {
-                if color(atX: x, atY: y) == KonaneColor.white{
-                    if color(atX: x + 2, atY: y) == KonaneColor.white {
+        for x in 0..<width - 2 {
+            for y in 0..<height - 2 {
+                if x < width - 2 && y < height - 2 {
+                    //BOTTOM LEFT
+                    if color(atX: x, atY: y) == KonaneColor.white{   
+                        if color(atX: x + 2, atY: y) == KonaneColor.white {
+                            return false
+                        }else if color(atX: x - 2, atY: y) == KonaneColor.white {
+                            return false
+                        }else if color(atX: x, atY: y + 2) == KonaneColor.white {
+                            return false
+                        }else if color(atX: x, atY: y - 2) == KonaneColor.white {
+                            return false
+                        }
+                    }
+                }else if x < width - 2 && y > height - 2 {
+                    //TOP LEFT
+                    if color(atX: x, atY: y - 2) == KonaneColor.white || color(atX: x + 2, atY: y) == KonaneColor.white || color(atX: x - 2, atY: y) == KonaneColor.white {
                         return false
-                    }else if color(atX: x - 2, atY: y) == KonaneColor.white {
+                    }
+                }else if x > width - 2 && y > height - 2 {
+                    //TOP RIGHT
+                    if color(atX: x - 2, atY: y) == KonaneColor.white || color(atX: x, atY: y - 2) == KonaneColor.white {
                         return false
-                    }else if color(atX: x, atY: y + 2) == KonaneColor.white {
-                        return false
-                    }else if color(atX: x, atY: y - 2) == KonaneColor.white {
+                    }
+                }else if x > width - 2 && y < height - 2 {
+                    //BOTTOM RIGHT
+                    if color(atX: x - 2, atY: y) == KonaneColor.white || color(atX: x, atY: y + 2) == KonaneColor.white || color(atX: x, atY: y - 2) == KonaneColor.white {
                         return false
                     }
                 }

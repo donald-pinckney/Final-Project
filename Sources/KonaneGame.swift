@@ -69,6 +69,8 @@ class KonaneGame {
                 let btxy = getInput() //btxy = Black To XY
                 let blackMove = KonaneMove(fromX: bfxy.xO, fromY: bfxy.yO, toX: btxy.xO, toY: btxy.yO)
                 if gameState.isValid(move: blackMove) {
+                    gameState.perform(move: blackMove)
+                    displayboard()
                     break
                 }else {
                     print("Invalid move.")
@@ -82,6 +84,8 @@ class KonaneGame {
                 let wtxy = getInput() //wtxy = White To XY
                 let whiteMove = KonaneMove(fromX: wfxy.xO, fromY: wfxy.yO, toX: wtxy.xO, toY: wtxy.yO)
                 if gameState.isValid(move: whiteMove) {
+                    gameState.perform(move: whiteMove)
+                    displayboard()
                     break
                 }else {
                     print("Invalid move.")
