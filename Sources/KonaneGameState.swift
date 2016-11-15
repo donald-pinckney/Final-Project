@@ -194,13 +194,21 @@ class KonaneGameState {
                 }
             }
         }
-        
+        return true 
     }
     func didWhiteWin() -> Bool {
         for x in 0..<16 {
             for y in 0..<16 {
-                if color(atX: x, atY: y) == KonaneColor.black{
-                    return false
+                if color(atX: x, atY: y) == KonaneColor.white{
+                    if color(atX: x + 2, atY: y) == KonaneColor.white {
+                        return false
+                    }else if color(atX: x - 2, atY: y) == KonaneColor.white {
+                        return false
+                    }else if color(atX: x, atY: y + 2) == KonaneColor.white {
+                        return false
+                    }else if color(atX: x, atY: y - 2) == KonaneColor.white {
+                        return false
+                    }
                 }
             }
         }

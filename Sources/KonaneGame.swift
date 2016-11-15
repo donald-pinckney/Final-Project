@@ -29,10 +29,12 @@ class KonaneGame {
     func play() -> Bool{
         //Start: remove pieces
         print("Konane, created by Livy (by herself)")
-        //black-remove
+        
+        //
+        //Black remove
+        //
         displayboard()
         print("Black player (X) must remove the first piece.")
-        
         var br = getInput()
         while !gameState.isValid(blackRemove: (br.xO, br.yO)){
             print("Invalid move. Try again.")
@@ -40,10 +42,11 @@ class KonaneGame {
         }
         gameState.perform(blackRemove: (br.xO, br.yO))
 
-        //Time for whiteeeremovi
+        //
+        //White remove
+        //
         displayboard()
         print("Now white must remove a piece.")
-        
         var wr = getInput()
         while !gameState.isValid(whiteRemove: (wr.xO, wr.yO), blackRemove: (br.xO, br.yO)){
             print("Invalid move. Try again.")
@@ -54,18 +57,29 @@ class KonaneGame {
         
         //
         //
-        print("Time for normal play!!")
+        print("Normal play has begun.")
         //
         //
         
-       //while !didWhiteWin() && !didBlackWin() 
+        while !gameState.didWhiteWin() && !gameState.didBlackWin() {
+            while true { //Black's turn
+                print("Black player, move a piece.\nFrom:")
+                var bfxy = getInput() //bfxy = Black From XY
+                print("To:")
+                var btxy = getInput() //btxy = Black To XY
+                var blackMove = KonaneMove(fromX: bfxy.xO, fromY: bfxy.yO, toX: btxy.xO, toY: btxy.yO)
+                if gameState.isValid(move: blackMove) {
+                    break
+                }else {
+                    print("Invalid move.")
+                }
+            }
+    
+            while true { //White's turn
 
+            }   
+        }
 
-        //I think isValid NOTshall be within... perform()
-        //and a loop
-        //so
-        //a loop with perform, displayboard, asking for move and whatnot
-        //
         return true
     }
 
