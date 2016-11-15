@@ -33,25 +33,25 @@ class KonaneGameState {
             if getIsBlackTurn(){
                 return color(atX: move.fromX, atY: move.fromY + 1) == KonaneColor.white
             }else{
-                return gameBoard[move.fromX][move.fromY + 1] == KonaneColor.black
+                return color(atX: move.fromX, atY: move.fromY + 1) == KonaneColor.black
             }
         }else if direction == moveDirection.east {
             if getIsBlackTurn(){
-                return gameBoard[move.fromX + 1][move.fromY] == KonaneColor.white
+                return color(atX: move.fromX + 1, atY: move.fromY) == KonaneColor.white
             }else{
-                return gameBoard[move.fromX + 1][move.fromY] == KonaneColor.black
+                return color(atX: move.fromX + 1, atY: move.fromY) == KonaneColor.black
             }
         }else if direction == moveDirection.south {
             if getIsBlackTurn(){
-                return gameBoard[move.fromX][move.fromY - 1] == KonaneColor.white
+                return color(atX: move.fromX, atY: move.fromY - 1) == KonaneColor.white
             }else{
-                return gameBoard[move.fromX][move.fromY - 1] == KonaneColor.black
+                return color(atX: move.fromX, atY: move.fromY - 1) == KonaneColor.black
             }
         }else{ //movedirection west
             if getIsBlackTurn(){
-                return gameBoard[move.fromX - 1][move.fromY] == KonaneColor.white
+                return color(atX: move.fromX - 1, atY: move.fromY) == KonaneColor.white
             }else{
-                return gameBoard[move.fromX - 1][move.fromY] == KonaneColor.black
+                return color(atX: move.fromX - 1, atY: move.fromY) == KonaneColor.black
             }
         }
     }
@@ -59,12 +59,12 @@ class KonaneGameState {
         //This function is basically process of elimination for all the not valid parts of a move
         
         //This one checks if where you are going is out of bounds.
-        if move.toX < 0 || move.toY < 0 || move.toX > 15 || move.toY > 15 {
+        if move.toX < 0 || move.toY < 0 || move.toX > height - 1 || move.toY > height - 1 {
             return false
         }
         
         //Lol, can't have some white piece beating up a black one and dragging it off the board. Ha ha.
-        if gameBoard[move.toX][move.toY] != KonaneColor.empty{
+        if color(atX: move.toX, atY: move.toY) != KonaneColor.empty{
             return false
         }       
         //Finding the direction of the move, to be used in checkForPiece and the double jumps. Maybe. :)
@@ -128,22 +128,20 @@ class KonaneGameState {
         }
         //Get the number of spaces moved. Divide by 2. check for piece for each one, increasing x and y MAKE IT WORKKA{WOEGFWUPEFGWPIE
         //Do a loop to checkForPiece(made that one)
-        //Find a way to combine the two so you can do both double jumps and single jumps
-        
-
+        //Find a way to combine the two so you can do both double jumps and single jump
         return true
     }
     func isValid(blackRemove: (x: Int, y: Int)) -> Bool{ //checking validity of white and black remove @ start
-        if blackRemove.x == 15 && blackRemove.y == 15 || blackRemove.x == 0 && blackRemove.y == 0{
+        if blackRemove.x == width - 1 && blackRemove.y == height - 1 || blackRemove.x == 0 && blackRemove.y == 0{
             return true // outer edges
-        }else if blackRemove.x == 7 && blackRemove.y == 7 || blackRemove.x == 8 && blackRemove.y == 8{
+        }else if blackRemove.x == (width - 2) / 2 && blackRemove.y == (height - 2) / 2 || blackRemove.x == width / 2 && blackRemove.y == height / 2{
             return true  //center squares
         }else{ //you thought you could get away with a bad move? you probably almost did
             return false
         } 
     }
     func isValid(whiteRemove: (x: Int, y: Int), blackRemove: (x: Int, y: Int)) -> Bool{
-        if whiteRemove.x < 0 || whiteRemove.x > 15 || whiteRemove.y < 0 || whiteRemove.y > 15{
+        if whiteRemove.x < 0 || whiteRemove.x > width - 1 || whiteRemove.y < 0 || whiteRemove.y > height - 1{
             return false
         }
         if blackRemove.x + 1 == whiteRemove.x && blackRemove.y == whiteRemove.y{ //piece on right
@@ -166,7 +164,6 @@ class KonaneGameState {
     }
     func perform(move: KonaneMove){
         //isValid will be run before this function is called in main.swift
-        
         gameBoard[move.fromX][move.fromY] = KonaneColor.white
         
         //The toX/toY piece being 'moved'
