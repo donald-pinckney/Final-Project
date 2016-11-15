@@ -18,6 +18,10 @@ class KonaneMoveInputSource {
         fatalError("Override this function")
     }
 }
+func KonaneMoveInputSourceHuman(isBlack: Bool) -> Bool {
+        return true 
+}
+
 
 /*I don't think you need to add what the function returns as ( ex. -> Bool) but  I could be wrong*/
 /* I think this is how to call a function with either print(function) or just saying the function with parameters but I'm not entirely sure */
