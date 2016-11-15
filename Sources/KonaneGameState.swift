@@ -78,13 +78,13 @@ class KonaneGameState {
         }//North not included bc that's the default value
         
         //So. First you find a way to check if the number from -> to is % 2.
-        if direction == moveDirection.north && move.toY - move.fromY % 2 != 0 {
+        if direction == moveDirection.north && (move.toY - move.fromY) % 2 != 0 {
             return false
-        }else if direction == moveDirection.east && move.toX - move.fromX % 2 != 0 {
+        }else if direction == moveDirection.east && (move.toX - move.fromX) % 2 != 0 {
             return false
-        }else if direction == moveDirection.south && move.fromY - move.toY % 2 != 0 {
+        }else if direction == moveDirection.south && (move.fromY - move.toY) % 2 != 0 {
             return false
-        }else if direction == moveDirection.west && move.fromX - move.toX % 2 != 0 {
+        }else if direction == moveDirection.west && (move.fromX - move.toX) % 2 != 0 {
             return false
         }
 
@@ -181,12 +181,20 @@ class KonaneGameState {
     func didBlackWin() -> Bool {
         for x in 0..<16 {
             for y in 0..<16 {
-                if color(atX: x, atY: y) == KonaneColor.white{
-                    return false
+                if color(atX: x, atY: y) == KonaneColor.empty{
+                    if color(atX: x + 2, atY: y) == KonaneColor.black {
+                        return false
+                    }else if color(atX: x - 2, atY: y) == KonaneColor.black {
+                        return false
+                    }else if color(atX: x, atY: y + 2) == KonaneColor.black {
+                        return false
+                    }else if color(atX: x, atY: y - 2) == KonaneColor.black {
+                        return false
+                    }
                 }
             }
         }
-        return true
+        
     }
     func didWhiteWin() -> Bool {
         for x in 0..<16 {
