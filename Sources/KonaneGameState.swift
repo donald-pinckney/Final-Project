@@ -78,7 +78,7 @@ class KonaneGameState {
         }//North not included bc that's the default value
         
         //So. First you find a way to check if the number from -> to is % 2.
-        if direction == moveDirection.north && move.toY - move.fromY % 2 != 0{
+        if direction == moveDirection.north && move.toY - move.fromY % 2 != 0 {
             return false
         }else if direction == moveDirection.east && move.toX - move.fromX % 2 != 0 {
             return false

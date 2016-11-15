@@ -17,51 +17,44 @@ class KonaneGame {
         }
     }
 
+    func getInput() -> (xO: Int, yO: Int) {    
+        print("Enter X:", terminator:" ")
+        let x = Int(readLine()!)!
+        print("Enter y:", terminator:" ")
+        let y = Int(readLine()!)!
+        return (xO: x, yO: y)
+
+    }
+
     func play() -> Bool{
         //Start: remove pieces
-        print("Welcome to Konane!!! :D")
+        print("Konane, created by Livy (by herself)")
+        //black-remove
         displayboard()
-        print("Black player: which piece would you like to remove?\nEnter x, then y.", terminator:" ")
-        var blackRmvx = Int(readLine()!)!
-        print("And for y?", terminator:" ")
-        var blackRmvy = Int(readLine()!)!
+        print("Black player (X) must remove the first piece.")
         
-        var blackNotValid = !gameState.isValid(blackRemove: (blackRmvx, blackRmvy))   
-        
-        while blackNotValid {
-            print("Sorry, that's not a valid move. Try again?\nEnter x:", terminator:" ")
-            blackRmvx = Int(readLine()!)!
-            print("And y?", terminator:" ")
-            blackRmvy = Int(readLine()!)!
-            if gameState.isValid(blackRemove: (blackRmvx, blackRmvy)){
-                blackNotValid = false 
-            }
-        }//So the move's valid now. ok go 
-        gameState.perform(blackRemove: (blackRmvx, blackRmvy))
-        displayboard()
-        
-        //Time for whiteeeremovi
-        print("Now, white player!! You get to remove something! :D\nX first:", terminator:" ")
-        var whiteRmvx = Int(readLine()!)!
-        print("And now for y!!!", terminator:" ")
-        var whiteRmvy = Int(readLine()!)!
+        var br = getInput()
+        while !gameState.isValid(blackRemove: (br.xO, br.yO)){
+            print("Invalid move. Try again.")
+            br = getInput()
+        }
+        gameState.perform(blackRemove: (br.xO, br.yO))
 
-        var whiteNotValid = !gameState.isValid(whiteRemove: (whiteRmvx, whiteRmvy), blackRemove: (blackRmvx, blackRmvy))
-        while whiteNotValid {
-            print("Sorry, that's not a valid move D: Try again?\n Enter x:", terminator:" ")
-            whiteRmvx = Int(readLine()!)!
-            print("Now y...", terminator:" ")
-            whiteRmvy = Int(readLine()!)!
-            if gameState.isValid(whiteRemove: (whiteRmvx, whiteRmvy), blackRemove: (blackRmvx, blackRmvy)){
-                whiteNotValid = false
-            }
-        }//Aight.
-        gameState.perform(whiteRemove: (whiteRmvx, whiteRmvy))
+        //Time for whiteeeremovi
+        displayboard()
+        print("Now white must remove a piece.")
+        
+        var wr = getInput()
+        while !gameState.isValid(whiteRemove: (wr.xO, wr.yO), blackRemove: (br.xO, br.yO)){
+            print("Invalid move. Try again.")
+            wr = getInput()
+        }
+        gameState.perform(whiteRemove: (wr.xO, wr.yO))
         displayboard()
         
         print("Time for normal play!!")
         while !gameState.didWhiteWin() && !gameState.didBlackWin() {
-            blackNotValid = true
+            var blackNotValid = true
             
             while blackNotValid {
                 print("Black player: Enter from-X", terminator:" ")
