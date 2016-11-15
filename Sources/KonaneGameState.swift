@@ -31,7 +31,7 @@ class KonaneGameState {
     func checkForPiece(_ direction: moveDirection, _ move: KonaneMove) -> Bool{ //if true is returned, there's a piece lol
         if direction == moveDirection.north {                                   //yes i know theres a better way to do this
             if getIsBlackTurn(){
-                return gameBoard[move.fromX][move.fromY + 1] == KonaneColor.white
+                return color(atX: move.fromX, atY: move.fromY + 1) == KonaneColor.white
             }else{
                 return gameBoard[move.fromX][move.fromY + 1] == KonaneColor.black
             }
