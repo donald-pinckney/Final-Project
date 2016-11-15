@@ -178,14 +178,32 @@ class KonaneGameState {
     func didBlackWin() -> Bool {
         for x in 0..<width - 2 {    //AUEPRIUVBPBPRIUVBPRIUEBVPIRBVPEIURBVPREIUBLUIWPVUBWRPIUVBWRPIU
             for y in 0..<height - 2 {
-                if color(atX: x, atY: y) == KonaneColor.empty{
-                    if color(atX: x + 2, atY: y) == KonaneColor.black {
+                if x < width - 2 && y < height - 2 {
+                    //BOTTOM LEFT
+                    if color(atX: x, atY: y) == KonaneColor.black{   
+                        if color(atX: x + 2, atY: y) == KonaneColor.black {
+                            return false
+                        }else if color(atX: x - 2, atY: y) == KonaneColor.black {
+                            return false
+                        }else if color(atX: x, atY: y + 2) == KonaneColor.black {
+                            return false
+                        }else if color(atX: x, atY: y - 2) == KonaneColor.black {
+                            return false
+                        }
+                    }
+                }else if x < width - 2 && y > height - 2 {
+                    //TOP LEFT
+                    if color(atX: x, atY: y - 2) == KonaneColor.black || color(atX: x + 2, atY: y) == KonaneColor.black || color(atX: x - 2, atY: y) == KonaneColor.black {
                         return false
-                    }else if color(atX: x - 2, atY: y) == KonaneColor.black {
+                    }
+                }else if x > width - 2 && y > height - 2 {
+                    //TOP RIGHT
+                    if color(atX: x - 2, atY: y) == KonaneColor.black || color(atX: x, atY: y - 2) == KonaneColor.black {
                         return false
-                    }else if color(atX: x, atY: y + 2) == KonaneColor.black {
-                        return false
-                    }else if color(atX: x, atY: y - 2) == KonaneColor.black {
+                    }
+                }else if x > width - 2 && y < height - 2 {
+                    //BOTTOM RIGHT
+                    if color(atX: x - 2, atY: y) == KonaneColor.black || color(atX: x, atY: y + 2) == KonaneColor.black || color(atX: x, atY: y - 2) == KonaneColor.black {
                         return false
                     }
                 }
