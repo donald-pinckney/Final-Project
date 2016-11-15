@@ -25,7 +25,7 @@ x   - private whiteInputSource: KonaneMoveInputSource
 //WILL FIX LATER FIRST GETTING INITIALIZATION DONE
 class KonaneGame {
 
-    private var gameState = KonaneGameState(width: 8, height: 8, isBlackTurn: true)
+    private var gameState = KonaneGameState(width: 4, height: 4, isBlackTurn: true)
     private let blackInputSource: KonaneMoveInputSource
     private let whiteInputSource: KonaneMoveInputSource
 
@@ -138,6 +138,8 @@ func play() -> Bool {
             winBool = true
         } else if gameState.didWhiteWin() {
             winBool = true
+        } else {
+            winBool = false
         }
         
         //Changes turn
