@@ -87,7 +87,7 @@ class KonaneGameState {
     }
 
     func getIsBlackTurn() -> Bool {
-    	if isBlackTurn == true{
+    	if isBlackTurn == true {
     		return true
     	}
     	else {
@@ -140,8 +140,7 @@ class KonaneGameState {
                                 }
                             } else {
                                 returnBool = true
-                            }
-                            
+                            }   
                         }
                     } else if move.toY < move.fromY {
                         if gameBoard[move.fromX][move.fromY - 1] == KonaneColor.white && gameBoard[move.toX][move.toY] == KonaneColor.empty {
@@ -193,8 +192,7 @@ class KonaneGameState {
                                 }
                             } else {
                                 returnBool = true
-                            }
-                            
+                            } 
                         }
                     } else if move.toY < move.fromY {
                         if gameBoard[move.fromX][move.fromY - 1] == KonaneColor.black && gameBoard[move.toX][move.toY] == KonaneColor.empty {
@@ -360,7 +358,6 @@ class KonaneGameState {
                 print("Error in perform(move:) function")
             }
         }
-
     }
 
     func perform(blackRemove: (xCoord: Int, yCoord: Int)) {
@@ -382,213 +379,150 @@ class KonaneGameState {
     
     
     func didBlackWin() -> Bool {
-        for column in 0..<width {
-            for row in 0..<height {
-                if isBlackTurn == true {
-                    if 1 < row && row < height - 2 && 1 < column && column < width - 2 {
-                        if gameBoard[column][row] == KonaneColor.black {
-                            if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] == KonaneColor.empty{
+        if getIsBlackTurn() == true { 
+            for column in 0..<width {
+                for row in 0..<height {
+                    if gameBoard[column][row] == KonaneColor.black {
+                        if 1 < row && row < height - 2 && 1 < column && column < width - 2 {
+                            if  (gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] == KonaneColor.empty) || 
+                                (gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] == KonaneColor.empty) || 
+                                (gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] == KonaneColor.empty) || 
+                                (gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] == KonaneColor.empty) {
                                 return false
-                            } else if gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] == KonaneColor.empty{
-                                return  false
-                            } else if gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] == KonaneColor.empty{
-                                return false
-                            } else if gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] == KonaneColor.empty {
-                                return false
-                            } else {
-                                return true
                             }
-
-                        } else {
-                            return true
+                            //tests top left square of 4
+                        } else if column < 2 && row > height - 3{
+                            if (gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests top right square of 4
+                        } else if column > width - 3 && row > height - 3{
+                            if (gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests bottom left
+                        } else if row < 2 && column < 2{
+                            if (gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests bottom right
+                        } else if row > height - 3 && column > width - 3{
+                            if (gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests not corners and not center board. Does test left side
+                        } else if 1 < row && row < height - 3 && column < 2 {
+                            if (gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests not corners and not center. Does test right side
+                        } else if 1 < row && row < height - 3 && column > width - 3 {
+                            if (gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests not corners and not center. Does test up
+                        } else if row > height - 3 && 1 < column && column < width - 3 {
+                            if (gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            // tests not corners and not conter. Does test down
+                        } else if row < 2 && 1 < column && column < width - 3 {
+                            if (gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty) {
+                                return false
+                            }
                         }
-                        //tests top left square of 4
-                    } else if column < 2 && row > height - 3{
-                        if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty {
-                            return false
-                        } else if gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                        //tests top right square of 4
-                    } else if column > width - 3 && row > height - 3{
-                        if gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty {
-                            return false
-                        } else if gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                        //tests bottom left
-                    } else if row < 2 && column < 2{
-                        if gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty {
-                            return false
-                        } else if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                        //tests bottom right
-                    } else if row > height - 3 && column > width - 3{
-                        if gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty {
-                            return false
-                        } else if gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                        //tests not corners and not center board. Does test left side
-                    } else if 1 < row && row < height - 3 && column < 2 {
-                        if gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty || gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty || gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                        //tests not corners and not center. Does test right side
-                    } else if 1 < row && row < height - 3 && column > width - 3 {
-                        if gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty || gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty || gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                        //tests not corners and not center. Does test up
-                    } else if row > height - 3 && 1 < column && column < width - 3 {
-                        if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty || gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty || gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                        // tests not corners and not conter. Does test down
-                    } else if row < 2 && 1 < column && column < width - 3 {
-                        if gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty || gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty || gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                    } else {
-                        return true
                     }
-
-                } else {
-                    return true
                 }
             }
+        } else {
+            return false 
         }
-        return false // I have no fucking clue why this works
+        return true
     }
 
     func didWhiteWin() -> Bool {
-        for column in 0..<width {
-            for row in 0..<height {
-                if isBlackTurn == true {
-                    if 1 < row && row < height - 2 && 1 < column && column < width - 2 {
-                        if gameBoard[column][row] == KonaneColor.white {
-                            if gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] == KonaneColor.empty{
+        if getIsBlackTurn() == false { 
+            for column in 0..<width {
+                for row in 0..<height {
+                    if gameBoard[column][row] == KonaneColor.white {
+                        if 1 < row && row < height - 2 && 1 < column && column < width - 2 {
+                            if  (gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] == KonaneColor.empty) || 
+                                (gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] == KonaneColor.empty) || 
+                                (gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] == KonaneColor.empty) || 
+                                (gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] == KonaneColor.empty) {
                                 return false
-                            } else if gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] == KonaneColor.empty{
-                                return false
-                            } else if gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] == KonaneColor.empty{
-                                return false
-                            } else if gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] == KonaneColor.empty {
-                                return false
-                            }  else {
-                                return true
                             }
-
-                        } else {
-                            return true
+                            //tests top left square of 4
+                        } else if column < 2 && row > height - 3{
+                            if (gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests top right square of 4
+                        } else if column > width - 3 && row > height - 3{
+                            if (gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests bottom left
+                        } else if row < 2 && column < 2{
+                            if (gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests bottom right
+                        } else if row > height - 3 && column > width - 3{
+                            if (gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests not corners and not center board. Does test left side
+                        } else if 1 < row && row < height - 3 && column < 2 {
+                            if (gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests not corners and not center. Does test right side
+                        } else if 1 < row && row < height - 3 && column > width - 3 {
+                            if (gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests not corners and not center. Does test up
+                        } else if row > height - 3 && 1 < column && column < width - 3 {
+                            if (gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            // tests not corners and not conter. Does test down
+                        } else if row < 2 && 1 < column && column < width - 3 {
+                            if (gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty) {
+                                return false
+                            }
                         }
-
-                        //tests top left square of 4
-                    } else if column < 2 && row > height - 3{
-                        if gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty {
-                            return false
-                        } else if gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                        //tests top right square of 4
-                    } else if column > width - 3 && row > height - 3{
-                        if gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty {
-                            return false
-                        } else if gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                        //tests bottom left
-                    } else if row < 2 && column < 2{
-                        if gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty {
-                            return false
-                        } else if gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                        //tests bottom right
-                    } else if row > height - 3 && column > width - 3{
-                        if gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty {
-                            return false
-                        } else if gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                        //tests not corners and not center board. Does test left side
-                    } else if 1 < row && row < height - 3 && column < 2 {
-                        if gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty || gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty || gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                        //tests not corners and not center. Does test right side
-                    } else if 1 < row && row < height - 3 && column > width - 3 {
-                        if gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty || gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty || gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                        //tests not corners and not center. Does test up
-                    } else if row > height - 3 && 1 < column && column < width - 3 {
-                        if gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty || gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty || gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                        // tests not corners and not conter. Does test down
-                    } else if row < 2 && 1 < column && column < width - 3 {
-                        if gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty || gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty || gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty {
-                            return false
-                        } else {
-                            return true
-                        }
-
-                    } else {
-                        return true
                     }
-
-                } else {
-                    return true
                 }
             }
+        } else {
+            return false 
         }
-        return false // I have no fucking clue why this works
+        return true
     }
 }
