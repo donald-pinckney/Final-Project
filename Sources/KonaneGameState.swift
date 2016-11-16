@@ -116,35 +116,42 @@ func removeMiddlePieces(KonaneMoveInput move: KonaneMove) {
   }
 }
 
+func perform(blackRemove: (x: Int, y: Int)) {
+  let coords = blackRemove
+  if isValid(blackRemove: coords) {
+    board[coords.x][coords.y] = KonaneColor.empty
+    self.blackRemove = blackRemove
+    removeMiddlePieces(KonaneMoveInput move: KonaneMove)
+    [KonaneMove.toX][KonaneMove.toY] = black //I have no idea if this is right
+  } else {
+    fatalError("bad remove coords")
+  }
+}
+
+func perform(whiteRemove: (x: Int, y: Int)) {
+  let coords = whiteRemove
+  if isValid(whiteRemove: coords) {
+    board[coords.x][coords.y] = KonaneColor.empty
+    self.blackRemove = blackRemove
+    [KonaneMove.toX][KonaneMove.toY] = white // I have no idea if this is right
+  } else{
+    fatalError("bad remove coords")
+  }
+}
+
+
   func perform(move: KonaneMove) {
     board[move.fromX][move.fromY] = KonaneColor.empty
     if isBlackTurn {
-      board[move.toX][move.toY] = KonaneColor.black
-      removeMiddlePieces(KonaneMoveInput: move)
+      perform(blackRemove x: Int y: Int)
     }
     if !isBlackTurn {
-      board[move.toX][move.toY] = KonaneColor.white
-      removeMiddlePieces(KonaneMoveInput: move)
+      perform(whiteRemove x: Int y: Int)
     }
     isBlackTurn = !isBlackTurn
   }
 
 
-  func perform(blackRemove: (x: Int, y: Int)) {
-    let coords = blackRemove
-    if isValid(blackRemove: coords) {
-      board[coords.x][coords.y] = KonaneColor.empty
-      self.blackRemove = blackRemove
-    } else {
-      fatalError("bad remove coords")
-    }
-  }
-  func perform(whiteRemove: (x: Int, y: Int)) {
-    let coords = whiteRemove
-    if isValid(whiteRemove: coords) {
-      board[coords.x][coords.y] = KonaneColor.empty
-    }
-  }
 
   func didBlackWin() -> Bool {
     return false
