@@ -21,8 +21,10 @@ class KonaneMoveInputSourceAI: KonaneMoveInputSource {
     }   
 
     override func nextMove(gameState: KonaneGameState) -> KonaneMove {
-    	let currentGame = gameState
-    	var advancedGame = currentGame
+    	let currentGame = gameState.copy()
+
+    	var advancedGame = gameState.copy()
+
     	var possibleMoves: [KonaneMove]
     	var responses: Int 
     	var bestResponse: Int = 1000000000 //Needs to be big
@@ -30,11 +32,11 @@ class KonaneMoveInputSourceAI: KonaneMoveInputSource {
 
     	if currentGame.getIsBlackTurn() {
 
-	    	for fromX in currentGame.gameBoard {
-	    		for fromY in currentGame.gameBoard[fromX] {
-		    		if currentGame.gameBoard[fromX][fromY] == KonaneColor.black {
-		    			for toX in currentGame.gameBoard {
-		    				for toY in currentGame.gameBoard[toX] {
+	    	for fromX in 0..<currentGame.width {
+	    		for fromY in 0..<currentGame.height {
+		    		if currentGame.color(atX: fromX, atY: fromY) == KonaneColor.black {
+		    			for toX in 0..<currentGame.width {
+		    				for toY in 0..<currentGame.height {
 		    					if currentGame.isValid(move: (fromX: fromX, fromY: fromY, toX: toX, toY: toY)) {
 		    						possibleMoves.append((fromX: fromX, fromY: fromY, toX: toX, toY: toY)) 
 		    					}
@@ -46,13 +48,13 @@ class KonaneMoveInputSourceAI: KonaneMoveInputSource {
 
 	    	for possibleMove in possibleMoves {
 	    		responses = 0
-	    		advancedGame.gameBoard = currentGame.gameBoard
+	    		advancedGame = currentGame.copy()
 	    		advancedGame.perform(move: possibleMove)
-	    		for fromX in advancedGame.gameBoard {
-	    			for fromY in advancedGame.gameBoard[fromX] {
-	    				if advancedGame.gameBoard[fromX][fromY] == KonaneColor.white {
-	    					for toX in advancedGame.gameBoard {
-	    						for toY in advancedGame.gameBoard[toX] {
+	    		for fromX in 0..<advancedGame.width {
+	    			for fromY in 0..<advancedGame.height {
+	    				if advancedGame.color(atX: fromX, atY: fromY) == KonaneColor.white {
+	    					for toX in 0..<advancedGame.width {
+	    						for toY in )..<advancedGame.height {
 	    							if currentGame.isValid(move: (fromX: fromX, fromY: fromY, toX: toX, toY: toY)) {
 		    							responses += 1
 		    						}
@@ -69,11 +71,11 @@ class KonaneMoveInputSourceAI: KonaneMoveInputSource {
 	    }
 	    else if !currentGame.getIsBlackTurn() {
 
-	    	for fromX in currentGame.gameBoard {
-	    		for fromY in currentGame.gameBoard[fromX] {
-		    		if currentGame.gameBoard[fromX][fromY] == KonaneColor.white {
-		    			for toX in currentGame.gameBoard {
-		    				for toY in currentGame.gameBoard[toX] {
+	    	for fromX in 0..<currentGame.width {
+	    		for fromY in 0..<currentGame.height {
+		    		if currentGame.color(atX: fromX, atY: fromY) == KonaneColor.white {
+		    			for toX in 0..<currentGame.width {
+		    				for toY in 0..<currentGame.height {
 		    					if currentGame.isValid(move: (fromX: fromX, fromY: fromY, toX: toX, toY: toY)) {
 		    						possibleMoves.append((fromX: fromX, fromY: fromY, toX: toX, toY: toY)) 
 		    					}
@@ -85,13 +87,13 @@ class KonaneMoveInputSourceAI: KonaneMoveInputSource {
 
 	    	for possibleMove in possibleMoves {
 	    		responses = 0
-	    		advancedGame.gameBoard = currentGame.gameBoard
+	    		advancedGame = currentGame.copy()
 	    		advancedGame.perform(move: possibleMove)
-	    		for fromX in advancedGame.gameBoard {
-	    			for fromY in advancedGame.gameBoard[fromX] {
-	    				if advancedGame.gameBoard[fromX][fromY] == KonaneColor.black {
-	    					for toX in advancedGame.gameBoard {
-	    						for toY in advancedGame.gameBoard[toX] {
+	    		for fromX in 0..<advancedGame.width {
+	    			for fromY in 0..<advancedGame.height {
+	    				if advancedGame.color(atX: fromX, atY: fromY) == KonaneColor.black {
+	    					for toX in 0..<advancedGame.width {
+	    						for toY in )..<advancedGame.height {
 	    							if currentGame.isValid(move: (fromX: fromX, fromY: fromY, toX: toX, toY: toY)) {
 		    							responses += 1
 		    						}

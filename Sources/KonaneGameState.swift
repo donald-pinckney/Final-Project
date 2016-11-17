@@ -525,4 +525,13 @@ class KonaneGameState {
         }
         return true
     }
+
+    func copy() -> KonaneGameState {
+        let c = KonaneGameState()
+        c. = self.
+        ...
+        ...
+
+        return c
+    }
 }
