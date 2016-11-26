@@ -1,3 +1,5 @@
 enum KonaneColor {
-    case black, white, empty
+    case black
+    case white
+    case empty
 }
