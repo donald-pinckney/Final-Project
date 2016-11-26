@@ -1,88 +1,537 @@
+//
+//  KonaneGameState.swift
+//
+//
+//  Created by Alex Hill on 10/20/16.
+//
+//
+
+import Foundation
+
+/*
+15  o  x  o  x  o  x  o  x  o  x  o  x  o  x  o  x
+14  x  o  x  o  x  o  x  o  x  o  x  o  x  o  x  o
+13  o  x  o  x  o  x  o  x  o  x  o  x  o  x  o  x
+12  x  o  x  o  x  o  x  o  x  o  x  o  x  o  x  o
+11  o  x  o  x  o  x  o  x  o  x  o  x  o  x  o  x
+10  x  o  x  o  x  o  x  o  x  o  x  o  x  o  x  o
+9   o  x  o  x  o  x  o  x  o  x  o  x  o  x  o  x
+8   x  o  x  o  x  o  x  o  x  o  x  o  x  o  x  o
+7   o  x  o  x  o  x  o  x  o  x  o  x  o  x  o  x
+6   x  o  x  o  x  o  x  o  x  o  x  o  x  o  x  o
+5   o  x  o  x  o  x  o  x  o  x  o  x  o  x  o  x
+4   x  o  x  o  x  o  x  o  x  o  x  o  x  o  x  o
+3   o  x  o  x  o  x  o  x  o  x  o  x  o  x  o  x
+2   x  o  x  o  x  o  x  o  x  o  x  o  x  o  x  o
+1   o  x  o  x  o  x  o  x  o  x  o  x  o  x  o  x
+0   x  o  x  o  x  o  x  o  x  o  x  o  x  o  x  o
+
+    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+
+KonaneGameState
+x	- width: Int = 16
+x	- height - 1: Int = 16
+x	- init()
+x	- private internal board data storage
+x	- private isBlackTurn: Bool
+x	- getIsBlackTurn() -> Bool
+x	- color(atX: Int, atY: Int) -> KonaneColor // Bottom left, 0-indexed
+x	- isValid(move: KonaneMove) -> Bool
+x	- isValid(blackRemove: (x: Int, y: Int)) -> Bool
+x	- isValid(whiteRemove: (x: Int, y: Int)) -> Bool
+x	- perform(move: KonaneMove)
+x	- perform(blackRemove: (x: Int, y: Int))
+x	- perform(whiteRemove: (x: Int, y: Int))
+x	- didBlackWin() -> Bool
+x	- didWhiteWin() -> Bool
+*/
+
+//WILL need to remove enum before build
+//SINCE it is included in KonaneColor.swift
 class KonaneGameState {
-    let width = 16
-    let height = 16
 
-    private var board: [[KonaneColor]] // Each inner array is a column on the board
-    private var isBlackTurn = true
+    var width: Int
+	var height: Int
+    var isBlackTurn: Bool
 
-    init() {
-        let singleCol = [KonaneColor](repeating: KonaneColor.empty, count: height)
+    init (width: Int, height: Int, isBlackTurn: Bool) {
+        self.width = width
+        self.height = height
+        self.isBlackTurn = isBlackTurn
+    }
 
-        board = [[KonaneColor]](repeating: singleCol, count: width)
+    public var gameBoard: [[KonaneColor]] = []
 
-        // Checkerboard
-        for x in 0..<width {
-            for y in 0..<height {
-                if (x + y) % 2 == 0 {
-                    board[x][y] = KonaneColor.black
-                } else {
-                    board[x][y] = KonaneColor.white
+    func populateGameBoard() {
+        for column in 0..<width {
+            gameBoard.append([]) //Each column is an array
+            for row in 0..<height{
+                if column % 2 == 0 { //If column even -> black first
+                    if row % 2 == 0 {
+                        gameBoard[column].append(KonaneColor.black)
+                    }
+                    else {
+                        gameBoard[column].append(KonaneColor.white)
+                    }
+                }
+                else {
+                    if row % 2 == 0 { //If column odd -> white first
+                        gameBoard[column].append(KonaneColor.white)
+                    }
+                    else {
+                        gameBoard[column].append(KonaneColor.black)
+                    }
                 }
             }
         }
     }
 
-    func copy() -> KonaneGameState {
-        let c = KonaneGameState()
-        c.board = board
-        c.isBlackTurn = isBlackTurn
-        return c
-    }
-
     func getIsBlackTurn() -> Bool {
-        return isBlackTurn
+    	if isBlackTurn == true {
+    		return true
+    	}
+    	else {
+    		return false
+    	}
     }
 
     func color(atX: Int, atY: Int) -> KonaneColor {
-        return board[atX][atY]
+    	return gameBoard[atX][atY]
     }
 
+    //
+    //ADD ALL ELSE STATEMENTS
     func isValid(move: KonaneMove) -> Bool {
-        print("Doesn't work yet")
-        return true
+        /*
+            Criteria for this function
+        */
+        
+        /* Criteria:
+        - Is the place to jump to within the gameBoard?
+        
+        move returns 4 variables:
+        move.fromX
+        move.fromY
+        move.toX
+        move.toY
+        
+        // a move is valid if
+        x - the the move.toX and move.toY is empty
+        x - there is a piece between move.toX and move.toY and move.fromX and move.fromY
+        x - include double jump
+        x  - is there a piece between each jump
+        x  - if it is a valid gameBoard place
+        x  - the space to move to is empty
+        */
+        var returnBool = false
+        if isBlackTurn == true {
+            //How do I correctly access the gameBoard and the enum? - FIX
+            //Check if this is a valid piece for the user to move
+            if gameBoard[move.fromX][move.fromY] == KonaneColor.black {
+                //Is this how I actually add values?
+                //Checks if there is a place to move to
+                //Checks for verticle direction
+                if move.fromX == move.toX {
+                    if move.toY > move.fromY {
+                        if gameBoard[move.fromX][move.fromY + 1] == KonaneColor.white && gameBoard[move.toX][move.toY] == KonaneColor.empty {
+                            if abs(move.toX - move.fromX) == 4 || abs(move.toY - move.fromY) == 4 {
+                                if gameBoard[move.toX][move.toY - 1] == KonaneColor.white {
+                                    returnBool = true
+                                }
+                            } else {
+                                returnBool = true
+                            }   
+                        }
+                    } else if move.toY < move.fromY {
+                        if gameBoard[move.fromX][move.fromY - 1] == KonaneColor.white && gameBoard[move.toX][move.toY] == KonaneColor.empty {
+                            if abs(move.toX - move.fromX) == 4 || abs(move.toY - move.fromY) == 4 {
+                                if gameBoard[move.toX][move.toY + 1] == KonaneColor.white {
+                                    returnBool = true
+                                }
+                            } else {
+                                returnBool = true
+                            }
+                        }
+                    }
+                } else if move.fromY == move.toY {
+                    if move.toX > move.fromX {
+                        if gameBoard[move.fromX + 1][move.fromY] == KonaneColor.white && gameBoard[move.toX][move.toY] == KonaneColor.empty {
+                            if abs(move.toX - move.fromX) == 4 || abs(move.toY - move.fromY) == 4 {
+                                if gameBoard[move.toX - 1][move.toY] == KonaneColor.white {
+                                    returnBool = true
+                                }
+                            } else {
+                                returnBool = true
+                            }
+                        }
+                    } else if move.toX < move.fromX {
+                        if gameBoard[move.fromX - 1][move.fromY] == KonaneColor.white && gameBoard[move.toX][move.toY] == KonaneColor.empty {
+                            if abs(move.toX - move.fromX) == 4 || abs(move.toY - move.fromY) == 4 {
+                                if gameBoard[move.toX + 1][move.toY] == KonaneColor.white {
+                                    returnBool = true
+                                }
+                            } else {
+                                returnBool = true
+                            }
+                        }
+                    }
+                }
+            }
+        } else if isBlackTurn == false{
+            //Check if this is a valid piece for the user to move
+            if gameBoard[move.fromX][move.fromY] == KonaneColor.white {
+                //Is this how I actually add values?
+                //Checks if there is a place to move to
+                //Checks for verticle direction
+                if move.fromX == move.toX {
+                    if move.toY > move.fromY {
+                        if gameBoard[move.fromX][move.fromY + 1] == KonaneColor.black && gameBoard[move.toX][move.toY] == KonaneColor.empty {
+                            if abs(move.toX - move.fromX) == 4 || abs(move.toY - move.fromY) == 4 {
+                                if gameBoard[move.toX][move.toY - 1] == KonaneColor.black {
+                                    returnBool = true
+                                }
+                            } else {
+                                returnBool = true
+                            } 
+                        }
+                    } else if move.toY < move.fromY {
+                        if gameBoard[move.fromX][move.fromY - 1] == KonaneColor.black && gameBoard[move.toX][move.toY] == KonaneColor.empty {
+                            if abs(move.toX - move.fromX) == 4 || abs(move.toY - move.fromY) == 4 {
+                                if gameBoard[move.toX][move.toY + 1] == KonaneColor.black {
+                                    returnBool = true
+                                }
+                            } else {
+                                returnBool = true
+                            }
+                        }
+                    }
+                } else if move.fromY == move.toY {
+                    if move.toX > move.fromX {
+                        if gameBoard[move.fromX + 1][move.fromY] == KonaneColor.black && gameBoard[move.toX][move.toY] == KonaneColor.empty {
+                            if abs(move.toX - move.fromX) == 4 || abs(move.toY - move.fromY) == 4 {
+                                if gameBoard[move.toX - 1][move.toY] == KonaneColor.black {
+                                    returnBool = true
+                                }
+                            } else {
+                                returnBool = true
+                            }
+                        }
+                    } else if move.toX < move.fromX {
+                        if gameBoard[move.fromX - 1][move.fromY] == KonaneColor.black && gameBoard[move.toX][move.toY] == KonaneColor.empty {
+                            if abs(move.toX - move.fromX) == 4 || abs(move.toY - move.fromY) == 4 {
+                                if gameBoard[move.toX + 1][move.toY] == KonaneColor.black {
+                                    returnBool = true
+                                }
+                            } else {
+                                returnBool = true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return returnBool
     }
-
-    func isValid(blackRemove: (x: Int, y: Int)) -> Bool  {
-        print("Doesn't work yet")
-        return true
+    //IDK what this does
+    //Done?
+    func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
+        var returnBool = false
+        if isBlackTurn == true{
+            for column in 0..<width {
+                for row in 0..<height {
+                    if gameBoard[column][row] == KonaneColor.black {
+                        if blackRemove.x + blackRemove.y == 0 || blackRemove.x == width - 1 && blackRemove.y == 0 || blackRemove.x == 0 && blackRemove.y == height - 1 || blackRemove.x == width - 1 && blackRemove.y == height - 1{
+                            if gameBoard[blackRemove.x][blackRemove.y] == KonaneColor.black {
+                                returnBool = true
+                            } else {
+                                print("error: that is not a black tile")
+                            }
+                        } else if blackRemove.x == (width/2) - 0 && blackRemove.y == (height/2) - 0 || blackRemove.x == (width/2) - 1  && blackRemove.y == (height/2) - 0 || blackRemove.x == (width/2) - 0 && blackRemove.y == (height/2) - 1 || blackRemove.x == (width/2) - 1 && blackRemove.y == (height/2) - 1 {
+                                if gameBoard[blackRemove.x][blackRemove.y] == KonaneColor.black {
+                                returnBool = true
+                                } else {
+                                print("error: that is not a black tile")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return returnBool
     }
-
-    func isValid(whiteRemove: (x: Int, y: Int)) -> Bool  {
-        print("Doesn't work yet")
-        return true
+    //Done?
+    //Checking the index value of an array that does not exist
+    func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
+        if gameBoard[whiteRemove.x][whiteRemove.y] == KonaneColor.white {
+            //If the piece chosen is not in the left bottom corner, only test up and right
+            if whiteRemove.x < 1 {
+                if gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty {
+                    return true
+                }
+            } else if whiteRemove.x > width - 2 {
+                if gameBoard[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty {
+                    return true
+                }
+            } else if whiteRemove.y < 1 {
+                if gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty || gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty {
+                    return true
+                }
+            } else if whiteRemove.y > height - 2 {
+                if gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty || gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty {
+                    return true
+                }
+            } else if whiteRemove.x > 0 && whiteRemove.x < width - 1 && whiteRemove.y > 0 && whiteRemove.y < height - 1 {
+                if gameBoard[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty || gameBoard[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty || gameBoard[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || gameBoard[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty {
+                    return true
+                }
+            } else {
+                print("Not a valid piece to remove")
+                return false
+            }
+        } else {
+            print("error with checking spaces around tile")
+        return false
+        }
+        print("That is not a white piece")
+        return false
     }
 
     func perform(move: KonaneMove) {
-        print("Doesn't work yet!")
 
-        isBlackTurn = !isBlackTurn
-    }
-
-    func perform(blackRemove: (x: Int, y: Int)) {
-        var remove = blackRemove
-        if !isValid(blackRemove: remove) {
-            fatalError("Invalid black remove: \(remove)")
+        if isValid(move: move) {
+            gameBoard[move.fromX][move.fromY] = KonaneColor.empty
+            if isBlackTurn == true{
+                gameBoard[move.toX][move.toY] = KonaneColor.black
+                if move.fromX == move.toX {
+                    if move.toY > move.fromY {
+                        gameBoard[move.toX][move.toY - 1] = KonaneColor.empty
+                        if abs(move.toY - move.fromY) == 4 {
+                            gameBoard[move.toX][move.fromY + 1] = KonaneColor.empty
+                        }
+                    } else {
+                        gameBoard[move.toX][move.toY + 1] = KonaneColor.empty
+                        if abs(move.toY - move.fromY) == 4 {
+                            gameBoard[move.toX][move.fromY - 1] = KonaneColor.empty
+                        }
+                    }
+                } else {
+                    if move.toX > move.fromX {
+                        gameBoard[move.toX - 1][move.toY] = KonaneColor.empty
+                        if abs(move.toX - move.fromX) == 4 {
+                            gameBoard[move.fromX + 1][move.fromY] = KonaneColor.empty
+                        }
+                    } else {
+                        gameBoard[move.toX + 1][move.toY] = KonaneColor.empty
+                        if abs(move.toX - move.fromX) == 4 {
+                            gameBoard[move.fromX - 1][move.fromY] = KonaneColor.empty
+                        }
+                    }
+                }
+            } else if isBlackTurn == false{
+                gameBoard[move.toX][move.toY] = KonaneColor.white
+                if move.fromX == move.toX {
+                    if move.toY > move.fromY {
+                        gameBoard[move.toX][move.toY - 1] = KonaneColor.empty
+                        if abs(move.toY - move.fromY) == 4 {
+                            gameBoard[move.toX][move.fromY + 1] = KonaneColor.empty
+                        }
+                    } else {
+                        gameBoard[move.toX][move.toY + 1] = KonaneColor.empty
+                        if abs(move.toY - move.fromY) == 4 {
+                            gameBoard[move.toX][move.fromY - 1] = KonaneColor.empty
+                        }
+                    }
+                } else {
+                    if move.toX > move.fromX {
+                        gameBoard[move.toX - 1][move.toY] = KonaneColor.empty
+                        if abs(move.toX - move.fromX) == 4 {
+                            gameBoard[move.fromX + 1][move.fromY] = KonaneColor.empty
+                        }
+                    } else {
+                        gameBoard[move.toX + 1][move.toY] = KonaneColor.empty
+                        if abs(move.toX - move.fromX) == 4 {
+                            gameBoard[move.fromX - 1][move.fromY] = KonaneColor.empty
+                        }
+                    }
+                }
+            } else {
+                print("Error in perform(move:) function")
+            }
         }
-        
-        board[remove.x][remove.y] = KonaneColor.empty
     }
+
+    func perform(blackRemove: (xCoord: Int, yCoord: Int)) {
+        if isValid(blackRemove: (x: blackRemove.xCoord, y: blackRemove.yCoord)) {
+            gameBoard[blackRemove.xCoord][blackRemove.yCoord] = KonaneColor.empty
+        } else {
+            print("error")
+        }
+    }
+
+    func perform(whiteRemove: (xCoord: Int, yCoord: Int)) {
+        if isValid(whiteRemove: (x: whiteRemove.xCoord, y: whiteRemove.yCoord)) {
+            gameBoard[whiteRemove.xCoord][whiteRemove.yCoord] = KonaneColor.empty
+        } else {
+            print("error")
+        }
+    }
+
     
-    func perform(whiteRemove: (x: Int, y: Int)) {
-        var remove = whiteRemove
-        if !isValid(whiteRemove: remove) {
-            fatalError("Invalid white remove: \(remove)")
+    
+    func didBlackWin() -> Bool {
+        if getIsBlackTurn() == true { 
+            for column in 0..<width {
+                for row in 0..<height {
+                    if gameBoard[column][row] == KonaneColor.black {
+                        if 1 < row && row < height - 2 && 1 < column && column < width - 2 {
+                            if  (gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] == KonaneColor.empty) || 
+                                (gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] == KonaneColor.empty) || 
+                                (gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] == KonaneColor.empty) || 
+                                (gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] == KonaneColor.empty) {
+                                return false
+                            }
+                            //tests top left square of 4
+                        } else if column < 2 && row > height - 3{
+                            if (gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests top right square of 4
+                        } else if column > width - 3 && row > height - 3{
+                            if (gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests bottom left
+                        } else if row < 2 && column < 2{
+                            if (gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests bottom right
+                        } else if row > height - 3 && column > width - 3{
+                            if (gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests not corners and not center board. Does test left side
+                        } else if 1 < row && row < height - 3 && column < 2 {
+                            if (gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests not corners and not center. Does test right side
+                        } else if 1 < row && row < height - 3 && column > width - 3 {
+                            if (gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests not corners and not center. Does test up
+                        } else if row > height - 3 && 1 < column && column < width - 3 {
+                            if (gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.white && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            // tests not corners and not conter. Does test down
+                        } else if row < 2 && 1 < column && column < width - 3 {
+                            if (gameBoard[column + 1][row] == KonaneColor.white && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.white && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row + 1] == KonaneColor.white && gameBoard[column][row + 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            return false 
         }
-        
-        board[remove.x][remove.y] = KonaneColor.empty
+        return true
     }
 
-    func didBlackWin() -> Bool  {
-        print("Doesn't work yet!")
-        return false
+    func didWhiteWin() -> Bool {
+        if getIsBlackTurn() == false { 
+            for column in 0..<width {
+                for row in 0..<height {
+                    if gameBoard[column][row] == KonaneColor.white {
+                        if 1 < row && row < height - 2 && 1 < column && column < width - 2 {
+                            if  (gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] == KonaneColor.empty) || 
+                                (gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] == KonaneColor.empty) || 
+                                (gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] == KonaneColor.empty) || 
+                                (gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] == KonaneColor.empty) {
+                                return false
+                            }
+                            //tests top left square of 4
+                        } else if column < 2 && row > height - 3{
+                            if (gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests top right square of 4
+                        } else if column > width - 3 && row > height - 3{
+                            if (gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests bottom left
+                        } else if row < 2 && column < 2{
+                            if (gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests bottom right
+                        } else if row > height - 3 && column > width - 3{
+                            if (gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests not corners and not center board. Does test left side
+                        } else if 1 < row && row < height - 3 && column < 2 {
+                            if (gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests not corners and not center. Does test right side
+                        } else if 1 < row && row < height - 3 && column > width - 3 {
+                            if (gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            //tests not corners and not center. Does test up
+                        } else if row > height - 3 && 1 < column && column < width - 3 {
+                            if (gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row - 1] == KonaneColor.black && gameBoard[column][row - 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                            // tests not corners and not conter. Does test down
+                        } else if row < 2 && 1 < column && column < width - 3 {
+                            if (gameBoard[column + 1][row] == KonaneColor.black && gameBoard[column + 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column - 1][row] == KonaneColor.black && gameBoard[column - 2][row] ==  KonaneColor.empty) || 
+                               (gameBoard[column][row + 1] == KonaneColor.black && gameBoard[column][row + 2] ==  KonaneColor.empty) {
+                                return false
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            return false 
+        }
+        return true
     }
 
-    func didWhiteWin() -> Bool  {
-        print("Doesn't work yet!")
-        return false
+    func copy() -> KonaneGameState {
+        let c = KonaneGameState()
+        c. = self.
+        ...
+        ...
+
+        return c
     }
 }
