@@ -14,10 +14,10 @@
 	vagrant up
 	```
 This will take a while (~ 20 minutes) to setup. Then, you can run the command:
-
-	```
-	vagrant ssh
-	```
+	
+```
+vagrant ssh
+```
 5. Make sure to setup your git name and email:
 
 	```
